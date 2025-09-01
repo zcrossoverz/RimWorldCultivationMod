@@ -1,8 +1,8 @@
+D:\RimWorld\Mods\TuTien\1.5\Assemblies\TuTien.dll
+D:\RimWorld\Mods\TuTien\1.6\Assemblies\TuTien.dll
 D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Debug\TuTien.csproj.AssemblyReference.cache
 D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Debug\TuTien.GeneratedMSBuildEditorConfig.editorconfig
 D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Debug\TuTien.AssemblyInfoInputs.cache
 D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Debug\TuTien.AssemblyInfo.cs
 D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Debug\TuTien.csproj.CoreCompileInputs.cache
-D:\RimWorld\Mods\TuTien\1.5\Assemblies\TuTien.dll
 D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Debug\TuTien.dll
-D:\RimWorld\Mods\TuTien\1.6\Assemblies\TuTien.dll

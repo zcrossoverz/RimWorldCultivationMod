@@ -558,6 +558,9 @@ namespace TuTien
         {
             if (!CanBreakthrough()) return false;
 
+            // Trigger breakthrough attempt event
+            CultivationEvents.TriggerBreakthroughAttempt(pawn, false); // false = manual breakthrough
+
             // Store old values for dialog
             var oldRealm = currentRealm;
             var oldStage = currentStage;
@@ -579,6 +582,9 @@ namespace TuTien
                 // Get new stats after advancement
                 var newStats = GetCurrentStageStats();
                 
+                // Trigger breakthrough success event
+                CultivationEvents.TriggerBreakthroughResult(pawn, true);
+                
                 // Show success dialog with stats comparison
                 Find.WindowStack.Add(new UI.Dialog_BreakthroughResult(
                     pawn, true, oldRealm, oldStage, currentRealm, currentStage, 
@@ -591,6 +597,9 @@ namespace TuTien
                 // Failed breakthrough with detailed consequences
                 FailedBreakthrough(finalChance);
                 lastBreakthroughTick = Find.TickManager.TicksGame;
+                
+                // Trigger breakthrough failure event
+                CultivationEvents.TriggerBreakthroughResult(pawn, false);
                 
                 // Show failure dialog
                 Find.WindowStack.Add(new UI.Dialog_BreakthroughResult(
@@ -728,18 +737,14 @@ namespace TuTien
 
         private void RegenerateQi()
         {
-            Log.Warning($"[TuTien] RegenerateQi called - Current Qi: {currentQi}/{maxQi}");
-            
             if (currentQi < maxQi)
             {
                 float regenAmount = qiRegenRate * 5f; // 5x faster regen for testing
-                Log.Warning($"[TuTien] Base regen amount: {regenAmount}");
                 
                 // Check if pawn is meditating for faster regen
                 if (pawn.CurJob?.def?.defName == "MeditateCultivation")
                 {
                     regenAmount *= 3f; // 3x faster when meditating
-                    Log.Warning($"[TuTien] Pawn is meditating, regen amount: {regenAmount}");
                     
                     // Check cultivation spot bonus
                     var target = pawn.CurJob.targetA.Thing as Building;
@@ -749,20 +754,13 @@ namespace TuTien
                         if (spotComp != null)
                         {
                             regenAmount *= spotComp.CultivationBonus; // Additional spot bonus
-                            Log.Warning($"[TuTien] Cultivation spot bonus applied, final regen: {regenAmount}");
                         }
                     }
-                }
-                else
-                {
-                    Log.Warning($"[TuTien] Pawn not meditating, current job: {pawn.CurJob?.def?.defName}");
                 }
                 
                 currentQi += regenAmount;
                 if (currentQi > maxQi)
                     currentQi = maxQi;
-                    
-                Log.Warning($"[TuTien] After regen - Current Qi: {currentQi}/{maxQi}");
             }
         }
 
