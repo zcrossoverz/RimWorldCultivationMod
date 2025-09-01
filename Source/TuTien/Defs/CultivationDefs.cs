@@ -43,7 +43,8 @@ namespace TuTien
         public string labelKey;
         public string descriptionKey;
         public Type workerClass;
-        public List<StatModifier> statModifiers = new List<StatModifier>();
+        // Removed statModifiers to avoid XML parsing issues
+        // Effects will be handled in code instead
     }
 
     public class CultivationTechniqueDef : Def

@@ -74,22 +74,22 @@ namespace TuTien.UI
                 // Core cultivation stats
                 if (newStats.maxQi > oldStats.maxQi)
                 {
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Max Qi: {oldStats.maxQi:F0} → {newStats.maxQi:F0} (+{newStats.maxQi - oldStats.maxQi:F0})");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Max Qi: {oldStats.maxQi:F0} → {newStats.maxQi:F0} (+{newStats.maxQi - oldStats.maxQi:F0})");
+                    y += 25f;
                 }
                 
                 if (newStats.qiRegenRate > oldStats.qiRegenRate)
                 {
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Qi Regen: {oldStats.qiRegenRate:F1}/s → {newStats.qiRegenRate:F1}/s (+{newStats.qiRegenRate - oldStats.qiRegenRate:F1}/s)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Qi Regen: {oldStats.qiRegenRate:F1}/s → {newStats.qiRegenRate:F1}/s (+{newStats.qiRegenRate - oldStats.qiRegenRate:F1}/s)");
+                    y += 25f;
                 }
 
                 if (newStats.tuViGainMultiplier > oldStats.tuViGainMultiplier)
                 {
                     float oldPercent = oldStats.tuViGainMultiplier * 100f;
                     float newPercent = newStats.tuViGainMultiplier * 100f;
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Tu Vi Gain: {oldPercent:F0}% → {newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Tu Vi Gain: {oldPercent:F0}% → {newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
+                    y += 25f;
                 }
 
                 y += 5f;
@@ -103,32 +103,32 @@ namespace TuTien.UI
                 {
                     float oldPercent = (oldStats.maxHpMultiplier - 1f) * 100f;
                     float newPercent = (newStats.maxHpMultiplier - 1f) * 100f;
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Max HP: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Max HP: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
+                    y += 25f;
                 }
 
                 if (newStats.meleeDamageMultiplier > oldStats.meleeDamageMultiplier)
                 {
                     float oldPercent = (oldStats.meleeDamageMultiplier - 1f) * 100f;
                     float newPercent = (newStats.meleeDamageMultiplier - 1f) * 100f;
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Melee Damage: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Melee Damage: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
+                    y += 25f;
                 }
 
                 if (newStats.meleeHitChanceOffset > oldStats.meleeHitChanceOffset)
                 {
                     float oldPercent = oldStats.meleeHitChanceOffset * 100f;
                     float newPercent = newStats.meleeHitChanceOffset * 100f;
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Melee Accuracy: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Melee Accuracy: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
+                    y += 25f;
                 }
 
                 if (newStats.armorRatingSharpMultiplier > oldStats.armorRatingSharpMultiplier)
                 {
                     float oldPercent = (oldStats.armorRatingSharpMultiplier - 1f) * 100f;
                     float newPercent = (newStats.armorRatingSharpMultiplier - 1f) * 100f;
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Sharp Armor: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Sharp Armor: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
+                    y += 25f;
                 }
 
                 y += 5f;
@@ -140,40 +140,40 @@ namespace TuTien.UI
                 // Physical stats
                 if (newStats.moveSpeedOffset > oldStats.moveSpeedOffset)
                 {
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Move Speed: +{oldStats.moveSpeedOffset:F1} → +{newStats.moveSpeedOffset:F1} (+{newStats.moveSpeedOffset - oldStats.moveSpeedOffset:F1})");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Move Speed: +{oldStats.moveSpeedOffset:F1} → +{newStats.moveSpeedOffset:F1} (+{newStats.moveSpeedOffset - oldStats.moveSpeedOffset:F1})");
+                    y += 25f;
                 }
 
                 if (newStats.workSpeedGlobalMultiplier > oldStats.workSpeedGlobalMultiplier)
                 {
                     float oldPercent = (oldStats.workSpeedGlobalMultiplier - 1f) * 100f;
                     float newPercent = (newStats.workSpeedGlobalMultiplier - 1f) * 100f;
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Work Speed: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Work Speed: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
+                    y += 25f;
                 }
 
                 if (newStats.injuryHealingFactorMultiplier > oldStats.injuryHealingFactorMultiplier)
                 {
                     float oldPercent = (oldStats.injuryHealingFactorMultiplier - 1f) * 100f;
                     float newPercent = (newStats.injuryHealingFactorMultiplier - 1f) * 100f;
-                    Widgets.Label(new Rect(0f, y, inRect.width, 18f), $"Healing Rate: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
-                    y += 18f;
+                    Widgets.Label(new Rect(0f, y, inRect.width, 22f), $"Healing Rate: +{oldPercent:F0}% → +{newPercent:F0}% (+{newPercent - oldPercent:F0}%)");
+                    y += 25f;
                 }
 
                 // New skills
                 if (newSkills.Any())
                 {
-                    y += 5f;
+                    y += 10f;
                     GUI.color = Color.yellow;
                     Widgets.Label(new Rect(0f, y, inRect.width, 25f), "── NEW SKILLS UNLOCKED ──");
-                    y += 25f;
+                    y += 30f;
 
                     foreach (var skill in newSkills)
                     {
-                        Widgets.Label(new Rect(20f, y, inRect.width - 20f, 18f), $"• {skill.label}");
-                        y += 18f;
+                        Widgets.Label(new Rect(20f, y, inRect.width - 20f, 22f), $"• {skill.label}");
+                        y += 25f;
                     }
-                    y += 10f;
+                    y += 15f;
                 }
 
                 GUI.color = Color.green;
@@ -185,10 +185,10 @@ namespace TuTien.UI
                 // Failure details
                 GUI.color = Color.red;
                 Widgets.Label(new Rect(0f, y, inRect.width, 25f), "Qi deviation occurred during breakthrough attempt!");
-                y += 25f;
+                y += 30f;
                 
                 Widgets.Label(new Rect(0f, y, inRect.width, 25f), "Cultivation progress lost and injuries sustained.");
-                y += 25f;
+                y += 30f;
                 
                 Widgets.Label(new Rect(0f, y, inRect.width, 25f), "Recovery time required before next attempt.");
                 GUI.color = Color.white;

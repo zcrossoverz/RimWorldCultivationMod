@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Active Combat Skills -->
+  <TuTien.CultivationSkillDef>
+    <defName>QiPunch</defName>
+    <label>Qi Punch</label>
+    <description>Channel qi into a devastating punch attack</description>
+    <labelKey>QiPunch_Label</labelKey>
+    <descriptionKey>QiPunch_Description</descriptionKey>
+    <requiredRealm>Mortal</requiredRealm>
+    <requiredStage>2</requiredStage>
+    <isActive>true</isActive>
+    <qiCost>20</qiCost>
+    <cooldownHours>2</cooldownHours>
+    <workerClass>TuTien.SkillWorkers.QiForceSkillWorker</workerClass>
+  </TuTien.CultivationSkillDef>
+
+  <TuTien.CultivationSkillDef>
+    <defName>QiShield</defName>
+    <label>Qi Shield</label>
+    <description>Create a protective qi barrier around yourself</description>
+    <labelKey>QiShield_Label</labelKey>
+    <descriptionKey>QiShield_Description</descriptionKey>
+    <requiredRealm>QiCondensation</requiredRealm>
+    <requiredStage>1</requiredStage>
+    <isActive>true</isActive>
+    <qiCost>30</qiCost>
+    <cooldownHours>4</cooldownHours>
+    <workerClass>TuTien.SkillWorkers.QiAbsorptionSkillWorker</workerClass>
+  </TuTien.CultivationSkillDef>
+
+  <TuTien.CultivationSkillDef>
+    <defName>QiHealing</defName>
+    <label>Qi Healing</label>
+    <description>Use qi to accelerate natural healing</description>
+    <labelKey>QiHealing_Label</labelKey>
+    <descriptionKey>QiHealing_Description</descriptionKey>
+    <requiredRealm>QiCondensation</requiredRealm>
+    <requiredStage>3</requiredStage>
+    <isActive>true</isActive>
+    <qiCost>50</qiCost>
+    <cooldownHours>8</cooldownHours>
+    <workerClass>TuTien.SkillWorkers.QiRestorationSkillWorker</workerClass>
+  </TuTien.CultivationSkillDef>
+
+  <!-- Passive Enhancement Skills -->
+  <TuTien.CultivationSkillDef>
+    <defName>EnhancedPhysique</defName>
+    <label>Enhanced Physique</label>
+    <description>Qi permanently strengthens the body</description>
+    <labelKey>EnhancedPhysique_Label</labelKey>
+    <descriptionKey>EnhancedPhysique_Description</descriptionKey>
+    <requiredRealm>Mortal</requiredRealm>
+    <requiredStage>3</requiredStage>
+    <isActive>false</isActive>
+    <qiCost>0</qiCost>
+    <cooldownHours>0</cooldownHours>
+  </TuTien.CultivationSkillDef>
+
+  <TuTien.CultivationSkillDef>
+    <defName>QiSense</defName>
+    <label>Qi Sense</label>
+    <description>Enhanced perception through qi</description>
+    <labelKey>QiSense_Label</labelKey>
+    <descriptionKey>QiSense_Description</descriptionKey>
+    <requiredRealm>QiCondensation</requiredRealm>
+    <requiredStage>2</requiredStage>
+    <isActive>false</isActive>
+    <qiCost>0</qiCost>
+    <cooldownHours>0</cooldownHours>
+  </TuTien.CultivationSkillDef>
+
+  <TuTien.CultivationSkillDef>
+    <defName>IronBody</defName>
+    <label>Iron Body</label>
+    <description>Body becomes as tough as iron through cultivation</description>
+    <labelKey>IronBody_Label</labelKey>
+    <descriptionKey>IronBody_Description</descriptionKey>
+    <requiredRealm>FoundationEstablishment</requiredRealm>
+    <requiredStage>1</requiredStage>
+    <isActive>false</isActive>
+    <qiCost>0</qiCost>
+    <cooldownHours>0</cooldownHours>
+  </TuTien.CultivationSkillDef>
+
+</Defs>

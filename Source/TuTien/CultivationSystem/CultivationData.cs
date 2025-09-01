@@ -4,6 +4,7 @@ using System.Linq;
 using Verse;
 using RimWorld;
 using UnityEngine;
+using TuTien.SkillWorkers;
 
 namespace TuTien
 {
@@ -345,13 +346,33 @@ namespace TuTien
 
         public void UpdateUnlockedSkills()
         {
+            // Load skills from XML definitions based on current realm and stage
             var availableSkills = DefDatabase<CultivationSkillDef>.AllDefs
                 .Where(s => s.requiredRealm == currentRealm && s.requiredStage <= currentStage);
             
             foreach (var skill in availableSkills)
             {
                 if (!unlockedSkills.Contains(skill))
+                {
                     unlockedSkills.Add(skill);
+                    
+                    // Log new skill unlock
+                    Log.Message($"[TuTien] {pawn.Name}: Unlocked skill '{skill.label}' - " + 
+                               (skill.isActive ? "Active" : "Passive"));
+                }
+            }
+            
+            // Also load skills from higher realms that this stage qualifies for
+            var nextRealmSkills = DefDatabase<CultivationSkillDef>.AllDefs
+                .Where(s => (int)s.requiredRealm < (int)currentRealm || 
+                           (s.requiredRealm == currentRealm && s.requiredStage <= currentStage));
+                           
+            foreach (var skill in nextRealmSkills)
+            {
+                if (!unlockedSkills.Contains(skill))
+                {
+                    unlockedSkills.Add(skill);
+                }
             }
         }
 
@@ -614,27 +635,47 @@ namespace TuTien
                 CheckTuViConversion();
             }
 
-            // Update skill cooldowns
-            var keysToUpdate = skillCooldowns.Keys.ToList();
-            foreach (var key in keysToUpdate)
+            // Update skill cooldowns (faster for testing)
+            if (pawn.IsHashIntervalTick(60)) // Every second
             {
-                if (skillCooldowns[key] > 0)
-                    skillCooldowns[key]--;
-                else
-                    skillCooldowns.Remove(key);
+                var keysToUpdate = skillCooldowns.Keys.ToList();
+                foreach (var key in keysToUpdate)
+                {
+                    if (skillCooldowns[key] > 0)
+                    {
+                        int oldValue = skillCooldowns[key];
+                        // Speed up cooldown for testing - 60x faster (1 hour = 1 minute)
+                        skillCooldowns[key] -= 60 * 60; // Reduce by 1 minute (3600 ticks) each update
+                        Log.Warning($"[TuTien] Skill {key} cooldown: {oldValue} -> {skillCooldowns[key]}");
+                        
+                        if (skillCooldowns[key] <= 0)
+                        {
+                            skillCooldowns.Remove(key);
+                            Log.Warning($"[TuTien] Skill {key} cooldown finished!");
+                        }
+                    }
+                    else
+                    {
+                        skillCooldowns.Remove(key);
+                    }
+                }
             }
         }
 
         private void RegenerateQi()
         {
+            Log.Warning($"[TuTien] RegenerateQi called - Current Qi: {currentQi}/{maxQi}");
+            
             if (currentQi < maxQi)
             {
-                float regenAmount = qiRegenRate;
+                float regenAmount = qiRegenRate * 5f; // 5x faster regen for testing
+                Log.Warning($"[TuTien] Base regen amount: {regenAmount}");
                 
                 // Check if pawn is meditating for faster regen
                 if (pawn.CurJob?.def?.defName == "MeditateCultivation")
                 {
                     regenAmount *= 3f; // 3x faster when meditating
+                    Log.Warning($"[TuTien] Pawn is meditating, regen amount: {regenAmount}");
                     
                     // Check cultivation spot bonus
                     var target = pawn.CurJob.targetA.Thing as Building;
@@ -644,13 +685,20 @@ namespace TuTien
                         if (spotComp != null)
                         {
                             regenAmount *= spotComp.CultivationBonus; // Additional spot bonus
+                            Log.Warning($"[TuTien] Cultivation spot bonus applied, final regen: {regenAmount}");
                         }
                     }
+                }
+                else
+                {
+                    Log.Warning($"[TuTien] Pawn not meditating, current job: {pawn.CurJob?.def?.defName}");
                 }
                 
                 currentQi += regenAmount;
                 if (currentQi > maxQi)
                     currentQi = maxQi;
+                    
+                Log.Warning($"[TuTien] After regen - Current Qi: {currentQi}/{maxQi}");
             }
         }
 
@@ -718,31 +766,64 @@ namespace TuTien
 
         public bool CanUseSkill(CultivationSkillDef skill)
         {
+            Log.Warning($"[TuTien] CanUseSkill check for {skill.defName}:");
+            Log.Warning($"[TuTien] - Unlocked? {unlockedSkills.Contains(skill)}");
+            Log.Warning($"[TuTien] - Is Active? {skill.isActive}");
+            Log.Warning($"[TuTien] - Current Qi: {currentQi}, Required: {skill.qiCost}");
+            
+            bool onCooldown = skillCooldowns.ContainsKey(skill.defName);
+            Log.Warning($"[TuTien] - On Cooldown? {onCooldown}");
+            
+            if (onCooldown)
+            {
+                int ticksLeft = skillCooldowns[skill.defName];
+                int hoursLeft = Mathf.CeilToInt(ticksLeft / (float)GenDate.TicksPerHour);
+                Log.Warning($"[TuTien] - Cooldown ticks left: {ticksLeft}, hours: {hoursLeft}");
+            }
+            
             if (!unlockedSkills.Contains(skill)) return false;
             if (!skill.isActive) return true; // Passive skills are always usable
             if (currentQi < skill.qiCost) return false;
             
-            return !skillCooldowns.ContainsKey(skill.defName);
+            return !onCooldown;
         }
 
         public void UseSkill(CultivationSkillDef skill)
         {
-            if (!CanUseSkill(skill)) return;
+            Log.Warning($"[TuTien] UseSkill called for {skill.defName}");
+            
+            if (!CanUseSkill(skill)) 
+            {
+                Log.Warning($"[TuTien] CanUseSkill returned false for {skill.defName}");
+                return;
+            }
+
+            Log.Warning($"[TuTien] Skill {skill.defName} passed CanUseSkill check");
 
             if (skill.isActive)
             {
                 currentQi -= skill.qiCost;
                 if (skill.cooldownHours > 0)
                 {
-                    skillCooldowns[skill.defName] = skill.cooldownHours * GenDate.TicksPerHour;
+                    int cooldownTicks = skill.cooldownHours * GenDate.TicksPerHour;
+                    skillCooldowns[skill.defName] = cooldownTicks;
+                    Log.Warning($"[TuTien] Set cooldown for {skill.defName}: {skill.cooldownHours}h = {cooldownTicks} ticks");
+                    Log.Warning($"[TuTien] Cooldowns dictionary now contains {skillCooldowns.Count} entries");
                 }
+                Log.Warning($"[TuTien] Applied qi cost and cooldown for {skill.defName}");
             }
 
             // Execute skill effect (will be implemented in skill workers)
             if (skill.workerClass != null)
             {
+                Log.Warning($"[TuTien] Creating worker {skill.workerClass} for {skill.defName}");
                 var worker = (CultivationSkillWorker)Activator.CreateInstance(skill.workerClass);
                 worker?.Execute(pawn, skill);
+                Log.Warning($"[TuTien] Skill {skill.defName} executed successfully");
+            }
+            else
+            {
+                Log.Warning($"[TuTien] No workerClass found for {skill.defName}");
             }
         }
 
@@ -788,11 +869,6 @@ namespace TuTien
                 if (skillCooldowns == null) skillCooldowns = new Dictionary<string, int>();
             }
         }
-    }
-
-    public abstract class CultivationSkillWorker
-    {
-        public abstract void Execute(Pawn pawn, CultivationSkillDef skill);
     }
 
     public abstract class CultivationTechniqueWorker

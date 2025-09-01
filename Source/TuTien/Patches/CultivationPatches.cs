@@ -23,6 +23,21 @@ namespace TuTien.Patches
         }
     }
 
+    // Add cultivation tab to humanlike pawns
+    [HarmonyPatch(typeof(Thing), "GetInspectTabs")]
+    public static class Thing_GetInspectTabs_Patch
+    {
+        public static void Postfix(Thing __instance, ref IEnumerable<InspectTabBase> __result)
+        {
+            if (__instance is Pawn pawn && pawn.RaceProps.Humanlike)
+            {
+                var tabs = __result.ToList();
+                tabs.Add((InspectTabBase)InspectTabManager.GetSharedInstance(typeof(ITab_Cultivation)));
+                __result = tabs;
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(CharacterCardUtility), "DrawCharacterCard")]
     public static class CharacterCardUtility_DrawCharacterCard_Patch
     {
@@ -98,14 +113,44 @@ namespace TuTien.Patches
             foreach (var skill in data.unlockedSkills.Where(s => s.isActive))
             {
                 bool canUse = data.CanUseSkill(skill);
+                float cooldownPct = 0f;
                 
-                yield return new Command_Action
+                // Calculate cooldown percentage for overlay
+                if (data.skillCooldowns.TryGetValue(skill.defName, out int cooldownTicks))
+                {
+                    if (cooldownTicks > 0)
+                    {
+                        int maxCooldownTicks = skill.cooldownHours * 2500; // 2500 ticks per hour
+                        cooldownPct = (float)cooldownTicks / (maxCooldownTicks > 0 ? maxCooldownTicks : 60);
+                        cooldownPct = Mathf.Clamp01(cooldownPct);
+                    }
+                }
+                
+                var gizmo = new TuTien.UI.Command_CultivationSkill
                 {
                     defaultLabel = skill.labelKey?.Translate() ?? skill.defName,
                     defaultDesc = skill.descriptionKey?.Translate() ?? $"Qi Cost: {skill.qiCost}",
                     icon = TexCommand.DesirePower,
+                    Disabled = !canUse,
                     disabledReason = !canUse ? (data.currentQi < skill.qiCost ? "Not enough Qi" : "On cooldown") : null,
-                    action = () => data.UseSkill(skill)
+                    action = () => data.UseSkill(skill),
+                    cooldownPct = cooldownPct
+                };
+                
+                yield return gizmo;
+            }
+            
+            // Passive skill gizmos (info only - no click)
+            foreach (var skill in data.unlockedSkills.Where(s => !s.isActive))
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = $"🛡 {skill.labelKey?.Translate() ?? skill.defName}",
+                    defaultDesc = $"Passive Skill - Always Active\n{skill.descriptionKey?.Translate() ?? "Passive enhancement"}",
+                    icon = TexCommand.ForbidOff, // Use shield-like icon
+                    Disabled = true, // Always disabled since it's passive
+                    disabledReason = "Passive skill - always active",
+                    action = () => { } // No action for passive skills
                 };
             }
         }

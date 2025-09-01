@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Active Skills -->
+  <QiPunch_Label>Qi Punch</QiPunch_Label>
+  <QiPunch_Description>Channel qi into a devastating punch that deals massive damage to enemies.</QiPunch_Description>
+
+  <QiShield_Label>Qi Shield</QiShield_Label>  
+  <QiShield_Description>Create a protective barrier of qi around yourself, greatly increasing armor.</QiShield_Description>
+
+  <QiHealing_Label>Qi Healing</QiHealing_Label>
+  <QiHealing_Description>Use qi to rapidly heal injuries and restore health.</QiHealing_Description>
+
+  <!-- Passive Skills -->
+  <EnhancedPhysique_Label>Enhanced Physique</EnhancedPhysique_Label>
+  <EnhancedPhysique_Description>Qi permanently strengthens the body, increasing movement speed and carrying capacity.</EnhancedPhysique_Description>
+
+  <QiSense_Label>Qi Sense</QiSense_Label>
+  <QiSense_Description>Enhanced perception through qi awareness, improving accuracy in combat.</QiSense_Description>
+
+  <IronBody_Label>Iron Body</IronBody_Label>
+  <IronBody_Description>Body becomes as tough as iron, providing natural armor and temperature resistance.</IronBody_Description>
+
+</LanguageData>

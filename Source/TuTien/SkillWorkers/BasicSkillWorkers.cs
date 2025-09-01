@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace TuTien.SkillWorkers
 {
+    public abstract class CultivationSkillWorker
+    {
+        public abstract void Execute(Pawn pawn, CultivationSkillDef skill);
+    }
+
     // Qi Condensation Stage 1 Skills
     public class QiForceSkillWorker : CultivationSkillWorker
     {
@@ -19,6 +24,12 @@ namespace TuTien.SkillWorkers
             var hediff = HediffMaker.MakeHediff(TuTienDefOf.QiForceHediff, pawn);
             hediff.Severity = damageBonus;
             pawn.health.AddHediff(hediff);
+            
+            // Visual effect
+            FleckMaker.ThrowDustPuff(pawn.Position, pawn.Map, 1f);
+            
+            // User message
+            Messages.Message($"{pawn.Name.ToStringShort} used Qi Punch!", MessageTypeDefOf.PositiveEvent);
         }
     }
 
@@ -64,6 +75,12 @@ namespace TuTien.SkillWorkers
             var hediff = HediffMaker.MakeHediff(TuTienDefOf.QiShieldHediff, pawn);
             hediff.Severity = reduction;
             pawn.health.AddHediff(hediff);
+            
+            // Visual effect
+            FleckMaker.ThrowDustPuff(pawn.Position, pawn.Map, 1f);
+            
+            // User message
+            Messages.Message($"{pawn.Name.ToStringShort} activated Qi Shield!", MessageTypeDefOf.PositiveEvent);
         }
     }
 
@@ -153,15 +170,49 @@ namespace TuTien.SkillWorkers
     {
         public override void Execute(Pawn pawn, CultivationSkillDef skill)
         {
-            // Regenerate Qi over time
+            // Healing effect
             var comp = pawn.GetComp<CultivationComp>();
             int stage = comp?.cultivationData?.currentStage ?? 1;
             
-            float regenBonus = 0.05f + (stage - 1) * 0.02f;
+            // Instant healing based on stage
+            var injuries = pawn.health.hediffSet.hediffs
+                .OfType<Hediff_Injury>()
+                .Where(h => h.CanHealNaturally() || h.CanHealFromTending())
+                .ToList();
+                
+            if (injuries.Any())
+            {
+                // Heal some injuries
+                foreach (var injury in injuries.Take(stage))
+                {
+                    injury.Heal(5f + stage * 2f); // Heal more based on stage
+                }
+                Messages.Message($"{pawn.Name.ToStringShort} used Qi Healing to mend injuries!", MessageTypeDefOf.PositiveEvent);
+            }
+            else
+            {
+                // No injuries, restore health
+                var healthHediff = pawn.health.hediffSet.hediffs
+                    .FirstOrDefault(h => h.def == HediffDefOf.WoundInfection);
+                    
+                if (healthHediff != null)
+                {
+                    healthHediff.Heal(10f);
+                    Messages.Message($"{pawn.Name.ToStringShort} used Qi Healing to cure illness!", MessageTypeDefOf.PositiveEvent);
+                }
+                else
+                {
+                    Messages.Message($"{pawn.Name.ToStringShort} used Qi Healing, but has no wounds to heal.", MessageTypeDefOf.NeutralEvent);
+                }
+            }
             
+            // Apply restoration hediff for continued healing
             var hediff = HediffMaker.MakeHediff(TuTienDefOf.QiRestorationHediff, pawn);
-            hediff.Severity = regenBonus;
+            hediff.Severity = 0.05f + (stage - 1) * 0.02f;
             pawn.health.AddHediff(hediff);
+            
+            // Visual effect
+            FleckMaker.ThrowLightningGlow(pawn.Position.ToVector3(), pawn.Map, 1f);
         }
     }
 

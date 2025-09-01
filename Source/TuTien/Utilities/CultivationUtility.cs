@@ -63,7 +63,10 @@ namespace TuTien
                     .FirstOrDefault(t => t.talentLevel == data.talent);
                 
                 float multiplier = talentDef?.tuViGainRate ?? 1f;
-                data.cultivationPoints += points * multiplier;
+                float finalPoints = points * multiplier;
+                data.cultivationPoints += finalPoints;
+                
+                Log.Warning($"[TuTien] AddCultivationPoints: {points} x {multiplier} = {finalPoints}, Total: {data.cultivationPoints}");
             }
         }
 

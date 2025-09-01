@@ -16,14 +16,23 @@ namespace TuTien
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            // Go to the meditation spot
-            yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);
+            // Go to target position (meditation spot or current position)
+            yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
 
             // Start meditation
             Toil meditate = new Toil();
             meditate.tickAction = delegate
             {
-                // Just meditate - Qi regeneration handled in CultivationData.Tick()
+                // Add cultivation points during meditation
+                var comp = pawn.GetComp<CultivationComp>();
+                if (comp?.cultivationData != null)
+                {
+                    // Grant cultivation progress - faster when meditating
+                    float baseGain = 0.1f; // Base cultivation per tick
+                    float meditationBonus = 10.0f; // 2x speed when meditating
+                    pawn.AddCultivationPoints(baseGain * meditationBonus);
+                }
+
                 // Show meditation effects
                 if (pawn.IsHashIntervalTick(120))
                 {
@@ -31,15 +40,21 @@ namespace TuTien
                 }
             };
             meditate.defaultCompleteMode = ToilCompleteMode.Never; // Continue until interrupted
+            
+            // Show progress bar for cultivation progress
             meditate.WithProgressBar(TargetIndex.A, () => 
             {
                 var comp = pawn.GetComp<CultivationComp>();
-                return comp?.cultivationData?.currentQi / comp?.cultivationData?.maxQi ?? 0f;
+                if (comp?.cultivationData == null) return 0f;
+                
+                float required = comp.cultivationData.GetRequiredCultivationPoints();
+                return required > 0 ? comp.cultivationData.cultivationPoints / required : 0f;
             });
+            
             meditate.AddFinishAction(delegate
             {
-                // Give small mood bonus after meditation
-                pawn.needs.mood?.thoughts?.memories?.TryGainMemory(TuTienDefOf.MeditatedCultivation);
+                // Give small mood bonus after meditation (if ThoughtDef exists)
+                // pawn.needs.mood?.thoughts?.memories?.TryGainMemory(TuTienDefOf.MeditatedCultivation);
             });
             yield return meditate;
         }
