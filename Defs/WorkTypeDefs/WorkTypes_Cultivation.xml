@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <WorkTypeDef>
+    <defName>Cultivation</defName>
+    <labelShort>cultivation</labelShort>
+    <pawnLabel>cultivator</pawnLabel>
+    <gerundLabel>cultivating</gerundLabel>
+    <description>Practice cultivation to improve spiritual power and advance to higher realms.</description>
+    <naturalPriority>9000</naturalPriority>
+    <workTags>
+      <li>Intellectual</li>
+    </workTags>
+    <workGiversByPriority>
+      <li>WorkGiver_Cultivate</li>
+    </workGiversByPriority>
+  </WorkTypeDef>
+
+</Defs>

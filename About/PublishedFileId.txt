@@ -1,0 +1,44 @@
+Tu Tiên - Basic Pack adds a cultivation system to RimWorld!
+
+Your pawns can now embark on the path of cultivation, advancing through spiritual realms and gaining powerful abilities.
+
+## Key Features:
+
+**Cultivation Realms & Stages:**
+- Mortal (1 stage) → Qi Condensation (3 stages) → Foundation Establishment (3 stages) → Golden Core (3 stages)
+- Each advancement grants stat bonuses and new abilities
+- Breakthrough chances decrease with higher stages
+
+**Talent System:**
+- Common, Rare, Genius, and Heaven Chosen talents
+- Affects cultivation speed, breakthrough chances, and technique acquisition
+- Heaven Chosen pawns have a 70% chance to possess cultivation techniques
+
+**Qi & Cultivation System:**
+- Pawns accumulate Qi through meditation and combat
+- Qi converts to Cultivation Points for advancement
+- Active abilities consume Qi, passive abilities are always active
+
+**Stage-Based Abilities:**
+- Each stage unlocks new passive and active skills
+- Passive skills provide permanent bonuses
+- Active skills are powerful abilities with cooldowns
+
+**Cultivation Techniques:**
+- Sword Qi Technique, Lightning Technique, Fire Technique, Ice Technique, Earth Technique
+- NPCs can spawn with random techniques based on their talent
+- Techniques provide unique combat abilities
+
+**UI Integration:**
+- New Cultivation tab in pawn inspection window
+- Shows realm, stage, talent, and cultivation progress
+- Easy access to cultivation and breakthrough actions
+- Clear display of Qi and Cultivation Points
+
+## Balance Notes:
+- Cultivation takes time and dedication
+- Higher stages are increasingly difficult to achieve
+- Failed breakthroughs result in lost progress and temporary injuries
+- NPCs with techniques provide challenging encounters and valuable rewards
+
+The mod is designed to integrate seamlessly with existing saves and other mods.

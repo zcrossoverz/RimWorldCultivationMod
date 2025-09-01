@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Realms -->
+  <TuTien_Realm_Mortal>Phàm Nhân</TuTien_Realm_Mortal>
+  <TuTien_Realm_Mortal_Desc>Cảnh giới ban đầu cho tất cả tu sĩ. Không có khả năng đặc biệt.</TuTien_Realm_Mortal_Desc>
+  
+  <TuTien_Realm_QiCondensation>Luyện Khí</TuTien_Realm_QiCondensation>
+  <TuTien_Realm_QiCondensation_Desc>Cảnh giới tu tiên đầu tiên. Học cách ngưng tụ và điều khiển khí năng lượng.</TuTien_Realm_QiCondensation_Desc>
+  
+  <TuTien_Realm_FoundationEstablishment>Trúc Cơ</TuTien_Realm_FoundationEstablishment>
+  <TuTien_Realm_FoundationEstablishment_Desc>Thiết lập nền tảng vững chắc cho việc tu luyện cao hơn.</TuTien_Realm_FoundationEstablishment_Desc>
+  
+  <TuTien_Realm_GoldenCore>Kim Đan</TuTien_Realm_GoldenCore>
+  <TuTien_Realm_GoldenCore_Desc>Hình thành kim đan, một cột mốc quan trọng trong tu luyện.</TuTien_Realm_GoldenCore_Desc>
+
+  <!-- Talents -->
+  <TuTien_Talent_Common>Thường</TuTien_Talent_Common>
+  <TuTien_Talent_Common_Desc>Thiên phú tu luyện trung bình.</TuTien_Talent_Common_Desc>
+  
+  <TuTien_Talent_Rare>Hiếm</TuTien_Talent_Rare>
+  <TuTien_Talent_Rare_Desc>Thiên phú tu luyện trên trung bình với tốc độ tiến bộ nhanh hơn.</TuTien_Talent_Rare_Desc>
+  
+  <TuTien_Talent_Genius>Thiên Tài</TuTien_Talent_Genius>
+  <TuTien_Talent_Genius_Desc>Thiên phú đặc biệt với bonus tu luyện đáng kể.</TuTien_Talent_Genius_Desc>
+  
+  <TuTien_Talent_HeavenChosen>Thiên Kiêu</TuTien_Talent_HeavenChosen>
+  <TuTien_Talent_HeavenChosen_Desc>Được trời phù hộ với thiên phú phi thường và tỷ lệ cao sở hữu công pháp.</TuTien_Talent_HeavenChosen_Desc>
+
+  <!-- Skills -->
+  <TuTien_Skill_SteadyMind>Tinh Thần Vững Vàng</TuTien_Skill_SteadyMind>
+  <TuTien_Skill_SteadyMind_Desc>Sức bền tinh thần giảm stress và cải thiện tâm trạng.</TuTien_Skill_SteadyMind_Desc>
+  
+  <TuTien_Skill_EnhancedVitality>Khí Huyết Tăng Cường</TuTien_Skill_EnhancedVitality>
+  <TuTien_Skill_EnhancedVitality_Desc>Khí tăng cường sinh lực, tăng máu tối đa.</TuTien_Skill_EnhancedVitality_Desc>
+  
+  <TuTien_Skill_QiForce>Khí Lực Nhẹ</TuTien_Skill_QiForce>
+  <TuTien_Skill_QiForce_Desc>Điều khiển khí để tăng cường tấn công vật lý trong thời gian ngắn.</TuTien_Skill_QiForce_Desc>
+  
+  <TuTien_Skill_QiWave>Sóng Khí Nhỏ</TuTien_Skill_QiWave>
+  <TuTien_Skill_QiWave_Desc>Phóng sóng năng lượng khí tấn công kẻ thù từ xa.</TuTien_Skill_QiWave_Desc>
+  
+  <TuTien_Skill_QiAbsorption>Hấp Thụ Khí</TuTien_Skill_QiAbsorption>
+  <TuTien_Skill_QiAbsorption_Desc>Hấp thụ khí môi trường để giảm sát thương nhận vào.</TuTien_Skill_QiAbsorption_Desc>
+  
+  <TuTien_Skill_QiBarrier>Khí Tường Hộ Thể</TuTien_Skill_QiBarrier>
+  <TuTien_Skill_QiBarrier_Desc>Tạo rào cản khí chặn nhiều đòn tấn công.</TuTien_Skill_QiBarrier_Desc>
+  
+  <TuTien_Skill_QiSword>Khí Kiếm Phiêu</TuTien_Skill_QiSword>
+  <TuTien_Skill_QiSword_Desc>Hiện kiếm khí tấn công nhiều kẻ thù gần đó.</TuTien_Skill_QiSword_Desc>
+  
+  <TuTien_Skill_QiPurification>Giải Khí Thuật</TuTien_Skill_QiPurification>
+  <TuTien_Skill_QiPurification_Desc>Dùng khí để thanh lọc cơ thể và loại bỏ hiệu ứng xấu.</TuTien_Skill_QiPurification_Desc>
+
+  <!-- Techniques -->
+  <TuTien_Technique_SwordQi>Kiếm Khí Quyết</TuTien_Technique_SwordQi>
+  <TuTien_Technique_SwordQi_Desc>Kiếm thuật cổ xưa tập trung vào những đòn tấn công sắc bén, chính xác.</TuTien_Technique_SwordQi_Desc>
+  
+  <TuTien_Technique_Lightning>Lôi Đình Quyết</TuTien_Technique_Lightning>
+  <TuTien_Technique_Lightning_Desc>Khai thác sức mạnh của sét để tấn công tàn khốc.</TuTien_Technique_Lightning_Desc>
+  
+  <TuTien_Technique_Fire>Hỏa Diệm Quyết</TuTien_Technique_Fire>
+  <TuTien_Technique_Fire_Desc>Điều khiển lửa để đốt cháy kẻ thù và gây phá hoại diện rộng.</TuTien_Technique_Fire_Desc>
+  
+  <TuTien_Technique_Ice>Băng Phong Quyết</TuTien_Technique_Ice>
+  <TuTien_Technique_Ice_Desc>Thao túng băng và lạnh để đóng băng và làm chậm kẻ thù.</TuTien_Technique_Ice_Desc>
+  
+  <TuTien_Technique_Earth>Địa Chấn Quyết</TuTien_Technique_Earth>
+  <TuTien_Technique_Earth_Desc>Chỉ huy đất đá để tấn công mạnh mẽ, nghiền nát.</TuTien_Technique_Earth_Desc>
+
+  <!-- UI -->
+  <TuTien_Tab_Cultivation>Tu Tiên</TuTien_Tab_Cultivation>
+</LanguageData>

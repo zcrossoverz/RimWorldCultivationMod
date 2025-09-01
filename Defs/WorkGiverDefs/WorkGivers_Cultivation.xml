@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <WorkGiverDef>
+    <defName>WorkGiver_Cultivate</defName>
+    <label>cultivate</label>
+    <giverClass>TuTien.WorkGiver_Cultivate</giverClass>
+    <workType>Cultivation</workType>
+    <priorityInType>100</priorityInType>
+    <verb>cultivate</verb>
+    <gerund>cultivating</gerund>
+    <emergency>false</emergency>
+    <scanThings>true</scanThings>
+    <scanCells>false</scanCells>
+    <requiredCapacities>
+      <li>Consciousness</li>
+      <li>Moving</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+</Defs>

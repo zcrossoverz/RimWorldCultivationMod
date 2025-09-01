@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Realms -->
+  <TuTien_Realm_Mortal>Mortal</TuTien_Realm_Mortal>
+  <TuTien_Realm_Mortal_Desc>The starting realm for all cultivators. No special abilities.</TuTien_Realm_Mortal_Desc>
+  
+  <TuTien_Realm_QiCondensation>Qi Condensation</TuTien_Realm_QiCondensation>
+  <TuTien_Realm_QiCondensation_Desc>First cultivation realm. Learning to condense and manipulate qi energy.</TuTien_Realm_QiCondensation_Desc>
+  
+  <TuTien_Realm_FoundationEstablishment>Foundation Establishment</TuTien_Realm_FoundationEstablishment>
+  <TuTien_Realm_FoundationEstablishment_Desc>Establishing a solid foundation for higher cultivation.</TuTien_Realm_FoundationEstablishment_Desc>
+  
+  <TuTien_Realm_GoldenCore>Golden Core</TuTien_Realm_GoldenCore>
+  <TuTien_Realm_GoldenCore_Desc>Forming the golden core, a major milestone in cultivation.</TuTien_Realm_GoldenCore_Desc>
+
+  <!-- Talents -->
+  <TuTien_Talent_Common>Common</TuTien_Talent_Common>
+  <TuTien_Talent_Common_Desc>Average cultivation talent.</TuTien_Talent_Common_Desc>
+  
+  <TuTien_Talent_Rare>Rare</TuTien_Talent_Rare>
+  <TuTien_Talent_Rare_Desc>Above-average cultivation talent with faster progress.</TuTien_Talent_Rare_Desc>
+  
+  <TuTien_Talent_Genius>Genius</TuTien_Talent_Genius>
+  <TuTien_Talent_Genius_Desc>Exceptional talent with significant cultivation bonuses.</TuTien_Talent_Genius_Desc>
+  
+  <TuTien_Talent_HeavenChosen>Heaven Chosen</TuTien_Talent_HeavenChosen>
+  <TuTien_Talent_HeavenChosen_Desc>Blessed by heaven with extraordinary talent and high chance for techniques.</TuTien_Talent_HeavenChosen_Desc>
+
+  <!-- Skills -->
+  <TuTien_Skill_SteadyMind>Steady Mind</TuTien_Skill_SteadyMind>
+  <TuTien_Skill_SteadyMind_Desc>Mental resilience reduces stress and improves mood stability.</TuTien_Skill_SteadyMind_Desc>
+  
+  <TuTien_Skill_EnhancedVitality>Enhanced Vitality</TuTien_Skill_EnhancedVitality>
+  <TuTien_Skill_EnhancedVitality_Desc>Qi enhances life force, increasing maximum health.</TuTien_Skill_EnhancedVitality_Desc>
+  
+  <TuTien_Skill_QiForce>Qi Force</TuTien_Skill_QiForce>
+  <TuTien_Skill_QiForce_Desc>Channel qi to enhance physical attacks for a short duration.</TuTien_Skill_QiForce_Desc>
+  
+  <TuTien_Skill_QiWave>Qi Wave</TuTien_Skill_QiWave>
+  <TuTien_Skill_QiWave_Desc>Project a wave of qi energy at distant enemies.</TuTien_Skill_QiWave_Desc>
+  
+  <TuTien_Skill_QiAbsorption>Qi Absorption</TuTien_Skill_QiAbsorption>
+  <TuTien_Skill_QiAbsorption_Desc>Absorb environmental qi to reduce incoming damage.</TuTien_Skill_QiAbsorption_Desc>
+  
+  <TuTien_Skill_CalmMind>Calm Mind</TuTien_Skill_CalmMind>
+  <TuTien_Skill_CalmMind_Desc>Advanced mental discipline provides greater stress resistance.</TuTien_Skill_CalmMind_Desc>
+  
+  <TuTien_Skill_QiBody>Qi Body</TuTien_Skill_QiBody>
+  <TuTien_Skill_QiBody_Desc>Body strengthened with qi, reducing all incoming damage.</TuTien_Skill_QiBody_Desc>
+  
+  <TuTien_Skill_QiBarrier>Qi Barrier</TuTien_Skill_QiBarrier>
+  <TuTien_Skill_QiBarrier_Desc>Create a qi barrier that blocks multiple attacks.</TuTien_Skill_QiBarrier_Desc>
+  
+  <TuTien_Skill_QiSword>Qi Sword</TuTien_Skill_QiSword>
+  <TuTien_Skill_QiSword_Desc>Manifest sword qi to strike multiple nearby enemies.</TuTien_Skill_QiSword_Desc>
+  
+  <TuTien_Skill_QiPurification>Qi Purification</TuTien_Skill_QiPurification>
+  <TuTien_Skill_QiPurification_Desc>Use qi to purify the body and remove negative effects.</TuTien_Skill_QiPurification_Desc>
+  
+  <TuTien_Skill_QiMovement>Qi Movement</TuTien_Skill_QiMovement>
+  <TuTien_Skill_QiMovement_Desc>Enhanced movement speed through qi manipulation.</TuTien_Skill_QiMovement_Desc>
+  
+  <TuTien_Skill_DiamondBody>Diamond Body</TuTien_Skill_DiamondBody>
+  <TuTien_Skill_DiamondBody_Desc>Body becomes as hard as diamond, greatly reducing damage taken.</TuTien_Skill_DiamondBody_Desc>
+  
+  <TuTien_Skill_QiBurst>Qi Burst</TuTien_Skill_QiBurst>
+  <TuTien_Skill_QiBurst_Desc>Explosive release of qi energy, dramatically increasing damage output.</TuTien_Skill_QiBurst_Desc>
+  
+  <TuTien_Skill_ElementalAttack>Elemental Attack</TuTien_Skill_ElementalAttack>
+  <TuTien_Skill_ElementalAttack_Desc>Powerful elemental attack based on known cultivation techniques.</TuTien_Skill_ElementalAttack_Desc>
+  
+  <TuTien_Skill_QiRestoration>Qi Restoration</TuTien_Skill_QiRestoration>
+  <TuTien_Skill_QiRestoration_Desc>Rapidly restore qi energy over time.</TuTien_Skill_QiRestoration_Desc>
+
+  <!-- Techniques -->
+  <TuTien_Technique_SwordQi>Sword Qi Technique</TuTien_Technique_SwordQi>
+  <TuTien_Technique_SwordQi_Desc>Ancient sword technique focusing on sharp, precise attacks.</TuTien_Technique_SwordQi_Desc>
+  
+  <TuTien_Technique_Lightning>Lightning Technique</TuTien_Technique_Lightning>
+  <TuTien_Technique_Lightning_Desc>Harness the power of lightning for devastating attacks.</TuTien_Technique_Lightning_Desc>
+  
+  <TuTien_Technique_Fire>Fire Technique</TuTien_Technique_Fire>
+  <TuTien_Technique_Fire_Desc>Control flames to burn enemies and cause widespread destruction.</TuTien_Technique_Fire_Desc>
+  
+  <TuTien_Technique_Ice>Ice Technique</TuTien_Technique_Ice>
+  <TuTien_Technique_Ice_Desc>Manipulate ice and cold to freeze and slow enemies.</TuTien_Technique_Ice_Desc>
+  
+  <TuTien_Technique_Earth>Earth Technique</TuTien_Technique_Earth>
+  <TuTien_Technique_Earth_Desc>Command earth and stone for powerful, crushing attacks.</TuTien_Technique_Earth_Desc>
+</LanguageData>

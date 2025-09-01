@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <JobDef>
+    <defName>MeditateCultivation</defName>
+    <driverClass>TuTien.JobDriver_MeditateCultivation</driverClass>
+    <reportString>meditating for cultivation</reportString>
+    <joyDuration>2400</joyDuration>
+    <joyMaxParticipants>1</joyMaxParticipants>
+    <modExtensions>
+      <li Class="TuTien.CultivationJobExtension">
+        <cultivationPowerMultiplier>2.0</cultivationPowerMultiplier>
+      </li>
+    </modExtensions>
+  </JobDef>
+
+</Defs>

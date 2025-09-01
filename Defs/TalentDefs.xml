@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Talent Definitions -->
+  <TuTien.TalentDef>
+    <defName>CommonTalent</defName>
+    <talentLevel>Common</talentLevel>
+    <expGainMultiplier>1.0</expGainMultiplier>
+    <buffMultiplier>1.0</buffMultiplier>
+    <tuViGainRate>1.0</tuViGainRate>
+    <techniqueChance>0.2</techniqueChance>
+    <labelKey>TuTien_Talent_Common</labelKey>
+    <descriptionKey>TuTien_Talent_Common_Desc</descriptionKey>
+  </TuTien.TalentDef>
+
+  <TuTien.TalentDef>
+    <defName>RareTalent</defName>
+    <talentLevel>Rare</talentLevel>
+    <expGainMultiplier>1.2</expGainMultiplier>
+    <buffMultiplier>1.1</buffMultiplier>
+    <tuViGainRate>1.2</tuViGainRate>
+    <techniqueChance>0.2</techniqueChance>
+    <labelKey>TuTien_Talent_Rare</labelKey>
+    <descriptionKey>TuTien_Talent_Rare_Desc</descriptionKey>
+  </TuTien.TalentDef>
+
+  <TuTien.TalentDef>
+    <defName>GeniusTalent</defName>
+    <talentLevel>Genius</talentLevel>
+    <expGainMultiplier>1.5</expGainMultiplier>
+    <buffMultiplier>1.2</buffMultiplier>
+    <tuViGainRate>1.5</tuViGainRate>
+    <techniqueChance>0.2</techniqueChance>
+    <labelKey>TuTien_Talent_Genius</labelKey>
+    <descriptionKey>TuTien_Talent_Genius_Desc</descriptionKey>
+  </TuTien.TalentDef>
+
+  <TuTien.TalentDef>
+    <defName>HeavenChosenTalent</defName>
+    <talentLevel>HeavenChosen</talentLevel>
+    <expGainMultiplier>1.7</expGainMultiplier>
+    <buffMultiplier>1.3</buffMultiplier>
+    <tuViGainRate>2.0</tuViGainRate>
+    <techniqueChance>0.7</techniqueChance>
+    <canHaveMultipleTechniques>true</canHaveMultipleTechniques>
+    <labelKey>TuTien_Talent_HeavenChosen</labelKey>
+    <descriptionKey>TuTien_Talent_HeavenChosen_Desc</descriptionKey>
+  </TuTien.TalentDef>
+</Defs>

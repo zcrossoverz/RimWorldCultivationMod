@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- UI -->
+  <TuTien_Tab_Cultivation>Cultivation</TuTien_Tab_Cultivation>
+  
+  <!-- Hediffs -->
+  <QiForceHediff_label>Qi Force</QiForceHediff_label>
+  <QiForceHediff_labelNoun>qi force enhancement</QiForceHediff_labelNoun>
+  
+  <QiShieldHediff_label>Qi Shield</QiShieldHediff_label>
+  <QiShieldHediff_labelNoun>qi protective shield</QiShieldHediff_labelNoun>
+  
+  <QiBarrierHediff_label>Qi Barrier</QiBarrierHediff_label>
+  <QiBarrierHediff_labelNoun>qi barrier protection</QiBarrierHediff_labelNoun>
+  
+  <QiBurstHediff_label>Qi Burst</QiBurstHediff_label>
+  <QiBurstHediff_labelNoun>qi energy burst</QiBurstHediff_labelNoun>
+  
+  <QiRestorationHediff_label>Qi Restoration</QiRestorationHediff_label>
+  <QiRestorationHediff_labelNoun>qi restoration effect</QiRestorationHediff_labelNoun>
+
+  <!-- Projectiles -->
+  <QiWaveProjectile_label>qi wave</QiWaveProjectile_label>
+  <SwordQiProjectile_label>sword qi</SwordQiProjectile_label>
+  <LightningProjectile_label>lightning bolt</LightningProjectile_label>
+  <FireProjectile_label>fire blast</FireProjectile_label>
+  <IceProjectile_label>ice shard</IceProjectile_label>
+  <EarthProjectile_label>earth spike</EarthProjectile_label>
+</LanguageData>

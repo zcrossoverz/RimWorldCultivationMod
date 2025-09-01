@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Mortal Realm -->
+  <TuTien.CultivationStageStatsDef>
+    <defName>MortalStage1</defName>
+    <realm>Mortal</realm>
+    <stage>1</stage>
+    <label>Mortal Stage 1</label>
+    <description>Basic human cultivation stage</description>
+    
+    <!-- Core cultivation -->
+    <maxQi>100</maxQi>
+    <qiRegenRate>0.5</qiRegenRate>
+    <breakthroughChance>0.5</breakthroughChance>
+    <tuViGainMultiplier>1.0</tuViGainMultiplier>
+    
+    <!-- Combat stats -->
+    <maxHpMultiplier>1.05</maxHpMultiplier>
+    <meleeDamageMultiplier>1.05</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.0</meleeHitChanceOffset>
+    <rangedDamageMultiplier>1.0</rangedDamageMultiplier>
+    <armorRatingSharpMultiplier>1.0</armorRatingSharpMultiplier>
+    <armorRatingBluntMultiplier>1.0</armorRatingBluntMultiplier>
+    
+    <!-- Movement and utility -->
+    <moveSpeedOffset>0.1</moveSpeedOffset>
+    <carryingCapacityMultiplier>1.0</carryingCapacityMultiplier>
+    <workSpeedGlobalMultiplier>1.0</workSpeedGlobalMultiplier>
+    
+    <!-- Biological needs -->
+    <hungerRateMultiplier>1.0</hungerRateMultiplier>
+    <restRateMultiplier>1.0</restRateMultiplier>
+    <immunityGainSpeedMultiplier>1.0</immunityGainSpeedMultiplier>
+    <injuryHealingFactorMultiplier>1.0</injuryHealingFactorMultiplier>
+    
+    <!-- Mental -->
+    <mentalBreakThresholdMultiplier>1.0</mentalBreakThresholdMultiplier>
+    <moodOffset>0.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+  <TuTien.CultivationStageStatsDef>
+    <defName>MortalStage2</defName>
+    <realm>Mortal</realm>
+    <stage>2</stage>
+    <label>Mortal Stage 2</label>
+    <description>Enhanced human cultivation stage</description>
+    
+    <maxQi>150</maxQi>
+    <qiRegenRate>0.6</qiRegenRate>
+    <breakthroughChance>0.5</breakthroughChance>
+    <tuViGainMultiplier>1.1</tuViGainMultiplier>
+    
+    <maxHpMultiplier>1.10</maxHpMultiplier>
+    <meleeDamageMultiplier>1.10</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.05</meleeHitChanceOffset>
+    <rangedDamageMultiplier>1.02</rangedDamageMultiplier>
+    <armorRatingSharpMultiplier>1.02</armorRatingSharpMultiplier>
+    <armorRatingBluntMultiplier>1.02</armorRatingBluntMultiplier>
+    
+    <moveSpeedOffset>0.2</moveSpeedOffset>
+    <carryingCapacityMultiplier>1.05</carryingCapacityMultiplier>
+    <workSpeedGlobalMultiplier>1.05</workSpeedGlobalMultiplier>
+    
+    <hungerRateMultiplier>0.98</hungerRateMultiplier>
+    <restRateMultiplier>0.98</restRateMultiplier>
+    <immunityGainSpeedMultiplier>1.05</immunityGainSpeedMultiplier>
+    <injuryHealingFactorMultiplier>1.05</injuryHealingFactorMultiplier>
+    
+    <mentalBreakThresholdMultiplier>0.98</mentalBreakThresholdMultiplier>
+    <moodOffset>1.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+  <TuTien.CultivationStageStatsDef>
+    <defName>MortalStage3</defName>
+    <realm>Mortal</realm>
+    <stage>3</stage>
+    <label>Mortal Stage 3</label>
+    <description>Peak human cultivation stage</description>
+    
+    <maxQi>200</maxQi>
+    <qiRegenRate>0.7</qiRegenRate>
+    <breakthroughChance>0.5</breakthroughChance>
+    <tuViGainMultiplier>1.2</tuViGainMultiplier>
+    
+    <maxHpMultiplier>1.15</maxHpMultiplier>
+    <meleeDamageMultiplier>1.15</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.10</meleeHitChanceOffset>
+    <rangedDamageMultiplier>1.05</rangedDamageMultiplier>
+    <armorRatingSharpMultiplier>1.05</armorRatingSharpMultiplier>
+    <armorRatingBluntMultiplier>1.05</armorRatingBluntMultiplier>
+    
+    <moveSpeedOffset>0.3</moveSpeedOffset>
+    <carryingCapacityMultiplier>1.10</carryingCapacityMultiplier>
+    <workSpeedGlobalMultiplier>1.10</workSpeedGlobalMultiplier>
+    
+    <hungerRateMultiplier>0.95</hungerRateMultiplier>
+    <restRateMultiplier>0.95</restRateMultiplier>
+    <immunityGainSpeedMultiplier>1.10</immunityGainSpeedMultiplier>
+    <injuryHealingFactorMultiplier>1.10</injuryHealingFactorMultiplier>
+    
+    <mentalBreakThresholdMultiplier>0.95</mentalBreakThresholdMultiplier>
+    <moodOffset>2.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+  <!-- Qi Condensation Realm -->
+  <TuTien.CultivationStageStatsDef>
+    <defName>QiCondensationStage1</defName>
+    <realm>QiCondensation</realm>
+    <stage>1</stage>
+    <label>Qi Condensation Stage 1</label>
+    <description>Early supernatural cultivation</description>
+    
+    <maxQi>250</maxQi>
+    <qiRegenRate>0.8</qiRegenRate>
+    <breakthroughChance>0.4</breakthroughChance>
+    <tuViGainMultiplier>1.3</tuViGainMultiplier>
+    
+    <maxHpMultiplier>1.20</maxHpMultiplier>
+    <meleeDamageMultiplier>1.20</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.15</meleeHitChanceOffset>
+    <rangedDamageMultiplier>1.08</rangedDamageMultiplier>
+    <armorRatingSharpMultiplier>1.10</armorRatingSharpMultiplier>
+    <armorRatingBluntMultiplier>1.10</armorRatingBluntMultiplier>
+    
+    <moveSpeedOffset>0.4</moveSpeedOffset>
+    <carryingCapacityMultiplier>1.15</carryingCapacityMultiplier>
+    <workSpeedGlobalMultiplier>1.15</workSpeedGlobalMultiplier>
+    
+    <hungerRateMultiplier>0.92</hungerRateMultiplier>
+    <restRateMultiplier>0.92</restRateMultiplier>
+    <immunityGainSpeedMultiplier>1.20</immunityGainSpeedMultiplier>
+    <injuryHealingFactorMultiplier>1.20</injuryHealingFactorMultiplier>
+    
+    <mentalBreakThresholdMultiplier>0.90</mentalBreakThresholdMultiplier>
+    <moodOffset>3.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+  <TuTien.CultivationStageStatsDef>
+    <defName>QiCondensationStage5</defName>
+    <realm>QiCondensation</realm>
+    <stage>5</stage>
+    <label>Qi Condensation Stage 5</label>
+    <description>Mid-tier supernatural cultivation</description>
+    
+    <maxQi>500</maxQi>
+    <qiRegenRate>1.2</qiRegenRate>
+    <breakthroughChance>0.35</breakthroughChance>
+    <tuViGainMultiplier>1.7</tuViGainMultiplier>
+    
+    <maxHpMultiplier>1.60</maxHpMultiplier>
+    <meleeDamageMultiplier>1.60</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.35</meleeHitChanceOffset>
+    <rangedDamageMultiplier>1.20</rangedDamageMultiplier>
+    <armorRatingSharpMultiplier>1.30</armorRatingSharpMultiplier>
+    <armorRatingBluntMultiplier>1.30</armorRatingBluntMultiplier>
+    
+    <moveSpeedOffset>0.8</moveSpeedOffset>
+    <carryingCapacityMultiplier>1.35</carryingCapacityMultiplier>
+    <workSpeedGlobalMultiplier>1.35</workSpeedGlobalMultiplier>
+    
+    <hungerRateMultiplier>0.80</hungerRateMultiplier>
+    <restRateMultiplier>0.80</restRateMultiplier>
+    <immunityGainSpeedMultiplier>1.60</immunityGainSpeedMultiplier>
+    <injuryHealingFactorMultiplier>1.60</injuryHealingFactorMultiplier>
+    
+    <mentalBreakThresholdMultiplier>0.75</mentalBreakThresholdMultiplier>
+    <moodOffset>7.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+  <!-- Foundation Establishment -->
+  <TuTien.CultivationStageStatsDef>
+    <defName>FoundationEstablishmentStage1</defName>
+    <realm>FoundationEstablishment</realm>
+    <stage>1</stage>
+    <label>Foundation Establishment Stage 1</label>
+    <description>Transcendent cultivation realm</description>
+    
+    <maxQi>1200</maxQi>
+    <qiRegenRate>1.8</qiRegenRate>
+    <breakthroughChance>0.3</breakthroughChance>
+    <tuViGainMultiplier>2.0</tuViGainMultiplier>
+    
+    <maxHpMultiplier>2.20</maxHpMultiplier>
+    <meleeDamageMultiplier>2.20</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.50</meleeHitChanceOffset>
+    <rangedDamageMultiplier>1.50</rangedDamageMultiplier>
+    <armorRatingSharpMultiplier>1.60</armorRatingSharpMultiplier>
+    <armorRatingBluntMultiplier>1.60</armorRatingBluntMultiplier>
+    
+    <moveSpeedOffset>1.3</moveSpeedOffset>
+    <carryingCapacityMultiplier>1.80</carryingCapacityMultiplier>
+    <workSpeedGlobalMultiplier>1.80</workSpeedGlobalMultiplier>
+    
+    <hungerRateMultiplier>0.70</hungerRateMultiplier>
+    <restRateMultiplier>0.70</restRateMultiplier>
+    <immunityGainSpeedMultiplier>2.50</immunityGainSpeedMultiplier>
+    <injuryHealingFactorMultiplier>2.50</injuryHealingFactorMultiplier>
+    
+    <mentalBreakThresholdMultiplier>0.60</mentalBreakThresholdMultiplier>
+    <moodOffset>15.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+  <!-- Qi Condensation Stages 2-4, 6-9 -->
+  <TuTien.CultivationStageStatsDef>
+    <defName>QiCondensationStage2</defName>
+    <realm>QiCondensation</realm>
+    <stage>2</stage>
+    <label>Qi Condensation Stage 2</label>
+    <maxQi>300</maxQi>
+    <qiRegenRate>0.9</qiRegenRate>
+    <tuViGainMultiplier>1.4</tuViGainMultiplier>
+    <maxHpMultiplier>1.30</maxHpMultiplier>
+    <meleeDamageMultiplier>1.30</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.20</meleeHitChanceOffset>
+    <moveSpeedOffset>0.5</moveSpeedOffset>
+    <armorRatingSharpMultiplier>1.15</armorRatingSharpMultiplier>
+    <workSpeedGlobalMultiplier>1.20</workSpeedGlobalMultiplier>
+    <moodOffset>4.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+  <TuTien.CultivationStageStatsDef>
+    <defName>QiCondensationStage9</defName>
+    <realm>QiCondensation</realm>
+    <stage>9</stage>
+    <label>Qi Condensation Stage 9 (Peak)</label>
+    <maxQi>1000</maxQi>
+    <qiRegenRate>1.6</qiRegenRate>
+    <tuViGainMultiplier>2.0</tuViGainMultiplier>
+    <maxHpMultiplier>2.00</maxHpMultiplier>
+    <meleeDamageMultiplier>2.00</meleeDamageMultiplier>
+    <meleeHitChanceOffset>0.60</meleeHitChanceOffset>
+    <rangedDamageMultiplier>1.40</rangedDamageMultiplier>
+    <armorRatingSharpMultiplier>1.50</armorRatingSharpMultiplier>
+    <armorRatingBluntMultiplier>1.50</armorRatingBluntMultiplier>
+    <moveSpeedOffset>1.2</moveSpeedOffset>
+    <carryingCapacityMultiplier>1.60</carryingCapacityMultiplier>
+    <workSpeedGlobalMultiplier>1.60</workSpeedGlobalMultiplier>
+    <hungerRateMultiplier>0.85</hungerRateMultiplier>
+    <restRateMultiplier>0.85</restRateMultiplier>
+    <immunityGainSpeedMultiplier>2.00</immunityGainSpeedMultiplier>
+    <injuryHealingFactorMultiplier>2.00</injuryHealingFactorMultiplier>
+    <mentalBreakThresholdMultiplier>0.70</mentalBreakThresholdMultiplier>
+    <moodOffset>12.0</moodOffset>
+  </TuTien.CultivationStageStatsDef>
+
+</Defs>

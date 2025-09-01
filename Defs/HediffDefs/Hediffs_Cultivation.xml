@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <HediffDef>
+    <defName>QiForceHediff</defName>
+    <hediffClass>Hediff</hediffClass>
+    <label>qi force</label>
+    <description>Enhanced physical power through qi manipulation.</description>
+    <defaultLabelColor>(0.8, 1.0, 0.8)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <stages>
+      <li>
+        <minSeverity>0.1</minSeverity>
+        <statOffsets>
+          <MeleeHitChance>0.10</MeleeHitChance>
+          <MeleeDamageFactor>0.10</MeleeDamageFactor>
+        </statOffsets>
+      </li>
+      <li>
+        <minSeverity>0.15</minSeverity>
+        <statOffsets>
+          <MeleeHitChance>0.15</MeleeHitChance>
+          <MeleeDamageFactor>0.15</MeleeDamageFactor>
+        </statOffsets>
+      </li>
+      <li>
+        <minSeverity>0.20</minSeverity>
+        <statOffsets>
+          <MeleeHitChance>0.20</MeleeHitChance>
+          <MeleeDamageFactor>0.20</MeleeDamageFactor>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>QiShieldHediff</defName>
+    <hediffClass>Hediff</hediffClass>
+    <label>qi shield</label>
+    <description>Protective qi barrier reducing incoming damage.</description>
+    <defaultLabelColor>(0.6, 0.8, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <stages>
+      <li>
+        <statOffsets>
+          <ArmorRating_Blunt>0.3</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>QiBarrierHediff</defName>
+    <hediffClass>Hediff</hediffClass>
+    <label>qi barrier</label>
+    <description>Advanced qi protection against all damage types.</description>
+    <defaultLabelColor>(1.0, 0.8, 0.6)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <stages>
+      <li>
+        <statOffsets>
+          <ArmorRating_Blunt>0.5</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.5</ArmorRating_Sharp>
+          <ArmorRating_Heat>0.5</ArmorRating_Heat>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>QiBurstHediff</defName>
+    <hediffClass>Hediff</hediffClass>
+    <label>qi burst</label>
+    <description>Explosive qi energy enhancing all capabilities.</description>
+    <defaultLabelColor>(1.0, 0.6, 0.6)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <stages>
+      <li>
+        <statOffsets>
+          <MoveSpeed>2.0</MoveSpeed>
+          <MeleeHitChance>0.25</MeleeHitChance>
+          <MeleeDamageFactor>0.50</MeleeDamageFactor>
+          <WorkSpeedGlobal>0.30</WorkSpeedGlobal>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>QiRestorationHediff</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>qi restoration</label>
+    <description>Healing qi energy restoring health and vitality.</description>
+    <defaultLabelColor>(0.6, 1.0, 0.6)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <stages>
+      <li>
+        <statOffsets>
+          <ImmunityGainSpeed>0.5</ImmunityGainSpeed>
+        </statOffsets>
+        <hungerRateFactor>0.5</hungerRateFactor>
+        <restFallFactor>0.5</restFallFactor>
+      </li>
+    </stages>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>1800</disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>QiDeviationHediff</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>qi deviation</label>
+    <description>Severe qi imbalance from failed breakthrough. Prevents cultivation and reduces capabilities.</description>
+    <defaultLabelColor>(0.8, 0.2, 0.2)</defaultLabelColor>
+    <isBad>true</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <stages>
+      <li>
+        <minSeverity>0.1</minSeverity>
+        <statOffsets>
+          <MoveSpeed>-1.0</MoveSpeed>
+          <WorkSpeedGlobal>-0.5</WorkSpeedGlobal>
+          <MentalBreakThreshold>0.2</MentalBreakThreshold>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.3</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>900000</disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>CultivationBuffHediff</defName>
+    <hediffClass>TuTien.Hediffs.Hediff_CultivationBuff</hediffClass>
+    <label>cultivation enhancement</label>
+    <description>Enhanced physical and mental capabilities from cultivation practice.</description>
+    <defaultLabelColor>(0.8, 0.9, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>2.0</maxSeverity>
+    <stages>
+      <!-- Basic cultivation buffs -->
+      <li>
+        <minSeverity>0.1</minSeverity>
+        <label>Minor Enhancement</label>
+      </li>
+      <li>
+        <minSeverity>0.5</minSeverity>
+        <label>Moderate Enhancement</label>
+      </li>
+      <li>
+        <minSeverity>1.0</minSeverity>
+        <label>Major Enhancement</label>
+      </li>
+      <li>
+        <minSeverity>1.5</minSeverity>
+        <label>Extraordinary Enhancement</label>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

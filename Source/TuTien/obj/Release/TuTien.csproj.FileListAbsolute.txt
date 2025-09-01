@@ -1,0 +1,7 @@
+D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Release\TuTien.csproj.AssemblyReference.cache
+D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Release\TuTien.GeneratedMSBuildEditorConfig.editorconfig
+D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Release\TuTien.AssemblyInfoInputs.cache
+D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Release\TuTien.AssemblyInfo.cs
+D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Release\TuTien.csproj.CoreCompileInputs.cache
+D:\RimWorld\Mods\TuTien\1.5\Assemblies\TuTien.dll
+D:\RimWorld\Mods\TuTien\Source\TuTien\obj\Release\TuTien.dll

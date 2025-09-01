@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Cultivation Meditation Spot -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>CultivationMeditationSpot</defName>
+    <label>cultivation spot</label>
+    <description>A designated area for cultivation practice. Pawns can meditate here to gather Qi and advance their cultivation realm. Provides bonus to cultivation speed.</description>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>UI/Commands/DesirePower</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>200</WorkToBuild>
+      <Flammability>0.7</Flammability>
+      <Beauty>2</Beauty>
+    </statBases>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>true</useHitPoints>
+    <size>(1,1)</size>
+    <designationCategory>Misc</designationCategory>
+    <passability>Standable</passability>
+    <hasInteractionCell>false</hasInteractionCell>
+    <surfaceType>Item</surfaceType>
+    <canOverlapZones>false</canOverlapZones>
+    <building>
+      <preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+      <preventDeteriorationInside>true</preventDeteriorationInside>
+    </building>
+    <costList>
+      <WoodLog>50</WoodLog>
+    </costList>
+    <comps>
+      <li Class="TuTien.CultivationSpotCompProperties">
+        <cultivationBonus>1.5</cultivationBonus>
+      </li>
+    </comps>
+    <constructionSkillPrerequisite>3</constructionSkillPrerequisite>
+  </ThingDef>
+</Defs>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Qi Wave Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>QiWaveProjectile</defName>
+    <label>qi wave</label>
+    <thingClass>Bullet</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.8, 1, 1)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Blunt</damageDef>
+      <damageAmountBase>20</damageAmountBase>
+      <speed>55</speed>
+    </projectile>
+  </ThingDef>
+
+  <!-- Sword Qi Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>SwordQiProjectile</defName>
+    <label>sword qi</label>
+    <thingClass>Bullet</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(1, 1, 0.8)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Cut</damageDef>
+      <damageAmountBase>35</damageAmountBase>
+      <speed>65</speed>
+    </projectile>
+  </ThingDef>
+
+  <!-- Lightning Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>LightningProjectile</defName>
+    <label>lightning bolt</label>
+    <thingClass>Bullet</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(1, 1, 0.2)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Burn</damageDef>
+      <damageAmountBase>40</damageAmountBase>
+      <speed>85</speed>
+    </projectile>
+  </ThingDef>
+
+  <!-- Fire Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>FireProjectile</defName>
+    <label>fire blast</label>
+    <thingClass>Bullet</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(1, 0.3, 0.2)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Flame</damageDef>
+      <damageAmountBase>30</damageAmountBase>
+      <speed>45</speed>
+    </projectile>
+  </ThingDef>
+
+  <!-- Ice Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>IceProjectile</defName>
+    <label>ice shard</label>
+    <thingClass>Bullet</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.7, 0.9, 1)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Frostbite</damageDef>
+      <damageAmountBase>25</damageAmountBase>
+      <speed>50</speed>
+    </projectile>
+  </ThingDef>
+
+  <!-- Earth Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>EarthProjectile</defName>
+    <label>earth spike</label>
+    <thingClass>Bullet</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.6, 0.4, 0.2)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Blunt</damageDef>
+      <damageAmountBase>45</damageAmountBase>
+      <speed>35</speed>
+    </projectile>
+  </ThingDef>
+</Defs>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Cultivation Techniques -->
+  <TuTien.CultivationTechniqueDef>
+    <defName>SwordQiTechnique</defName>
+    <labelKey>TuTien_Technique_SwordQi</labelKey>
+    <descriptionKey>TuTien_Technique_SwordQi_Desc</descriptionKey>
+    <spawnChance>0.2</spawnChance>
+    <workerClass>TuTien.TechniqueWorkers.SwordQiTechniqueWorker</workerClass>
+  </TuTien.CultivationTechniqueDef>
+
+  <TuTien.CultivationTechniqueDef>
+    <defName>LightningTechnique</defName>
+    <labelKey>TuTien_Technique_Lightning</labelKey>
+    <descriptionKey>TuTien_Technique_Lightning_Desc</descriptionKey>
+    <spawnChance>0.2</spawnChance>
+    <workerClass>TuTien.TechniqueWorkers.LightningTechniqueWorker</workerClass>
+  </TuTien.CultivationTechniqueDef>
+
+  <TuTien.CultivationTechniqueDef>
+    <defName>FireTechnique</defName>
+    <labelKey>TuTien_Technique_Fire</labelKey>
+    <descriptionKey>TuTien_Technique_Fire_Desc</descriptionKey>
+    <spawnChance>0.2</spawnChance>
+    <workerClass>TuTien.TechniqueWorkers.FireTechniqueWorker</workerClass>
+  </TuTien.CultivationTechniqueDef>
+
+  <TuTien.CultivationTechniqueDef>
+    <defName>IceTechnique</defName>
+    <labelKey>TuTien_Technique_Ice</labelKey>
+    <descriptionKey>TuTien_Technique_Ice_Desc</descriptionKey>
+    <spawnChance>0.2</spawnChance>
+    <workerClass>TuTien.TechniqueWorkers.IceTechniqueWorker</workerClass>
+  </TuTien.CultivationTechniqueDef>
+
+  <TuTien.CultivationTechniqueDef>
+    <defName>EarthTechnique</defName>
+    <labelKey>TuTien_Technique_Earth</labelKey>
+    <descriptionKey>TuTien_Technique_Earth_Desc</descriptionKey>
+    <spawnChance>0.2</spawnChance>
+    <workerClass>TuTien.TechniqueWorkers.EarthTechniqueWorker</workerClass>
+  </TuTien.CultivationTechniqueDef>
+</Defs>
