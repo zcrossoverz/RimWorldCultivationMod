@@ -74,21 +74,34 @@ namespace TuTien.Core
         /// </summary>
         public static event Action<Pawn> OnQiRestored;
         
+        /// <summary>
+        /// Fired when a pawn's talent changes
+        /// </summary>
+        public static event Action<Pawn, TalentLevel, TalentLevel> OnTalentChanged; // pawn, oldTalent, newTalent
+        
         #endregion
         
         #region Technique Events
         
         /// <summary>
-        /// Fired when a pawn changes cultivation technique
-        /// TODO: Implement CultivationTechnique class
+        /// Fired when a pawn learns a new cultivation technique
         /// </summary>
-        //public static event Action<Pawn, CultivationTechnique, CultivationTechnique> OnTechniqueChanged; // oldTechnique, newTechnique
+        public static event Action<Pawn, CultivationTechnique> OnTechniqueLearned;
         
         /// <summary>
-        /// Fired when a technique is mastered (reaches max level)
-        /// TODO: Implement CultivationTechnique class
+        /// Fired when a pawn practices a cultivation technique
         /// </summary>
-        //public static event Action<Pawn, CultivationTechnique> OnTechniqueMastered;
+        public static event Action<Pawn, CultivationTechnique, float> OnTechniquePracticed; // pawn, technique, experienceGained
+        
+        /// <summary>
+        /// Fired when a technique's mastery level advances
+        /// </summary>
+        public static event Action<Pawn, CultivationTechnique, TechniqueMasteryLevel, TechniqueMasteryLevel> OnTechniqueMasteryAdvanced; // pawn, technique, oldLevel, newLevel
+        
+        /// <summary>
+        /// Fired when a pawn changes their active cultivation technique
+        /// </summary>
+        public static event Action<Pawn, CultivationTechnique, CultivationTechnique> OnTechniqueChanged; // pawn, oldTechnique, newTechnique
         
         #endregion
         
@@ -298,6 +311,26 @@ namespace TuTien.Core
         }
         
         /// <summary>
+        /// Trigger talent changed event
+        /// </summary>
+        public static void TriggerTalentChanged(Pawn pawn, TalentLevel oldTalent, TalentLevel newTalent)
+        {
+            if (pawn == null) return;
+            
+            try
+            {
+                if (Prefs.DevMode)
+                    Log.Message($"[TuTien Events] {pawn.Name.ToStringShort} talent changed: {oldTalent} -> {newTalent}");
+                
+                OnTalentChanged?.Invoke(pawn, oldTalent, newTalent);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[TuTien Events] Error in OnTalentChanged event: {ex.Message}");
+            }
+        }
+        
+        /// <summary>
         /// Trigger Qi depleted event
         /// </summary>
         public static void TriggerQiDepleted(Pawn pawn)
@@ -339,9 +372,69 @@ namespace TuTien.Core
         
         /// <summary>
         /// Trigger technique changed event
-        /// TODO: Enable when CultivationTechnique is implemented
+        /// <summary>
+        /// Trigger technique learned event with safety checks
         /// </summary>
-        /*
+        public static void TriggerTechniqueLearned(Pawn pawn, CultivationTechnique technique)
+        {
+            if (pawn == null || technique == null) return;
+            
+            try
+            {
+                if (Prefs.DevMode)
+                    Log.Message($"[TuTien Events] {pawn.Name.ToStringShort} learned technique: {technique.label}");
+                
+                OnTechniqueLearned?.Invoke(pawn, technique);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[TuTien Events] Error in OnTechniqueLearned event: {ex.Message}");
+            }
+        }
+        
+        /// <summary>
+        /// Trigger technique practiced event with safety checks
+        /// </summary>
+        public static void TriggerTechniquePracticed(Pawn pawn, CultivationTechnique technique, float experienceGained)
+        {
+            if (pawn == null || technique == null) return;
+            
+            try
+            {
+                if (Prefs.DevMode)
+                    Log.Message($"[TuTien Events] {pawn.Name.ToStringShort} practiced {technique.label}, gained {experienceGained:F1} experience");
+                
+                OnTechniquePracticed?.Invoke(pawn, technique, experienceGained);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[TuTien Events] Error in OnTechniquePracticed event: {ex.Message}");
+            }
+        }
+        
+        /// <summary>
+        /// Trigger technique mastery advanced event with safety checks
+        /// </summary>
+        public static void TriggerTechniqueMasteryAdvanced(Pawn pawn, CultivationTechnique technique, TechniqueMasteryLevel oldLevel, TechniqueMasteryLevel newLevel)
+        {
+            if (pawn == null || technique == null) return;
+            
+            try
+            {
+                if (Prefs.DevMode)
+                    Log.Message($"[TuTien Events] {pawn.Name.ToStringShort} advanced {technique.label} from {oldLevel} to {newLevel}");
+                
+                OnTechniqueMasteryAdvanced?.Invoke(pawn, technique, oldLevel, newLevel);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[TuTien Events] Error in OnTechniqueMasteryAdvanced event: {ex.Message}");
+            }
+        }
+        
+        /// <summary>
+        /// Trigger technique changed event with safety checks
+        /// </summary>
         public static void TriggerTechniqueChanged(Pawn pawn, CultivationTechnique oldTechnique, CultivationTechnique newTechnique)
         {
             if (pawn == null) return;
@@ -349,7 +442,7 @@ namespace TuTien.Core
             try
             {
                 if (Prefs.DevMode)
-                    Log.Message($"[TuTien Events] {pawn.Name.ToStringShort} technique changed: {oldTechnique?.defName ?? "None"} -> {newTechnique?.defName ?? "None"}");
+                    Log.Message($"[TuTien Events] {pawn.Name.ToStringShort} technique changed: {oldTechnique?.label ?? "None"} -> {newTechnique?.label ?? "None"}");
                 
                 OnTechniqueChanged?.Invoke(pawn, oldTechnique, newTechnique);
             }
@@ -358,7 +451,6 @@ namespace TuTien.Core
                 Log.Error($"[TuTien Events] Error in OnTechniqueChanged event: {ex.Message}");
             }
         }
-        */
         
         /// <summary>
         /// Trigger stats recalculated event
@@ -439,9 +531,10 @@ namespace TuTien.Core
             count += OnTuViChanged?.GetInvocationList().Length ?? 0;
             count += OnQiDepleted?.GetInvocationList().Length ?? 0;
             count += OnQiRestored?.GetInvocationList().Length ?? 0;
-            // TODO: Enable when CultivationTechnique is implemented
-            //count += OnTechniqueChanged?.GetInvocationList().Length ?? 0;
-            //count += OnTechniqueMastered?.GetInvocationList().Length ?? 0;
+            count += OnTechniqueChanged?.GetInvocationList().Length ?? 0;
+            count += OnTechniqueLearned?.GetInvocationList().Length ?? 0;
+            count += OnTechniquePracticed?.GetInvocationList().Length ?? 0;
+            count += OnTechniqueMasteryAdvanced?.GetInvocationList().Length ?? 0;
             count += OnStatsRecalculated?.GetInvocationList().Length ?? 0;
             count += OnAutoCultivationStarted?.GetInvocationList().Length ?? 0;
             count += OnAutoCultivationStopped?.GetInvocationList().Length ?? 0;
@@ -465,9 +558,10 @@ namespace TuTien.Core
             OnTuViChanged = null;
             OnQiDepleted = null;
             OnQiRestored = null;
-            // TODO: Enable when CultivationTechnique is implemented
-            //OnTechniqueChanged = null;
-            //OnTechniqueMastered = null;
+            OnTechniqueChanged = null;
+            OnTechniqueLearned = null;
+            OnTechniquePracticed = null;
+            OnTechniqueMasteryAdvanced = null;
             OnStatsRecalculated = null;
             OnAutoCultivationStarted = null;
             OnAutoCultivationStopped = null;

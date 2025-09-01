@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TuTien")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d467e4964ce2b948acdea0fb44be228dabb974ab")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0521d9293f1eb3a097cd0fac7457c1eea5bdbb00")]
 [assembly: System.Reflection.AssemblyProductAttribute("TuTien")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TuTien")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

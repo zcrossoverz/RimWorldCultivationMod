@@ -867,7 +867,7 @@ namespace TuTien
                 currentQi -= skill.qiCost;
                 if (skill.cooldownHours > 0)
                 {
-                    int cooldownTicks = skill.cooldownHours * GenDate.TicksPerHour;
+                    int cooldownTicks = Mathf.RoundToInt(skill.cooldownHours * GenDate.TicksPerHour);
                     skillCooldowns[skill.defName] = cooldownTicks;
                     Log.Warning($"[TuTien] Set cooldown for {skill.defName}: {skill.cooldownHours}h = {cooldownTicks} ticks");
                     Log.Warning($"[TuTien] Cooldowns dictionary now contains {skillCooldowns.Count} entries");

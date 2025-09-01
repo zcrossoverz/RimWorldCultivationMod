@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Skill Synergy Labels -->
+  <TuTien.SkillSynergy.CombatMaster.Label>Combat Master</TuTien.SkillSynergy.CombatMaster.Label>
+  <TuTien.SkillSynergy.CombatMaster.Description>Master of both offense and defense in Qi combat techniques.</TuTien.SkillSynergy.CombatMaster.Description>
+
+  <TuTien.SkillSynergy.HealerWarrior.Label>Healer Warrior</TuTien.SkillSynergy.HealerWarrior.Label>
+  <TuTien.SkillSynergy.HealerWarrior.Description>A warrior who can heal and fight with enhanced physique.</TuTien.SkillSynergy.HealerWarrior.Description>
+
+  <TuTien.SkillSynergy.GrandMaster.Label>Grand Master</TuTien.SkillSynergy.GrandMaster.Label>
+  <TuTien.SkillSynergy.GrandMaster.Description>Master of multiple Qi cultivation techniques with enhanced abilities.</TuTien.SkillSynergy.GrandMaster.Description>
+
+  <TuTien.SkillSynergy.IronMaster.Label>Iron Master</TuTien.SkillSynergy.IronMaster.Label>
+  <TuTien.SkillSynergy.IronMaster.Description>Ultimate defensive master with unbreakable body and healing prowess.</TuTien.SkillSynergy.IronMaster.Description>
+
+  <!-- Skill Synergy System -->
+  <TuTien.SkillSynergy.ActiveSynergies>Active Synergies: {0}</TuTien.SkillSynergy.ActiveSynergies>
+  <TuTien.SkillSynergy.PotentialSynergies>Potential Synergies: {0}</TuTien.SkillSynergy.PotentialSynergies>
+  <TuTien.SkillSynergy.SynergyBonus>Synergy Bonus: +{0}%</TuTien.SkillSynergy.SynergyBonus>
+
+</LanguageData>

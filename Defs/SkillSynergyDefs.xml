@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  
+  <!-- Simple Skill Synergies using actual available skills -->
+  
+  <TuTien.Systems.SkillSynergy.SkillSynergyDef>
+    <defName>SkillCombatMaster</defName>
+    <labelKey>TuTien.SkillSynergy.CombatMaster.Label</labelKey>
+    <descriptionKey>TuTien.SkillSynergy.CombatMaster.Description</descriptionKey>
+    <rarity>Common</rarity>
+    <requiredRealm>Mortal</requiredRealm>
+    <requiredStage>3</requiredStage>
+    <requiredSkills>
+      <li>QiPunch</li>
+      <li>QiShield</li>
+    </requiredSkills>
+    <cultivationSpeedBonus>0.10</cultivationSpeedBonus>
+    <qiGenerationBonus>0.05</qiGenerationBonus>
+    <specialEffectChance>0.03</specialEffectChance>
+  </TuTien.Systems.SkillSynergy.SkillSynergyDef>
+
+  <TuTien.Systems.SkillSynergy.SkillSynergyDef>
+    <defName>SkillHealerWarrior</defName>
+    <labelKey>TuTien.SkillSynergy.HealerWarrior.Label</labelKey>
+    <descriptionKey>TuTien.SkillSynergy.HealerWarrior.Description</descriptionKey>
+    <rarity>Uncommon</rarity>
+    <requiredRealm>QiCondensation</requiredRealm>
+    <requiredStage>1</requiredStage>
+    <requiredSkills>
+      <li>QiHealing</li>
+      <li>EnhancedPhysique</li>
+      <li>QiPunch</li>
+    </requiredSkills>
+    <cultivationSpeedBonus>0.15</cultivationSpeedBonus>
+    <qiGenerationBonus>0.10</qiGenerationBonus>
+    <medicalQualityBonus>0.20</medicalQualityBonus>
+    <specialEffectChance>0.02</specialEffectChance>
+  </TuTien.Systems.SkillSynergy.SkillSynergyDef>
+
+  <TuTien.Systems.SkillSynergy.SkillSynergyDef>
+    <defName>SkillGrandMaster</defName>
+    <labelKey>TuTien.SkillSynergy.GrandMaster.Label</labelKey>
+    <descriptionKey>TuTien.SkillSynergy.GrandMaster.Description</descriptionKey>
+    <rarity>Rare</rarity>
+    <requiredRealm>FoundationEstablishment</requiredRealm>
+    <requiredStage>1</requiredStage>
+    <requiredSkills>
+      <li>QiPunch</li>
+      <li>QiShield</li>
+      <li>QiHealing</li>
+      <li>EnhancedPhysique</li>
+      <li>QiSense</li>
+    </requiredSkills>
+    <cultivationSpeedBonus>0.25</cultivationSpeedBonus>
+    <qiGenerationBonus>0.15</qiGenerationBonus>
+    <breakthroughChanceBonus>0.10</breakthroughChanceBonus>
+    <researchSpeedBonus>0.15</researchSpeedBonus>
+    <medicalQualityBonus>0.25</medicalQualityBonus>
+    <specialEffectChance>0.01</specialEffectChance>
+  </TuTien.Systems.SkillSynergy.SkillSynergyDef>
+
+  <TuTien.Systems.SkillSynergy.SkillSynergyDef>
+    <defName>SkillIronMaster</defName>
+    <labelKey>TuTien.SkillSynergy.IronMaster.Label</labelKey>
+    <descriptionKey>TuTien.SkillSynergy.IronMaster.Description</descriptionKey>
+    <rarity>Epic</rarity>
+    <requiredRealm>GoldenCore</requiredRealm>
+    <requiredStage>1</requiredStage>
+    <requiredSkills>
+      <li>IronBody</li>
+      <li>EnhancedPhysique</li>
+      <li>QiShield</li>
+      <li>QiHealing</li>
+    </requiredSkills>
+    <cultivationSpeedBonus>0.30</cultivationSpeedBonus>
+    <qiGenerationBonus>0.20</qiGenerationBonus>
+    <breakthroughChanceBonus>0.15</breakthroughChanceBonus>
+    <medicalQualityBonus>0.30</medicalQualityBonus>
+    <craftingQualityBonus>0.25</craftingQualityBonus>
+    <specialEffectChance>0.005</specialEffectChance>
+  </TuTien.Systems.SkillSynergy.SkillSynergyDef>
+
+</Defs>

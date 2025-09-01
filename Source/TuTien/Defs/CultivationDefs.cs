@@ -33,20 +33,6 @@ namespace TuTien
         public string descriptionKey;
     }
 
-    public class CultivationSkillDef : Def
-    {
-        public CultivationRealm requiredRealm;
-        public int requiredStage;
-        public bool isActive = true;
-        public int qiCost = 0;
-        public int cooldownHours = 0;
-        public string labelKey;
-        public string descriptionKey;
-        public Type workerClass;
-        // Removed statModifiers to avoid XML parsing issues
-        // Effects will be handled in code instead
-    }
-
     public class CultivationTechniqueDef : Def
     {
         public string labelKey;

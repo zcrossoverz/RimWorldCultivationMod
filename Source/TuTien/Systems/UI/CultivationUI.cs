@@ -204,7 +204,7 @@ namespace TuTien
 
         private static void DrawActiveSkillEntry(Rect rect, CultivationSkillDef skill, CultivationData data)
         {
-            string skillName = skill.labelKey?.Translate() ?? skill.defName;
+            string skillName = skill.LabelCap;
             
             // Active skill - draw as button with cooldown overlay
             bool hasEnoughQi = data.currentQi >= skill.qiCost;
@@ -231,7 +231,7 @@ namespace TuTien
             if (onCooldown)
             {
                 int cooldownLeft = data.skillCooldowns[skill.defName];
-                int totalCooldown = skill.cooldownHours * GenDate.TicksPerHour;
+                int totalCooldown = Mathf.RoundToInt(skill.cooldownHours * GenDate.TicksPerHour);
                 float cooldownProgress = (float)cooldownLeft / totalCooldown;
                 
                 var cooldownRect = new Rect(buttonRect.x, buttonRect.y, buttonRect.width * cooldownProgress, buttonRect.height);
@@ -301,7 +301,7 @@ namespace TuTien
 
         private static void DrawPassiveSkillEntry(Rect rect, CultivationSkillDef skill, CultivationData data)
         {
-            string skillName = skill.labelKey?.Translate() ?? skill.defName;
+            string skillName = skill.LabelCap;
             
             // Passive skill - show with different styling
             GUI.color = Color.yellow;
@@ -312,7 +312,7 @@ namespace TuTien
             var descRect = new Rect(rect.x + 20f, rect.y + 22f, rect.width - 20f, 20f); // Move down more and increase height
             GUI.color = Color.gray;
             Text.Font = GameFont.Tiny;
-            Widgets.Label(descRect, skill.descriptionKey?.Translate() ?? "Passive enhancement");
+            Widgets.Label(descRect, skill.description ?? "Passive enhancement");
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
         }

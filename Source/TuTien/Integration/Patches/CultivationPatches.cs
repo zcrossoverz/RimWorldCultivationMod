@@ -120,7 +120,7 @@ namespace TuTien.Patches
                 {
                     if (cooldownTicks > 0)
                     {
-                        int maxCooldownTicks = skill.cooldownHours * 2500; // 2500 ticks per hour
+                        int maxCooldownTicks = Mathf.RoundToInt(skill.cooldownHours) * 2500; // 2500 ticks per hour
                         cooldownPct = (float)cooldownTicks / (maxCooldownTicks > 0 ? maxCooldownTicks : 60);
                         cooldownPct = Mathf.Clamp01(cooldownPct);
                     }
@@ -128,8 +128,8 @@ namespace TuTien.Patches
                 
                 var gizmo = new TuTien.UI.Command_CultivationSkill
                 {
-                    defaultLabel = skill.labelKey?.Translate() ?? skill.defName,
-                    defaultDesc = skill.descriptionKey?.Translate() ?? $"Qi Cost: {skill.qiCost}",
+                    defaultLabel = skill.LabelCap,
+                    defaultDesc = skill.description ?? $"Qi Cost: {skill.qiCost}",
                     icon = TexCommand.DesirePower,
                     Disabled = !canUse,
                     disabledReason = !canUse ? (data.currentQi < skill.qiCost ? "Not enough Qi" : "On cooldown") : null,
@@ -145,8 +145,8 @@ namespace TuTien.Patches
             {
                 yield return new Command_Action
                 {
-                    defaultLabel = $"🛡 {skill.labelKey?.Translate() ?? skill.defName}",
-                    defaultDesc = $"Passive Skill - Always Active\n{skill.descriptionKey?.Translate() ?? "Passive enhancement"}",
+                    defaultLabel = $"🛡 {skill.LabelCap}",
+                    defaultDesc = $"Passive Skill - Always Active\n{skill.description ?? "Passive enhancement"}",
                     icon = TexCommand.ForbidOff, // Use shield-like icon
                     Disabled = true, // Always disabled since it's passive
                     disabledReason = "Passive skill - always active",

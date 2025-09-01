@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Elemental Mastery: Master of multiple elements -->
+  <TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+    <defName>ElementalMastery</defName>
+    <label>Elemental Mastery</label>
+    <description>Perfect harmony between opposing elemental forces grants unprecedented power.</description>
+    <labelKey>TuTien_Synergy_ElementalMastery</labelKey>
+    <descriptionKey>TuTien_Synergy_ElementalMastery_Desc</descriptionKey>
+    <requiredTechniques>
+      <li>FireTechnique</li>
+      <li>IceTechnique</li>
+      <li>LightningTechnique</li>
+    </requiredTechniques>
+    <minRealm>FoundationEstablishment</minRealm>
+    <requiredMasteryLevel>Intermediate</requiredMasteryLevel>
+    <cultivationEfficiencyBonus>0.25</cultivationEfficiencyBonus>
+    <qiRegenerationMultiplier>1.5</qiRegenerationMultiplier>
+    <meleeDamageBonus>0.3</meleeDamageBonus>
+    <rangedDamageBonus>0.3</rangedDamageBonus>
+    <triggersSpecialEffects>true</triggersSpecialEffects>
+    <rarity>Rare</rarity>
+  </TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+
+  <!-- Body-Soul Harmony: Perfect balance cultivation -->
+  <TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+    <defName>BodySoulHarmony</defName>
+    <label>Body-Soul Harmony</label>
+    <description>Perfect synchronization between physical and spiritual cultivation creates miraculous healing abilities.</description>
+    <labelKey>TuTien_Synergy_BodySoulHarmony</labelKey>
+    <descriptionKey>TuTien_Synergy_BodySoulHarmony_Desc</descriptionKey>
+    <requiredTechniques>
+      <li>SwordQiTechnique</li>
+      <li>EarthTechnique</li>
+    </requiredTechniques>
+    <minRealm>QiCondensation</minRealm>
+    <requiredMasteryLevel>Advanced</requiredMasteryLevel>
+    <cultivationEfficiencyBonus>0.2</cultivationEfficiencyBonus>
+    <breakthroughChanceBonus>0.15</breakthroughChanceBonus>
+    <maxQiBonus>0.3</maxQiBonus>
+    <damageResistanceBonus>0.2</damageResistanceBonus>
+    <triggersSpecialEffects>true</triggersSpecialEffects>
+    <rarity>Uncommon</rarity>
+  </TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+
+  <!-- Void Walker: Master of space and time -->
+  <TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+    <defName>VoidWalker</defName>
+    <label>Void Walker</label>
+    <description>Transcendent understanding of space and time allows for manipulation of reality itself.</description>
+    <labelKey>TuTien_Synergy_VoidWalker</labelKey>
+    <descriptionKey>TuTien_Synergy_VoidWalker_Desc</descriptionKey>
+    <requiredTechniques>
+      <li>LightningTechnique</li>
+      <li>SwordQiTechnique</li>
+      <li>IceTechnique</li>
+      <li>EarthTechnique</li>
+    </requiredTechniques>
+    <minRealm>GoldenCore</minRealm>
+    <requiredMasteryLevel>Master</requiredMasteryLevel>
+    <cultivationEfficiencyBonus>0.5</cultivationEfficiencyBonus>
+    <qiRegenerationMultiplier>2.0</qiRegenerationMultiplier>
+    <breakthroughChanceBonus>0.25</breakthroughChanceBonus>
+    <movementSpeedBonus>0.4</movementSpeedBonus>
+    <damageResistanceBonus>0.3</damageResistanceBonus>
+    <triggersSpecialEffects>true</triggersSpecialEffects>
+    <rarity>Legendary</rarity>
+    <maxColonyInstances>1</maxColonyInstances>
+  </TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+
+  <!-- Twin Dragons: Fire and Ice synergy -->
+  <TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+    <defName>TwinDragons</defName>
+    <label>Twin Dragons</label>
+    <description>The eternal dance of fire and ice creates devastating offensive power.</description>
+    <labelKey>TuTien_Synergy_TwinDragons</labelKey>
+    <descriptionKey>TuTien_Synergy_TwinDragons_Desc</descriptionKey>
+    <requiredTechniques>
+      <li>FireTechnique</li>
+      <li>IceTechnique</li>
+    </requiredTechniques>
+    <minRealm>QiCondensation</minRealm>
+    <requiredMasteryLevel>Beginner</requiredMasteryLevel>
+    <cultivationEfficiencyBonus>0.15</cultivationEfficiencyBonus>
+    <meleeDamageBonus>0.25</meleeDamageBonus>
+    <rangedDamageBonus>0.25</rangedDamageBonus>
+    <rarity>Common</rarity>
+  </TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+
+  <!-- Storm Lord: Lightning and Sword mastery -->
+  <TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+    <defName>StormLord</defName>
+    <label>Storm Lord</label>
+    <description>Lightning-infused sword techniques create devastating storm attacks.</description>
+    <labelKey>TuTien_Synergy_StormLord</labelKey>
+    <descriptionKey>TuTien_Synergy_StormLord_Desc</descriptionKey>
+    <requiredTechniques>
+      <li>LightningTechnique</li>
+      <li>SwordQiTechnique</li>
+    </requiredTechniques>
+    <minRealm>FoundationEstablishment</minRealm>
+    <requiredMasteryLevel>Intermediate</requiredMasteryLevel>
+    <cultivationEfficiencyBonus>0.2</cultivationEfficiencyBonus>
+    <qiRegenerationMultiplier>1.3</qiRegenerationMultiplier>
+    <meleeDamageBonus>0.4</meleeDamageBonus>
+    <movementSpeedBonus>0.2</movementSpeedBonus>
+    <rarity>Uncommon</rarity>
+  </TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+
+  <!-- Earth Guardian: Earth techniques + defensive synergy -->
+  <TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+    <defName>EarthGuardian</defName>
+    <label>Earth Guardian</label>
+    <description>Deep connection with earth provides unbreakable defense and stability.</description>
+    <labelKey>TuTien_Synergy_EarthGuardian</labelKey>
+    <descriptionKey>TuTien_Synergy_EarthGuardian_Desc</descriptionKey>
+    <requiredTechniques>
+      <li>EarthTechnique</li>
+    </requiredTechniques>
+    <minRealm>QiCondensation</minRealm>
+    <requiredMasteryLevel>Advanced</requiredMasteryLevel>
+    <cultivationEfficiencyBonus>0.1</cultivationEfficiencyBonus>
+    <maxQiBonus>0.4</maxQiBonus>
+    <damageResistanceBonus>0.35</damageResistanceBonus>
+    <rarity>Common</rarity>
+    <canBeLost>false</canBeLost>
+  </TuTien.Systems.TechniqueSynergy.TechniqueSynergyDef>
+
+</Defs>
