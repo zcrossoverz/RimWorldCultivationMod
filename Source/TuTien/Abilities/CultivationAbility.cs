@@ -98,13 +98,35 @@ public class CultivationAbility
 
     public Command GetCommand()
     {
-        return new Command_Action
+        if (def.category == "Combat")
         {
-            defaultLabel = def.abilityLabel ?? def.label,
-            defaultDesc = $"{def.abilityDescription ?? def.description}\n\nQi Cost: {def.qiCost}\nCooldown: {def.cooldownTicks} ticks",
-            icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
-            action = () => TryCastSimple()
-        };
+            // Combat abilities use targeting
+            return new Command_Target
+            {
+                defaultLabel = def.abilityLabel ?? def.label,
+                defaultDesc = $"{def.abilityDescription ?? def.description}\n\nQi Cost: {def.qiCost}\nCooldown: {def.cooldownTicks} ticks",
+                icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
+                targetingParams = new TargetingParameters
+                {
+                    canTargetPawns = true,
+                    canTargetSelf = false,
+                    canTargetBuildings = false,
+                    canTargetItems = false
+                },
+                action = (target) => TryCast(target)
+            };
+        }
+        else
+        {
+            // Support abilities self-cast
+            return new Command_Action
+            {
+                defaultLabel = def.abilityLabel ?? def.label,
+                defaultDesc = $"{def.abilityDescription ?? def.description}\n\nQi Cost: {def.qiCost}\nCooldown: {def.cooldownTicks} ticks",
+                icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
+                action = () => TryCastSimple()
+            };
+        }
     }
 
     private void TryCastSimple()

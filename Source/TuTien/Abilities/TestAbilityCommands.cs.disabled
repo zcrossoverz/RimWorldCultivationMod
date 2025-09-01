@@ -1,0 +1,79 @@
+using System.Linq;
+using Verse;
+using RimWorld;
+using TuTien.Abilities;
+
+namespace TuTien.TestCommands
+{
+    public static class TestAbilityCommands
+    {
+        [DebugAction("Tu Tien", "Add Ability User Comp", false, false, false, 0, false, 
+            actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void AddAbilityUserComp(Pawn pawn)
+        {
+            // Add CompAbilityUser if not present
+            var comp = pawn.GetComp<CompAbilityUser>();
+            if (comp == null)
+            {
+                // Manually add the component
+                comp = new CompAbilityUser();
+                comp.parent = pawn;
+                comp.Initialize(new CompAbilityUserProperties());
+                pawn.AllComps.Add(comp);
+                comp.PostSpawnSetup(false);
+                
+                Messages.Message($"Added ability user component to {pawn.Name.ToStringShort}", MessageTypeDefOf.PositiveEvent);
+            }
+            else
+            {
+                Messages.Message($"{pawn.Name.ToStringShort} already has ability user component", MessageTypeDefOf.NeutralEvent);
+            }
+        }
+        
+        [DebugAction("Tu Tien", "Give Test Ability", false, false, false, 0, false, 
+            actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void GiveTestAbility(Pawn pawn)
+        {
+            var comp = pawn.GetComp<CompAbilityUser>();
+            if (comp == null)
+            {
+                Messages.Message($"{pawn.Name.ToStringShort} needs ability user component first", MessageTypeDefOf.RejectInput);
+                return;
+            }
+            
+            var abilityDef = DefDatabase<CultivationAbilityDef>.GetNamed("Ability_SwordStrike", false);
+            if (abilityDef != null)
+            {
+                comp.AddAbility(abilityDef);
+                Messages.Message($"Gave {abilityDef.abilityLabel} to {pawn.Name.ToStringShort}", MessageTypeDefOf.PositiveEvent);
+            }
+            else
+            {
+                Messages.Message("Could not find Ability_SwordStrike definition", MessageTypeDefOf.RejectInput);
+            }
+        }
+        
+        [DebugAction("Tu Tien", "Check Abilities", false, false, false, 0, false, 
+            actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void CheckAbilities(Pawn pawn)
+        {
+            var comp = pawn.GetComp<CompAbilityUser>();
+            if (comp == null)
+            {
+                Messages.Message($"{pawn.Name.ToStringShort} has no ability component", MessageTypeDefOf.NeutralEvent);
+                return;
+            }
+            
+            var abilities = comp.Abilities;
+            if (abilities.Any())
+            {
+                var abilityNames = string.Join(", ", abilities.Select(a => a.def.abilityLabel));
+                Messages.Message($"{pawn.Name.ToStringShort} has abilities: {abilityNames}", MessageTypeDefOf.PositiveEvent);
+            }
+            else
+            {
+                Messages.Message($"{pawn.Name.ToStringShort} has no abilities", MessageTypeDefOf.NeutralEvent);
+            }
+        }
+    }
+}
