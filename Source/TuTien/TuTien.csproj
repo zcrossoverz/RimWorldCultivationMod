@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputPath>..\..\1.5\Assemblies\</OutputPath>
+    <OutputPath>..\..\1.6\Assemblies\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
