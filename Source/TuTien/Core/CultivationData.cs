@@ -5,6 +5,7 @@ using Verse;
 using RimWorld;
 using UnityEngine;
 using TuTien.SkillWorkers;
+using TuTien.Core;
 
 namespace TuTien
 {
@@ -45,13 +46,76 @@ namespace TuTien
 
     public class CultivationData : IExposable
     {
-        public CultivationRealm currentRealm = CultivationRealm.Mortal;
-        public int currentStage = 1;
+        // Core cultivation properties with event triggers
+        private CultivationRealm _currentRealm = CultivationRealm.Mortal;
+        private int _currentStage = 1;
+        private float _currentQi = 0f;
+        private float _cultivationPoints = 0f;
+        
+        public CultivationRealm currentRealm 
+        { 
+            get => _currentRealm;
+            set
+            {
+                if (_currentRealm != value)
+                {
+                    var oldRealm = _currentRealm;
+                    _currentRealm = value;
+                    if (pawn != null)
+                        CultivationEvents.TriggerRealmChanged(pawn, oldRealm, _currentRealm);
+                }
+            }
+        }
+        
+        public int currentStage 
+        { 
+            get => _currentStage;
+            set
+            {
+                if (_currentStage != value)
+                {
+                    var oldStage = _currentStage;
+                    _currentStage = value;
+                    if (pawn != null)
+                        CultivationEvents.TriggerStageChanged(pawn, oldStage, _currentStage);
+                }
+            }
+        }
+        
+        public float currentQi 
+        { 
+            get => _currentQi;
+            set
+            {
+                if (Math.Abs(_currentQi - value) > 0.01f)
+                {
+                    var oldQi = _currentQi;
+                    _currentQi = Mathf.Clamp(value, 0, maxQi);
+                    if (pawn != null)
+                        CultivationEvents.TriggerQiChanged(pawn, oldQi, _currentQi);
+                }
+            }
+        }
+        
+        public float cultivationPoints 
+        { 
+            get => _cultivationPoints;
+            set
+            {
+                if (Math.Abs(_cultivationPoints - value) > 0.01f)
+                {
+                    var oldTuVi = _cultivationPoints;
+                    _cultivationPoints = Mathf.Max(0, value);
+                    if (pawn != null)
+                        CultivationEvents.TriggerTuViChanged(pawn, oldTuVi, _cultivationPoints);
+                }
+            }
+        }
+        
+        // Other properties remain as fields for now
         public TalentLevel talent = TalentLevel.Common;
-        public float currentQi = 0f;
         public float maxQi = 50f;
         public float qiRegenRate = 0.5f;
-        public float cultivationPoints = 0f;
         public int lastBreakthroughTick = -999999;
         public List<CultivationSkillDef> unlockedSkills = new List<CultivationSkillDef>();
         public List<CultivationTechniqueDef> knownTechniques = new List<CultivationTechniqueDef>();
@@ -850,13 +914,14 @@ namespace TuTien
 
         public void ExposeData()
         {
-            Scribe_Values.Look(ref currentRealm, "currentRealm", CultivationRealm.Mortal);
-            Scribe_Values.Look(ref currentStage, "currentStage", 1);
+            // Use backing fields for properties with event triggers
+            Scribe_Values.Look(ref _currentRealm, "currentRealm", CultivationRealm.Mortal);
+            Scribe_Values.Look(ref _currentStage, "currentStage", 1);
             Scribe_Values.Look(ref talent, "talent", TalentLevel.Common);
-            Scribe_Values.Look(ref currentQi, "currentQi", 0f);
+            Scribe_Values.Look(ref _currentQi, "currentQi", 0f);
             Scribe_Values.Look(ref maxQi, "maxQi", 50f);
             Scribe_Values.Look(ref qiRegenRate, "qiRegenRate", 0.5f);
-            Scribe_Values.Look(ref cultivationPoints, "cultivationPoints", 0f);
+            Scribe_Values.Look(ref _cultivationPoints, "cultivationPoints", 0f);
             Scribe_Values.Look(ref lastBreakthroughTick, "lastBreakthroughTick", -999999);
             Scribe_Collections.Look(ref unlockedSkills, "unlockedSkills", LookMode.Def);
             Scribe_Collections.Look(ref knownTechniques, "knownTechniques", LookMode.Def);
