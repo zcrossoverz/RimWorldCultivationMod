@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <!-- ✅ STEP 3.1: Sample Effect Definitions - Shows how easy it is to add new skills, buffs, debuffs -->
+    
+    <!-- Basic stat boost effects -->
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_IronBody</defName>
+        <label>Iron Body</label>
+        <description>Hardens the body through cultivation, increasing armor and reducing damage taken.</description>
+        <effectClass>StatModifier</effectClass>
+        <category>Defense</category>
+        <rarity>Uncommon</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Replace</stackMode>
+        
+        <!-- StatModifier properties -->
+        <statDef>ArmorRating_Blunt</statDef>
+        <value>0.25</value>
+        
+        <minRealmLevel>1</minRealmLevel>
+        <minStage>3</minStage>
+    </CultivationEffectDef>
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_SwiftSteps</defName>
+        <label>Swift Steps</label>
+        <description>Lightens the body through Qi manipulation, dramatically increasing movement speed.</description>
+        <effectClass>MovementEnhancement</effectClass>
+        <category>Movement</category>
+        <rarity>Common</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Max</stackMode>
+        
+        <!-- MovementEnhancement properties -->
+        <speedMultiplier>1.5</speedMultiplier>
+        <dodgeBonus>0.15</dodgeBonus>
+        
+        <minRealmLevel>0</minRealmLevel>
+        <minStage>2</minStage>
+    </CultivationEffectDef>
+    
+    <!-- Qi-based effects -->
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_QiExpansion</defName>
+        <label>Qi Sea Expansion</label>
+        <description>Expands the cultivator's Qi reserves, allowing for more energy storage and faster regeneration.</description>
+        <effectClass>QiModifier</effectClass>
+        <category>Qi</category>
+        <rarity>Rare</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Stack</stackMode>
+        
+        <!-- QiModifier properties -->
+        <maxQiModifier>50</maxQiModifier>
+        <qiRegenModifier>5</qiRegenModifier>
+        
+        <minRealmLevel>1</minRealmLevel>
+        <minStage>5</minStage>
+    </CultivationEffectDef>
+    
+    <!-- Combat special abilities -->
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_QiBlast</defName>
+        <label>Qi Burst Technique</label>
+        <description>Unleashes cultivation energy in combat, creating devastating explosions that damage nearby enemies.</description>
+        <effectClass>QiBurst</effectClass>
+        <category>Ability</category>
+        <rarity>Epic</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Replace</stackMode>
+        
+        <!-- QiBurst properties -->
+        <burstDamage>75</burstDamage>
+        <burstRadius>4</burstRadius>
+        <qiCost>30</qiCost>
+        <cooldownTicks>1800</cooldownTicks> <!-- 30 seconds -->
+        <triggerChance>0.15</triggerChance> <!-- 15% chance on taking damage -->
+        
+        <minRealmLevel>2</minRealmLevel>
+        <minStage>4</minStage>
+    </CultivationEffectDef>
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_CriticalStrike</defName>
+        <label>Piercing Strike</label>
+        <description>Focuses cultivation energy into precise attacks, dramatically increasing critical hit chance and damage.</description>
+        <effectClass>CriticalHit</effectClass>
+        <category>Combat</category>
+        <rarity>Rare</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Stack</stackMode>
+        
+        <!-- CriticalHit properties -->
+        <critChanceBonus>0.20</critChanceBonus> <!-- 20% additional crit chance -->
+        <critDamageMultiplier>2.0</critDamageMultiplier> <!-- 2x damage on crit -->
+        
+        <minRealmLevel>1</minRealmLevel>
+        <minStage>3</minStage>
+    </CultivationEffectDef>
+    
+    <!-- Support abilities -->
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_HealingAura</defName>
+        <label>Revitalizing Aura</label>
+        <description>Emanates healing energy, gradually restoring health to nearby allies.</description>
+        <effectClass>HealingAura</effectClass>
+        <category>Support</category>
+        <rarity>Epic</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Replace</stackMode>
+        
+        <!-- HealingAura properties -->
+        <healAmount>2</healAmount>
+        <auraRadius>6</auraRadius>
+        <healInterval>180</healInterval> <!-- 3 seconds -->
+        
+        <minRealmLevel>2</minRealmLevel>
+        <minStage>6</minStage>
+    </CultivationEffectDef>
+    
+    <!-- Resistance effects -->
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_FlameResistance</defName>
+        <label>Flame Immunity</label>
+        <description>Body tempered by cultivation fire, providing resistance to burn damage.</description>
+        <effectClass>DamageResistance</effectClass>
+        <category>Defense</category>
+        <rarity>Uncommon</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Max</stackMode>
+        
+        <!-- DamageResistance properties -->
+        <resistancePercent>0.40</resistancePercent> <!-- 40% burn resistance -->
+        <targetDamageType>Burn</targetDamageType>
+        
+        <minRealmLevel>1</minRealmLevel>
+        <minStage>4</minStage>
+    </CultivationEffectDef>
+    
+    <!-- Cultivation speed boosts -->
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_EnlightenedMind</defName>
+        <label>Enlightened Mind</label>
+        <description>Mental clarity achieved through meditation accelerates cultivation progress.</description>
+        <effectClass>CultivationSpeed</effectClass>
+        <category>Cultivation</category>
+        <rarity>Legendary</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Stack</stackMode>
+        
+        <!-- CultivationSpeed properties -->
+        <speedMultiplier>2.0</speedMultiplier> <!-- 100% faster cultivation -->
+        
+        <minRealmLevel>3</minRealmLevel>
+        <minStage>1</minStage>
+    </CultivationEffectDef>
+    
+    <!-- Temporary effects (for consumables, techniques, etc.) -->
+    
+    <CultivationEffectDef>
+        <defName>CultivationEffect_QiPill</defName>
+        <label>Qi Enhancement Pill</label>
+        <description>Temporary boost from consuming a cultivation pill.</description>
+        <effectClass>QiModifier</effectClass>
+        <category>Temporary</category>
+        <rarity>Common</rarity>
+        <magnitude>1</magnitude>
+        <duration>3600</duration> <!-- 1 minute -->
+        <stackMode>Stack</stackMode>
+        
+        <!-- QiModifier properties -->
+        <maxQiModifier>25</maxQiModifier>
+        <qiRegenModifier>10</qiRegenModifier>
+        
+        <minRealmLevel>0</minRealmLevel>
+        <minStage>1</minStage>
+    </CultivationEffectDef>
+
+</Defs>

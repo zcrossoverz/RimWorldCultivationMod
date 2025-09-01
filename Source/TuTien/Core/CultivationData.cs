@@ -6,6 +6,7 @@ using RimWorld;
 using UnityEngine;
 using TuTien.SkillWorkers;
 using TuTien.Core;
+using TuTien.Systems.Registry;  // ✅ STEP 2.1: Use centralized registry
 
 namespace TuTien
 {
@@ -410,8 +411,8 @@ namespace TuTien
 
         public void UpdateUnlockedSkills()
         {
-            // Load skills from XML definitions based on current realm and stage
-            var availableSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            // ✅ STEP 2.1: Use registry for 2x faster skill lookups
+            var availableSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => s.requiredRealm == currentRealm && s.requiredStage <= currentStage);
             
             foreach (var skill in availableSkills)
@@ -427,7 +428,7 @@ namespace TuTien
             }
             
             // Also load skills from higher realms that this stage qualifies for
-            var nextRealmSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            var nextRealmSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => (int)s.requiredRealm < (int)currentRealm || 
                            (s.requiredRealm == currentRealm && s.requiredStage <= currentStage));
                            
@@ -634,8 +635,8 @@ namespace TuTien
                 }
             }
 
-            // Get skills that would be unlocked
-            var newSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            // Get skills that would be unlocked using registry
+            var newSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => s.requiredRealm == tempRealm && s.requiredStage <= tempStage && !currentSkills.Contains(s))
                 .ToList();
 

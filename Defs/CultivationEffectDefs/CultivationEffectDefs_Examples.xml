@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <!-- ✅ DEMONSTRATION: Super Easy Effect Creation! 
+         Just add XML - no C# coding required!
+         This shows the "dễ scale, dễ add skill mới, add thuộc tính, buff debuff" capability -->
+    
+    <!-- 🎯 New Stat Boost - Just define stat and value! -->
+    <CultivationEffectDef>
+        <defName>CultivationEffect_SuperStrength</defName>
+        <label>Cultivation Super Strength</label>
+        <description>Massively increases melee damage through cultivation power.</description>
+        <effectClass>StatModifier</effectClass>
+        <category>Combat</category>
+        <rarity>Epic</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Stack</stackMode>
+        
+        <!-- Just set the stat and value - that's it! -->
+        <statDef>MeleeDamageFactor</statDef>
+        <value>0.75</value> <!-- +75% melee damage -->
+        
+        <minRealmLevel>2</minRealmLevel>
+        <minStage>1</minStage>
+    </CultivationEffectDef>
+    
+    <!-- 🚀 New Movement Enhancement - Super easy! -->
+    <CultivationEffectDef>
+        <defName>CultivationEffect_LightningSteps</defName>
+        <label>Lightning Steps Technique</label>
+        <description>Move like lightning itself through advanced cultivation.</description>
+        <effectClass>MovementEnhancement</effectClass>
+        <category>Movement</category>
+        <rarity>Legendary</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Replace</stackMode>
+        
+        <!-- Set speed and dodge - done! -->
+        <speedMultiplier>2.5</speedMultiplier> <!-- 150% faster! -->
+        <dodgeBonus>0.30</dodgeBonus> <!-- 30% dodge -->
+        
+        <minRealmLevel>3</minRealmLevel>
+        <minStage>1</minStage>
+    </CultivationEffectDef>
+    
+    <!-- ⚡ New Qi Enhancement - Just set the values! -->
+    <CultivationEffectDef>
+        <defName>CultivationEffect_QiMastery</defName>
+        <label>Qi Mastery</label>
+        <description>Perfect control over Qi flow increases capacity and regeneration dramatically.</description>
+        <effectClass>QiModifier</effectClass>
+        <category>Qi</category>
+        <rarity>Divine</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Stack</stackMode>
+        
+        <!-- Set Qi properties - easy! -->
+        <maxQiModifier>200</maxQiModifier> <!-- +200 max Qi -->
+        <qiRegenModifier>25</qiRegenModifier> <!-- +25 Qi regen -->
+        
+        <minRealmLevel>4</minRealmLevel>
+        <minStage>1</minStage>
+    </CultivationEffectDef>
+    
+    <!-- 🔥 New Damage Resistance - One-liner setup! -->
+    <CultivationEffectDef>
+        <defName>CultivationEffect_IceImmunity</defName>
+        <label>Absolute Zero Immunity</label>
+        <description>Complete immunity to cold damage through cultivation of inner fire.</description>
+        <effectClass>DamageResistance</effectClass>
+        <category>Defense</category>
+        <rarity>Epic</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Max</stackMode>
+        
+        <!-- Just set resistance percentage - done! -->
+        <resistancePercent>1.0</resistancePercent> <!-- 100% cold immunity -->
+        
+        <minRealmLevel>2</minRealmLevel>
+        <minStage>5</minStage>
+    </CultivationEffectDef>
+    
+    <!-- 💊 New Temporary Buff - For pills/consumables! -->
+    <CultivationEffectDef>
+        <defName>CultivationEffect_TemporaryBeast</defName>
+        <label>Temporary Beast Transformation</label>
+        <description>Temporarily transforms the user into a cultivation beast with massive power boost.</description>
+        <effectClass>StatModifier</effectClass>
+        <category>Temporary</category>
+        <rarity>Legendary</rarity>
+        <magnitude>1</magnitude>
+        <duration>1800</duration> <!-- 30 seconds -->
+        <stackMode>Replace</stackMode>
+        
+        <!-- Multiple stat boosts possible -->
+        <statDef>MeleeDamageFactor</statDef>
+        <value>2.0</value> <!-- +200% damage for 30 seconds! -->
+        
+        <minRealmLevel>1</minRealmLevel>
+        <minStage>1</minStage>
+    </CultivationEffectDef>
+    
+    <!-- 🎯 New Critical Hit Enhancement - Simple config! -->
+    <CultivationEffectDef>
+        <defName>CultivationEffect_DeadlyPrecision</defName>
+        <label>Deadly Precision</label>
+        <description>Pinpoint accuracy combined with lethal force - every strike has a chance to be devastating.</description>
+        <effectClass>CriticalHit</effectClass>
+        <category>Combat</category>
+        <rarity>Epic</rarity>
+        <magnitude>1</magnitude>
+        <duration>-1</duration>
+        <stackMode>Stack</stackMode>
+        
+        <!-- Set crit properties - that's it! -->
+        <critChanceBonus>0.35</critChanceBonus> <!-- 35% crit chance -->
+        <critDamageMultiplier>3.0</critDamageMultiplier> <!-- 3x damage on crit -->
+        
+        <minRealmLevel>2</minRealmLevel>
+        <minStage>3</minStage>
+    </CultivationEffectDef>
+
+</Defs>

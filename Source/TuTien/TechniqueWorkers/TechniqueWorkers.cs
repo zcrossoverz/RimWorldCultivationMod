@@ -1,6 +1,8 @@
 using System.Linq;
 using Verse;
 using RimWorld;
+using TuTien.Core;
+using TuTien.Systems.Registry;
 
 namespace TuTien.TechniqueWorkers
 {
@@ -8,19 +10,17 @@ namespace TuTien.TechniqueWorkers
     {
         public override void Apply(Pawn pawn, CultivationTechniqueDef technique)
         {
-            // Grant sword qi related skills
-            var comp = pawn.GetComp<CultivationComp>();
-            var data = comp?.cultivationData;
+            var comp = pawn.GetComp<CultivationCompEnhanced>();
+            var data = comp?.EnhancedData;
             if (data == null) return;
 
-            // Add technique-specific skills
-            var swordSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            var swordSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => s.defName.Contains("SwordQi"));
             
             foreach (var skill in swordSkills)
             {
-                if (!data.unlockedSkills.Contains(skill))
-                    data.unlockedSkills.Add(skill);
+                if (!data.HasSkill(skill))
+                    data.AddSkill(skill);
             }
         }
     }
@@ -29,17 +29,17 @@ namespace TuTien.TechniqueWorkers
     {
         public override void Apply(Pawn pawn, CultivationTechniqueDef technique)
         {
-            var comp = pawn.GetComp<CultivationComp>();
-            var data = comp?.cultivationData;
+            var comp = pawn.GetComp<CultivationCompEnhanced>();
+            var data = comp?.EnhancedData;
             if (data == null) return;
 
-            var lightningSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            var lightningSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => s.defName.Contains("Lightning"));
             
             foreach (var skill in lightningSkills)
             {
-                if (!data.unlockedSkills.Contains(skill))
-                    data.unlockedSkills.Add(skill);
+                if (!data.HasSkill(skill))
+                    data.AddSkill(skill);
             }
         }
     }
@@ -48,17 +48,17 @@ namespace TuTien.TechniqueWorkers
     {
         public override void Apply(Pawn pawn, CultivationTechniqueDef technique)
         {
-            var comp = pawn.GetComp<CultivationComp>();
-            var data = comp?.cultivationData;
+            var comp = pawn.GetComp<CultivationCompEnhanced>();
+            var data = comp?.EnhancedData;
             if (data == null) return;
 
-            var fireSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            var fireSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => s.defName.Contains("Fire"));
             
             foreach (var skill in fireSkills)
             {
-                if (!data.unlockedSkills.Contains(skill))
-                    data.unlockedSkills.Add(skill);
+                if (!data.HasSkill(skill))
+                    data.AddSkill(skill);
             }
         }
     }
@@ -67,17 +67,17 @@ namespace TuTien.TechniqueWorkers
     {
         public override void Apply(Pawn pawn, CultivationTechniqueDef technique)
         {
-            var comp = pawn.GetComp<CultivationComp>();
-            var data = comp?.cultivationData;
+            var comp = pawn.GetComp<CultivationCompEnhanced>();
+            var data = comp?.EnhancedData;
             if (data == null) return;
 
-            var iceSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            var iceSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => s.defName.Contains("Ice"));
             
             foreach (var skill in iceSkills)
             {
-                if (!data.unlockedSkills.Contains(skill))
-                    data.unlockedSkills.Add(skill);
+                if (!data.HasSkill(skill))
+                    data.AddSkill(skill);
             }
         }
     }
@@ -86,17 +86,17 @@ namespace TuTien.TechniqueWorkers
     {
         public override void Apply(Pawn pawn, CultivationTechniqueDef technique)
         {
-            var comp = pawn.GetComp<CultivationComp>();
-            var data = comp?.cultivationData;
+            var comp = pawn.GetComp<CultivationCompEnhanced>();
+            var data = comp?.EnhancedData;
             if (data == null) return;
 
-            var earthSkills = DefDatabase<CultivationSkillDef>.AllDefs
+            var earthSkills = CultivationRegistry.AllSkillDefs
                 .Where(s => s.defName.Contains("Earth"));
             
             foreach (var skill in earthSkills)
             {
-                if (!data.unlockedSkills.Contains(skill))
-                    data.unlockedSkills.Add(skill);
+                if (!data.HasSkill(skill))
+                    data.AddSkill(skill);
             }
         }
     }
