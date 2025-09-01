@@ -7,7 +7,7 @@ using TuTien;
 
 /// <summary>
 /// Instance of a cultivation ability that can be cast
-/// Global namespace for easy access
+/// With proper cooldown visual like technique skills
 /// </summary>
 public class CultivationAbility
 {
@@ -21,6 +21,8 @@ public class CultivationAbility
     }
 
     public bool CanCast => comp.CanCastAbility(def);
+
+    public int CooldownRemaining => comp.GetCooldownRemaining(def.defName);
 
     public void TryCast(LocalTargetInfo target)
     {
@@ -100,11 +102,12 @@ public class CultivationAbility
     {
         if (def.category == "Combat")
         {
-            // Combat abilities use targeting
-            return new Command_Target
+            // Combat abilities use targeting with cooldown
+            return new Command_CastAbilityWithCooldown
             {
+                ability = this,
                 defaultLabel = def.abilityLabel ?? def.label,
-                defaultDesc = $"{def.abilityDescription ?? def.description}\n\nQi Cost: {def.qiCost}\nCooldown: {def.cooldownTicks} ticks",
+                defaultDesc = GetAbilityDescription(),
                 icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
                 targetingParams = new TargetingParameters
                 {
@@ -118,15 +121,23 @@ public class CultivationAbility
         }
         else
         {
-            // Support abilities self-cast
-            return new Command_Action
+            // Support abilities self-cast with cooldown
+            return new Command_CastAbilityWithCooldown
             {
+                ability = this,
                 defaultLabel = def.abilityLabel ?? def.label,
-                defaultDesc = $"{def.abilityDescription ?? def.description}\n\nQi Cost: {def.qiCost}\nCooldown: {def.cooldownTicks} ticks",
+                defaultDesc = GetAbilityDescription(),
                 icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
-                action = () => TryCastSimple()
+                selfCastAction = () => TryCastSimple()
             };
         }
+    }
+
+    private string GetAbilityDescription()
+    {
+        var desc = def.abilityDescription ?? def.description;
+        var cooldownText = CooldownRemaining > 0 ? $"\n\nCooldown: {CooldownRemaining} ticks remaining" : "";
+        return $"{desc}\n\nQi Cost: {def.qiCost}{cooldownText}";
     }
 
     private void TryCastSimple()
@@ -137,10 +148,77 @@ public class CultivationAbility
             return;
         }
 
-        // Cast on self for now (simple implementation)
+        // Cast on self
         if (comp.parent is Pawn caster)
         {
             TryCast(new LocalTargetInfo(caster));
         }
+    }
+}
+
+/// <summary>
+/// Custom command class with cooldown visual like technique skills
+/// </summary>
+public class Command_CastAbilityWithCooldown : Command_Target
+{
+    public CultivationAbility ability;
+    public System.Action selfCastAction;
+
+    public override void ProcessInput(Event ev)
+    {
+        if (selfCastAction != null)
+        {
+            // Self-cast ability
+            selfCastAction.Invoke();
+        }
+        else
+        {
+            // Targeted ability
+            base.ProcessInput(ev);
+        }
+    }
+
+    public override bool InheritInteractionsFrom(Gizmo other)
+    {
+        return false;
+    }
+
+    public override void GizmoUpdateOnMouseover()
+    {
+        base.GizmoUpdateOnMouseover();
+    }
+
+    public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
+    {
+        var result = base.GizmoOnGUI(topLeft, maxWidth, parms);
+        
+        // Draw cooldown overlay like technique skills
+        if (ability.CooldownRemaining > 0)
+        {
+            var rect = new Rect(topLeft.x, topLeft.y, 75f, 75f);
+            var progress = 1f - (float)ability.CooldownRemaining / ability.def.cooldownTicks;
+            
+            // Draw cooldown overlay
+            GUI.color = new Color(1f, 1f, 1f, 0.6f);
+            Widgets.DrawTextureFitted(rect, BaseContent.GreyTex, progress);
+            GUI.color = Color.white;
+            
+            // Draw cooldown text
+            var cooldownText = (ability.CooldownRemaining / 60f).ToString("F1") + "s";
+            var textRect = new Rect(rect.x, rect.y + rect.height - 20f, rect.width, 20f);
+            Text.Font = GameFont.Tiny;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(textRect, cooldownText);
+            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
+        }
+        
+        // Disable if can't cast
+        if (!ability.CanCast)
+        {
+            GUI.color = new Color(1f, 1f, 1f, 0.4f);
+        }
+        
+        return result;
     }
 }

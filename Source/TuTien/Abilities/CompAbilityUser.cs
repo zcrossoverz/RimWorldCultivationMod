@@ -86,6 +86,11 @@ namespace TuTien.Abilities
             cooldowns[abilityDef.defName] = abilityDef.cooldownTicks;
         }
 
+        public int GetCooldownRemaining(string abilityDefName)
+        {
+            return cooldowns.ContainsKey(abilityDefName) ? cooldowns[abilityDefName] : 0;
+        }
+
         public override void PostExposeData()
         {
             base.PostExposeData();
