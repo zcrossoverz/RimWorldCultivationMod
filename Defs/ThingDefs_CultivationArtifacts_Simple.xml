@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- ✅ ULTRA-SIMPLE Artifact ThingDefs for Testing (No ModExtensions) -->
+  
+  <!-- Simple Iron Sword -->
+  <ThingDef ParentName="BaseWeapon">
+    <defName>TuTien_TestSword</defName>
+    <label>simple cultivation sword</label>
+    <description>A basic cultivation sword for testing. A sharp blade infused with cultivation energy.</description>
+    
+    <!-- Removed custom thingClass and modExtensions to prevent crashes -->
+    <!--
+    <thingClass>TuTien.Items.CultivationArtifactThing</thingClass>
+    
+    <modExtensions>
+      <li Class="CultivationArtifactModExtension">
+        <artifactDef>CultivationArtifact_IronSword</artifactDef>
+      </li>
+    </modExtensions>
+    -->
+    
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponMelee/Longsword</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.8, 0.9, 1.0)</color>
+    </graphicData>
+    
+    <colorGenerator Class="ColorGenerator_Options">
+      <options>
+        <li>
+          <weight>10</weight>
+          <only>(0.8, 0.9, 1.0)</only>
+        </li>
+        <li>
+          <weight>5</weight>
+          <only>(0.9, 1.0, 0.8)</only>
+        </li>
+        <li>
+          <weight>5</weight>
+          <only>(1.0, 0.8, 0.9)</only>
+        </li>
+      </options>
+    </colorGenerator>
+    <techLevel>Medieval</techLevel>
+    <weaponTags>
+      <li>MedievalMeleeAdvanced</li>
+    </weaponTags>
+    <weaponClasses>
+      <li>Melee</li>
+    </weaponClasses>
+    
+    <statBases>
+      <WorkToMake>12000</WorkToMake>
+      <Mass>1.8</Mass>
+      <MarketValue>800</MarketValue>
+      <MaxHitPoints>100</MaxHitPoints>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+    
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+      <li>
+        <label>blade</label>
+        <capacities>
+          <li>Cut</li>
+        </capacities>
+        <power>16</power>
+        <cooldownTime>2.6</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+  <!-- Simple Cloth Robe -->
+  <ThingDef ParentName="ApparelBase">
+    <defName>TuTien_TestRobe</defName>
+    <label>simple cultivation robe</label>
+    <description>A basic cultivation robe for testing. Provides basic protection and comfort.</description>
+    
+    <!-- Removed custom thingClass and modExtensions to prevent crashes -->
+    <!--
+    <thingClass>TuTien.Items.CultivationArtifactThing</thingClass>
+    
+    <modExtensions>
+      <li Class="CultivationArtifactModExtension">
+        <artifactDef>CultivationArtifact_ClothRobe</artifactDef>
+      </li>
+    </modExtensions>
+    -->
+    
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.9, 0.8, 1.0)</color>
+    </graphicData>
+    
+    <costList>
+      <Cloth>50</Cloth>
+    </costList>
+    
+    <smeltProducts>
+      <Cloth>25</Cloth>
+    </smeltProducts>
+    
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Arms</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</wornGraphicPath>
+      <layers>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>IndustrialBasic</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Worker</li>
+      </defaultOutfitTags>
+    </apparel>
+    
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>0.5</Mass>
+      <MarketValue>200</MarketValue>
+      <WorkToMake>3000</WorkToMake>
+      <ArmorRating_Sharp>0.05</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.05</ArmorRating_Blunt>
+      <Insulation_Cold>8</Insulation_Cold>
+      <EquipDelay>1.5</EquipDelay>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+  </ThingDef>
+
+  <!-- Simple Spirit Staff -->
+  <ThingDef ParentName="BaseWeapon">
+    <defName>TuTien_TestStaff</defName>
+    <label>simple spirit staff</label>
+    <description>A basic spirit staff for testing cultivation artifacts. A sturdy wooden staff imbued with spiritual energy.</description>
+    
+    <!-- Removed custom thingClass and modExtensions to prevent crashes -->
+    <!--
+    <thingClass>TuTien.Items.CultivationArtifactThing</thingClass>
+    
+    <modExtensions>
+      <li Class="CultivationArtifactModExtension">
+        <artifactDef>CultivationArtifact_SpiritBow</artifactDef>
+      </li>
+    </modExtensions>
+    -->
+    
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponMelee/Mace</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(1.0, 0.9, 0.8)</color>
+    </graphicData>
+    <techLevel>Medieval</techLevel>
+    <weaponTags>
+      <li>MedievalMeleeAdvanced</li>
+    </weaponTags>
+    <weaponClasses>
+      <li>Melee</li>
+    </weaponClasses>
+    
+    <statBases>
+      <WorkToMake>6000</WorkToMake>
+      <Mass>1.5</Mass>
+      <MarketValue>500</MarketValue>
+      <MaxHitPoints>100</MaxHitPoints>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+    
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>2.2</cooldownTime>
+      </li>
+      <li>
+        <label>head</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>14</power>
+        <cooldownTime>2.8</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+  
+</Defs>

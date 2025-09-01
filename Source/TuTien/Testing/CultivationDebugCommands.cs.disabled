@@ -1,0 +1,56 @@
+using Verse;
+using RimWorld;
+using UnityEngine;
+
+namespace TuTien.Testing
+{
+    /// <summary>
+    /// Debug commands for testing cultivation abilities
+    /// </summary>
+    public static class CultivationDebugCommands
+    {
+        [DebugAction("Tu Tiên", "Add 50 Qi to selected pawn", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void AddQi(Pawn pawn)
+        {
+            if (pawn?.GetComp<CultivationComp>()?.cultivationData != null)
+            {
+                var data = pawn.GetComp<CultivationComp>().cultivationData;
+                data.currentQi += 50f;
+                Messages.Message($"Added 50 Qi to {pawn.Name.ToStringShort}. Current: {data.currentQi:F1}/{data.maxQi:F1}", MessageTypeDefOf.NeutralEvent);
+            }
+        }
+
+        [DebugAction("Tu Tiên", "Show pawn cultivation info", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void ShowCultivationInfo(Pawn pawn)
+        {
+            var cultivationComp = pawn?.GetComp<CultivationComp>();
+            var abilityComp = pawn?.GetComp<TuTien.Abilities.CompAbilityUser>();
+            
+            if (cultivationComp?.cultivationData != null)
+            {
+                var data = cultivationComp.cultivationData;
+                Log.Message($"[Debug] {pawn.Name.ToStringShort}: Qi {data.currentQi:F1}/{data.maxQi:F1}, Realm: {data.currentRealm}, Stage: {data.currentStage}");
+            }
+            
+            if (abilityComp?.Abilities != null)
+            {
+                Log.Message($"[Debug] {pawn.Name.ToStringShort} has {abilityComp.Abilities.Count} abilities: {string.Join(", ", abilityComp.Abilities.Select(a => a.def.defName))}");
+            }
+            else
+            {
+                Log.Message($"[Debug] {pawn.Name.ToStringShort} has no CompAbilityUser or no abilities");
+            }
+        }
+
+        [DebugAction("Tu Tiên", "Force Qi regeneration", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void ForceQiRegen(Pawn pawn)
+        {
+            if (pawn?.GetComp<CultivationComp>()?.cultivationData != null)
+            {
+                var data = pawn.GetComp<CultivationComp>().cultivationData;
+                data.RegenerateQi(); // Force call the regen method
+                Messages.Message($"Forced Qi regen for {pawn.Name.ToStringShort}. Current: {data.currentQi:F1}/{data.maxQi:F1}", MessageTypeDefOf.NeutralEvent);
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+using Verse;
+using RimWorld;
+
+namespace TuTien.Testing
+{
+    /// <summary>
+    /// Simple debug command to add Qi for testing
+    /// </summary>
+    public static class QiDebugCommands
+    {
+        [DebugAction("Tu Tiên", "Add 100 Qi", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void AddQiToPawn(Pawn pawn)
+        {
+            var comp = pawn?.GetComp<CultivationComp>();
+            if (comp?.cultivationData != null)
+            {
+                comp.cultivationData.currentQi += 100f;
+                Messages.Message($"Added 100 Qi to {pawn.Name.ToStringShort}. Current: {comp.cultivationData.currentQi:F1}/{comp.cultivationData.maxQi:F1}", MessageTypeDefOf.PositiveEvent);
+            }
+            else
+            {
+                Messages.Message($"{pawn.Name.ToStringShort} has no cultivation data!", MessageTypeDefOf.RejectInput);
+            }
+        }
+        
+        [DebugAction("Tu Tiên", "Show abilities", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void ShowAbilities(Pawn pawn)
+        {
+            var abilityComp = pawn?.GetComp<TuTien.Abilities.CompAbilityUser>();
+            if (abilityComp?.Abilities != null && abilityComp.Abilities.Count > 0)
+            {
+                var abilityList = string.Join(", ", abilityComp.Abilities.Select(a => a.def.abilityLabel ?? a.def.label));
+                Messages.Message($"{pawn.Name.ToStringShort} abilities: {abilityList}", MessageTypeDefOf.NeutralEvent);
+            }
+            else
+            {
+                Messages.Message($"{pawn.Name.ToStringShort} has no abilities or CompAbilityUser!", MessageTypeDefOf.RejectInput);
+            }
+        }
+    }
+}

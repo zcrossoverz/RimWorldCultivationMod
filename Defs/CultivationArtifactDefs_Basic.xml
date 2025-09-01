@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- ✅ Task: Sample Artifact Definitions for Testing -->
+  
+  <!-- Common Tier Artifacts -->
+  <CultivationArtifactDef>
+    <defName>CultivationArtifact_IronSword</defName>
+    <label>Iron Cultivation Sword</label>
+    <description>A basic iron sword infused with cultivation energy. Provides modest combat bonuses and auto-attacks nearby enemies.</description>
+    
+    <rarity>Common</rarity>
+    <artifactType>Sword</artifactType>
+    <requiredRealmLevel>0</requiredRealmLevel>
+    <requiredStage>1</requiredStage>
+    <equipmentType>Primary</equipmentType>
+    
+    <!-- ELO & Stat Ranges for Common Sword -->
+    <eloRange><min>100</min><max>200</max></eloRange>
+    <damageRange><min>15</min><max>25</max></damageRange>
+    <qiPoolRange><min>50</min><max>80</max></qiPoolRange>
+    <rangeMultiplier><min>0.8</min><max>1.0</max></rangeMultiplier>
+    <accuracyRange><min>0.70</min><max>0.80</max></accuracyRange>
+    <cooldownRange><min>150</min><max>210</max></cooldownRange>
+    
+    <!-- Auto-behaviors -->
+    <hasAutoAttack>true</hasAutoAttack>
+    <detectionRadius>10</detectionRadius>
+    <qiAbsorptionRate>1.0</qiAbsorptionRate>
+    <qiEfficiency>1.0</qiEfficiency>
+    
+    <!-- Buff generation -->
+    <buffCountRange><min>1</min><max>2</max></buffCountRange>
+    <primaryBuffCategories>
+      <li>Combat</li>
+    </primaryBuffCategories>
+    <secondaryBuffCategories>
+      <li>Cultivation</li>
+    </secondaryBuffCategories>
+  </CultivationArtifactDef>
+
+  <CultivationArtifactDef>
+    <defName>CultivationArtifact_ClothRobe</defName>
+    <label>Cloth Cultivation Robe</label>
+    <description>Simple robes enhanced with basic cultivation arrays. Improves Qi flow and provides minor defensive bonuses.</description>
+    
+    <rarity>Common</rarity>
+    <artifactType>Robe</artifactType>
+    <requiredRealmLevel>0</requiredRealmLevel>
+    <requiredStage>1</requiredStage>
+    <equipmentType>Apparel</equipmentType>
+    
+    <!-- Common Robe Stats -->
+    <eloRange><min>100</min><max>200</max></eloRange>
+    <damageRange><min>0</min><max>0</max></damageRange> <!-- No combat damage -->
+    <qiPoolRange><min>30</min><max>60</max></qiPoolRange>
+    <rangeMultiplier><min>1.0</min><max>1.0</max></rangeMultiplier>
+    <accuracyRange><min>1.0</min><max>1.0</max></accuracyRange>
+    <cooldownRange><min>300</min><max>300</max></cooldownRange>
+    
+    <!-- Passive behaviors -->
+    <hasAutoAttack>false</hasAutoAttack>
+    <detectionRadius>0</detectionRadius>
+    <qiAbsorptionRate>0.5</qiAbsorptionRate>
+    <qiEfficiency>1.2</qiEfficiency>
+    
+    <!-- Qi-focused buffs -->
+    <buffCountRange><min>1</min><max>2</max></buffCountRange>
+    <primaryBuffCategories>
+      <li>Cultivation</li>
+      <li>Defense</li>
+    </primaryBuffCategories>
+  </CultivationArtifactDef>
+
+  <!-- Rare Tier Artifacts -->
+  <CultivationArtifactDef>
+    <defName>CultivationArtifact_SpiritBow</defName>
+    <label>Spirit Hunter Bow</label>
+    <description>An elegant bow crafted from spirit wood. Fires Qi-infused arrows that seek their targets with supernatural accuracy.</description>
+    
+    <rarity>Rare</rarity>
+    <artifactType>Bow</artifactType>
+    <requiredRealmLevel>1</requiredRealmLevel>
+    <requiredStage>3</requiredStage>
+    <equipmentType>Primary</equipmentType>
+    
+    <!-- Rare Bow Stats -->
+    <eloRange><min>280</min><max>480</max></eloRange>
+    <damageRange><min>25</min><max>45</max></damageRange>
+    <qiPoolRange><min>100</min><max>180</max></qiPoolRange>
+    <rangeMultiplier><min>1.2</min><max>1.6</max></rangeMultiplier>
+    <accuracyRange><min>0.85</min><max>0.95</max></accuracyRange>
+    <cooldownRange><min>90</min><max>150</max></cooldownRange>
+    
+    <!-- Advanced auto-behaviors -->
+    <hasAutoAttack>true</hasAutoAttack>
+    <detectionRadius>18</detectionRadius>
+    <qiAbsorptionRate>1.5</qiAbsorptionRate>
+    <qiEfficiency>0.8</qiEfficiency>
+    
+    <!-- Auto-cast skills -->
+    <autoSkills>
+      <li>SpiritArrow</li>
+      <li>PiercingShot</li>
+    </autoSkills>
+    
+    <!-- Enhanced buff generation -->
+    <buffCountRange><min>3</min><max>4</max></buffCountRange>
+    <primaryBuffCategories>
+      <li>Combat</li>
+      <li>Perception</li>
+    </primaryBuffCategories>
+    <secondaryBuffCategories>
+      <li>Movement</li>
+      <li>Cultivation</li>
+    </secondaryBuffCategories>
+  </CultivationArtifactDef>
+
+  <!-- Epic Tier Artifact -->
+  <CultivationArtifactDef>
+    <defName>CultivationArtifact_DragonCrown</defName>
+    <label>Crown of the Thunder Dragon</label>
+    <description>A majestic crown bearing the essence of an ancient thunder dragon. Grants incredible cultivation bonuses and the ability to call down lightning.</description>
+    
+    <rarity>Epic</rarity>
+    <artifactType>Crown</artifactType>
+    <requiredRealmLevel>2</requiredRealmLevel>
+    <requiredStage>5</requiredStage>
+    <equipmentType>Apparel</equipmentType>
+    
+    <!-- Epic Crown Stats -->
+    <eloRange><min>420</min><max>680</max></eloRange>
+    <damageRange><min>0</min><max>0</max></damageRange> <!-- No direct combat -->
+    <qiPoolRange><min>200</min><max>350</max></qiPoolRange>
+    <rangeMultiplier><min>1.0</min><max>1.0</max></rangeMultiplier>
+    <accuracyRange><min>1.0</min><max>1.0</max></accuracyRange>
+    <cooldownRange><min>600</min><max>900</max></cooldownRange>
+    
+    <!-- Aura & special abilities -->
+    <hasAutoAttack>false</hasAutoAttack>
+    <detectionRadius>25</detectionRadius>
+    <qiAbsorptionRate>2.5</qiAbsorptionRate>
+    <qiEfficiency>0.6</qiEfficiency>
+    
+    <!-- Legendary auto-skills -->
+    <autoSkills>
+      <li>LightningStrike</li>
+      <li>CultivationAura</li>
+      <li>DragonRoar</li>
+    </autoSkills>
+    
+    <!-- High-tier buff generation -->
+    <buffCountRange><min>4</min><max>6</max></buffCountRange>
+    <primaryBuffCategories>
+      <li>Cultivation</li>
+      <li>Aura</li>
+      <li>Lightning</li>
+    </primaryBuffCategories>
+    <secondaryBuffCategories>
+      <li>Social</li>
+      <li>Mental</li>
+    </secondaryBuffCategories>
+  </CultivationArtifactDef>
+
+  <!-- Legendary Tier Artifact -->
+  <CultivationArtifactDef>
+    <defName>CultivationArtifact_ImmortalTalisman</defName>
+    <label>Talisman of Immortal Essence</label>
+    <description>A mysterious talisman containing fragments of immortal qi. Provides immense bonuses to cultivation and grants near-divine abilities.</description>
+    
+    <rarity>Legendary</rarity>
+    <artifactType>Talisman</artifactType>
+    <requiredRealmLevel>3</requiredRealmLevel>
+    <requiredStage>7</requiredStage>
+    <equipmentType>Apparel</equipmentType>
+    
+    <!-- Legendary Talisman Stats -->
+    <eloRange><min>600</min><max>900</max></eloRange>
+    <damageRange><min>0</min><max>0</max></damageRange> <!-- Pure support artifact -->
+    <qiPoolRange><min>300</min><max>500</max></qiPoolRange>
+    <rangeMultiplier><min>1.0</min><max>1.0</max></rangeMultiplier>
+    <accuracyRange><min>1.0</min><max>1.0</max></accuracyRange>
+    <cooldownRange><min>1200</min><max>1800</max></cooldownRange>
+    
+    <!-- Godlike passive abilities -->
+    <hasAutoAttack>false</hasAutoAttack>
+    <detectionRadius>35</detectionRadius>
+    <qiAbsorptionRate>4.0</qiAbsorptionRate>
+    <qiEfficiency>0.4</qiEfficiency>
+    
+    <!-- Multiple powerful auto-skills -->
+    <autoSkills>
+      <li>ImmortalBarrier</li>
+      <li>QiStorm</li>
+      <li>TimeDialation</li>
+      <li>MassHealing</li>
+    </autoSkills>
+    
+    <!-- Maximum buff generation -->
+    <buffCountRange><min>6</min><max>8</max></buffCountRange>
+    <primaryBuffCategories>
+      <li>Cultivation</li>
+      <li>Aura</li>
+      <li>Transcendent</li>
+    </primaryBuffCategories>
+    <secondaryBuffCategories>
+      <li>All</li>
+    </secondaryBuffCategories>
+  </CultivationArtifactDef>
+</Defs>

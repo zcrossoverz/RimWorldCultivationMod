@@ -1,0 +1,53 @@
+using Verse;
+using RimWorld;
+
+namespace TuTien.Testing
+{
+    /// <summary>
+    /// ✅ Ultra-Simple Debug Commands
+    /// </summary>
+    public static class SimpleDebugCommands
+    {
+        [DebugAction("Tu Tiên", "Emergency Test")]
+        public static void DoEmergencyTest()
+        {
+            EmergencyTest.TestBasicSpawning();
+        }
+        
+        [DebugAction("Tu Tiên", "Spawn Simple Sword")]
+        public static void SpawnSimpleSword()
+        {
+            var map = Find.CurrentMap;
+            if (map == null)
+            {
+                Log.Warning("[TuTien] No map available");
+                return;
+            }
+            
+            var swordDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleIronSword", false);
+            if (swordDef != null)
+            {
+                var sword = ThingMaker.MakeThing(swordDef);
+                GenPlace.TryPlaceThing(sword, map.Center, map, ThingPlaceMode.Near);
+                Log.Message("[TuTien] Spawned simple sword");
+            }
+            else
+            {
+                Log.Error("[TuTien] Simple sword ThingDef not found");
+            }
+        }
+        
+        [DebugAction("Tu Tiên", "List All Artifacts")]
+        public static void ListAllArtifacts()
+        {
+            Log.Message("[TuTien] Listing all artifacts:");
+            var count = 0;
+            foreach (var def in DefDatabase<CultivationArtifactDef>.AllDefs)
+            {
+                count++;
+                Log.Message($"[TuTien] {count}. {def.defName}: {def.label} ({def.rarity})");
+            }
+            Log.Message($"[TuTien] Total: {count} artifacts");
+        }
+    }
+}

@@ -39,6 +39,12 @@ namespace TuTien.Systems.Registry
         private static Dictionary<string, CultivationEffectDef> _effectDefsCache;
         private static Dictionary<string, List<CultivationEffectDef>> _effectsByCategory;
 
+        // ✅ Task 1.2: Artifact definitions cache
+        private static Dictionary<string, CultivationArtifactDef> _artifactDefsCache;
+        private static Dictionary<ArtifactRarity, List<CultivationArtifactDef>> _artifactsByRarity;
+        private static Dictionary<ArtifactType, List<CultivationArtifactDef>> _artifactsByType;
+        private static Dictionary<string, List<CultivationArtifactDef>> _artifactsByEquipType;
+
         // Cache status
         private static bool _isInitialized = false;
         private static int _lastUpdateTick = -1;
@@ -63,12 +69,14 @@ namespace TuTien.Systems.Registry
                 BuildTechniqueCache();
                 BuildSynergyCache();
                 BuildTalentCache();
+                BuildArtifactCache(); // ✅ Task 1.2: Add artifact cache initialization
 
                 _isInitialized = true;
-                _lastUpdateTick = Find.TickManager?.TicksGame ?? 0;
+                _lastUpdateTick = 0; // Start with 0, will update once game is running
 
                 Log.Message($"[TuTien] Registry initialized: {_skillDefsCache.Count} skills, " +
-                          $"{_techniqueDefsCache.Count} techniques, {_synergyDefsCache.Count} synergies");
+                          $"{_techniqueDefsCache.Count} techniques, {_synergyDefsCache.Count} synergies, " +
+                          $"{_artifactDefsCache?.Count ?? 0} artifacts"); // ✅ Task 1.2: Add artifact count
             }
             catch (Exception ex)
             {
@@ -100,6 +108,12 @@ namespace TuTien.Systems.Registry
             _synergyDefsCache?.Clear();
             _synergyByRarity?.Clear();
             _synergyByRealm?.Clear();
+            _talentDefsCache?.Clear();
+            // ✅ Task 1.2: Clear artifact caches
+            _artifactDefsCache?.Clear();
+            _artifactsByRarity?.Clear();
+            _artifactsByType?.Clear();
+            _artifactsByEquipType?.Clear();
             _talentDefsCache?.Clear();
         }
 
@@ -361,6 +375,90 @@ namespace TuTien.Systems.Registry
 
         #endregion
 
+        #region Artifact Definitions
+
+        /// <summary>
+        /// ✅ Task 1.2: Build artifact definition cache with organized indices
+        /// </summary>
+        private static void BuildArtifactCache()
+        {
+            _artifactDefsCache = new Dictionary<string, CultivationArtifactDef>();
+            _artifactsByRarity = new Dictionary<ArtifactRarity, List<CultivationArtifactDef>>();
+            _artifactsByType = new Dictionary<ArtifactType, List<CultivationArtifactDef>>();
+            _artifactsByEquipType = new Dictionary<string, List<CultivationArtifactDef>>();
+
+            foreach (var artifact in DefDatabase<CultivationArtifactDef>.AllDefs)
+            {
+                // Main cache by defName
+                _artifactDefsCache[artifact.defName] = artifact;
+
+                // Index by rarity
+                if (!_artifactsByRarity.ContainsKey(artifact.rarity))
+                    _artifactsByRarity[artifact.rarity] = new List<CultivationArtifactDef>();
+                _artifactsByRarity[artifact.rarity].Add(artifact);
+
+                // Index by artifact type
+                if (!_artifactsByType.ContainsKey(artifact.artifactType))
+                    _artifactsByType[artifact.artifactType] = new List<CultivationArtifactDef>();
+                _artifactsByType[artifact.artifactType].Add(artifact);
+
+                // Index by equipment type
+                if (!_artifactsByEquipType.ContainsKey(artifact.equipmentType))
+                    _artifactsByEquipType[artifact.equipmentType] = new List<CultivationArtifactDef>();
+                _artifactsByEquipType[artifact.equipmentType].Add(artifact);
+            }
+        }
+
+        /// <summary>
+        /// Get artifact definition by name - O(1) lookup
+        /// </summary>
+        public static CultivationArtifactDef GetArtifactDef(string defName)
+        {
+            EnsureInitialized();
+            return _artifactDefsCache.TryGetValue(defName, out var artifact) ? artifact : null;
+        }
+
+        /// <summary>
+        /// Get all artifacts of a specific rarity
+        /// </summary>
+        public static List<CultivationArtifactDef> GetArtifactsByRarity(ArtifactRarity rarity)
+        {
+            EnsureInitialized();
+            return _artifactsByRarity.TryGetValue(rarity, out var artifacts) ? artifacts : new List<CultivationArtifactDef>();
+        }
+
+        /// <summary>
+        /// Get all artifacts of a specific type
+        /// </summary>
+        public static List<CultivationArtifactDef> GetArtifactsByType(ArtifactType type)
+        {
+            EnsureInitialized();
+            return _artifactsByType.TryGetValue(type, out var artifacts) ? artifacts : new List<CultivationArtifactDef>();
+        }
+
+        /// <summary>
+        /// Get all artifacts of a specific equipment type
+        /// </summary>
+        public static List<CultivationArtifactDef> GetArtifactsByEquipmentType(string equipmentType)
+        {
+            EnsureInitialized();
+            return _artifactsByEquipType.TryGetValue(equipmentType, out var artifacts) ? artifacts : new List<CultivationArtifactDef>();
+        }
+
+        /// <summary>
+        /// Get all artifact definitions
+        /// </summary>
+        public static IEnumerable<CultivationArtifactDef> AllArtifactDefs
+        {
+            get
+            {
+                EnsureInitialized();
+                return _artifactDefsCache.Values;
+            }
+        }
+
+        #endregion
+
         #region Effect Definition Access
 
         /// <summary>
@@ -411,9 +509,19 @@ namespace TuTien.Systems.Registry
         /// </summary>
         private static bool ShouldRefreshCache()
         {
-            if (Find.TickManager?.TicksGame == null) return false;
+            // Don't refresh during game loading or if we just initialized
+            if (Find.TickManager == null) return false;
+            if (_lastUpdateTick == 0) return false; // Just initialized
             
-            return Find.TickManager.TicksGame - _lastUpdateTick > CACHE_REFRESH_INTERVAL;
+            try
+            {
+                return Find.TickManager.TicksGame - _lastUpdateTick > CACHE_REFRESH_INTERVAL;
+            }
+            catch
+            {
+                // If there's any issue accessing TickManager, don't refresh
+                return false;
+            }
         }
 
         /// <summary>

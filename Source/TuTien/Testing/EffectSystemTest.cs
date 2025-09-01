@@ -8,15 +8,15 @@ namespace TuTien.Testing
     /// <summary>
     /// ✅ Simple test to verify that effect definitions can be loaded
     /// This can be called from dev mode to test the system
+    /// DISABLED: Manual testing only - no automatic startup testing
     /// </summary>
-    [StaticConstructorOnStartup]
     public static class EffectSystemTest
     {
-        static EffectSystemTest()
-        {
-            // Test effect definition loading
-            TestEffectLoading();
-        }
+        // Disabled automatic testing - call manually via console
+        // static EffectSystemTest()
+        // {
+        //     TestEffectLoading();
+        // }
         
         public static void TestEffectLoading()
         {

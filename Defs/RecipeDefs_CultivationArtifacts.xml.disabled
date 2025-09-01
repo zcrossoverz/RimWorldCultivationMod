@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- ✅ Task: Recipes for Crafting Cultivation Artifacts -->
+
+  <!-- Iron Cultivation Sword Recipe -->
+  <RecipeDef>
+    <defName>Make_IronCultivationSword</defName>
+    <label>forge iron cultivation sword</label>
+    <description>Forge a basic iron sword and infuse it with cultivation energy.</description>
+    <jobString>Forging cultivation sword.</jobString>
+    <workAmount>12000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <efficiencyStat>GeneralLaborSpeed</efficiencyStat>
+    <workSkill>Crafting</workSkill>
+    <workSkillLearnFactor>0.8</workSkillLearnFactor>
+    
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>50</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>StoneBlocks</li>
+          </categories>
+        </filter>
+        <count>20</count>
+      </li>
+    </ingredients>
+    
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+      <categories>
+        <li>StoneBlocks</li>
+      </categories>
+    </fixedIngredientFilter>
+    
+    <products>
+      <TuTien_IronCultivationSword>1</TuTien_IronCultivationSword>
+    </products>
+    
+    <recipeUsers>
+      <li>FueledSmithy</li>
+      <li>ElectricSmithy</li>
+    </recipeUsers>
+    
+    <skillRequirements>
+      <Crafting>6</Crafting>
+    </skillRequirements>
+    
+    <researchPrerequisite>Smithing</researchPrerequisite>
+  </RecipeDef>
+
+  <!-- Cloth Cultivation Robe Recipe -->
+  <RecipeDef>
+    <defName>Make_ClothCultivationRobe</defName>
+    <label>weave cultivation robe</label>
+    <description>Weave simple robes and inscribe them with basic cultivation arrays.</description>
+    <jobString>Weaving cultivation robe.</jobString>
+    <workAmount>8000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <efficiencyStat>GeneralLaborSpeed</efficiencyStat>
+    <workSkill>Crafting</workSkill>
+    <workSkillLearnFactor>0.8</workSkillLearnFactor>
+    
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Cloth</li>
+          </thingDefs>
+        </filter>
+        <count>80</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Gold</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+    </ingredients>
+    
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Cloth</li>
+        <li>Gold</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    
+    <products>
+      <TuTien_ClothCultivationRobe>1</TuTien_ClothCultivationRobe>
+    </products>
+    
+    <recipeUsers>
+      <li>ElectricTailoringBench</li>
+      <li>HandTailoringBench</li>
+    </recipeUsers>
+    
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
+  <!-- Spirit Hunter Bow Recipe -->
+  <RecipeDef>
+    <defName>Make_SpiritHunterBow</defName>
+    <label>craft spirit hunter bow</label>
+    <description>Craft an advanced bow from spirit wood and inscribe it with hunting runes.</description>
+    <jobString>Crafting spirit bow.</jobString>
+    <workAmount>18000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <efficiencyStat>GeneralLaborSpeed</efficiencyStat>
+    <workSkill>Crafting</workSkill>
+    <workSkillLearnFactor>1.0</workSkillLearnFactor>
+    
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>60</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>25</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Silver</li>
+          </thingDefs>
+        </filter>
+        <count>20</count>
+      </li>
+    </ingredients>
+    
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>WoodLog</li>
+        <li>Steel</li>
+        <li>Silver</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    
+    <products>
+      <TuTien_SpiritHunterBow>1</TuTien_SpiritHunterBow>
+    </products>
+    
+    <recipeUsers>
+      <li>FueledSmithy</li>
+      <li>ElectricSmithy</li>
+    </recipeUsers>
+    
+    <skillRequirements>
+      <Crafting>10</Crafting>
+    </skillRequirements>
+    
+    <researchPrerequisite>Smithing</researchPrerequisite>
+  </RecipeDef>
+
+  <!-- Dragon Crown Recipe (High-end) -->
+  <RecipeDef>
+    <defName>Make_DragonCrown</defName>
+    <label>forge crown of thunder dragon</label>
+    <description>Forge a legendary crown imbued with the essence of thunder dragons. Requires master craftsmanship and rare materials.</description>
+    <jobString>Forging dragon crown.</jobString>
+    <workAmount>45000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <efficiencyStat>GeneralLaborSpeed</efficiencyStat>
+    <workSkill>Crafting</workSkill>
+    <workSkillLearnFactor>1.5</workSkillLearnFactor>
+    
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Gold</li>
+          </thingDefs>
+        </filter>
+        <count>100</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Jade</li>
+          </thingDefs>
+        </filter>
+        <count>25</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>75</count>
+      </li>
+    </ingredients>
+    
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Gold</li>
+        <li>Jade</li>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    
+    <products>
+      <TuTien_DragonCrown>1</TuTien_DragonCrown>
+    </products>
+    
+    <recipeUsers>
+      <li>FueledSmithy</li>
+      <li>ElectricSmithy</li>
+    </recipeUsers>
+    
+    <skillRequirements>
+      <Crafting>15</Crafting>
+    </skillRequirements>
+    
+    <researchPrerequisites>
+      <li>Smithing</li>
+      <li>ComplexClothing</li>
+    </researchPrerequisites>
+  </RecipeDef>
+
+  <!-- Immortal Talisman Recipe (Legendary) -->
+  <RecipeDef>
+    <defName>Make_ImmortalTalisman</defName>
+    <label>craft talisman of immortal essence</label>
+    <description>Craft a legendary talisman containing fragments of immortal qi. The pinnacle of artifact creation, requiring extraordinary skill and materials.</description>
+    <jobString>Crafting immortal talisman.</jobString>
+    <workAmount>120000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <efficiencyStat>GeneralLaborSpeed</efficiencyStat>
+    <workSkill>Crafting</workSkill>
+    <workSkillLearnFactor>2.0</workSkillLearnFactor>
+    
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Gold</li>
+          </thingDefs>
+        </filter>
+        <count>200</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Jade</li>
+          </thingDefs>
+        </filter>
+        <count>50</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Plasteel</li>
+          </thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Uranium</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+    
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Gold</li>
+        <li>Jade</li>
+        <li>Plasteel</li>
+        <li>Uranium</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    
+    <products>
+      <TuTien_ImmortalTalisman>1</TuTien_ImmortalTalisman>
+    </products>
+    
+    <recipeUsers>
+      <li>FabricationBench</li>
+    </recipeUsers>
+    
+    <skillRequirements>
+      <Crafting>20</Crafting>
+    </skillRequirements>
+    
+    <researchPrerequisites>
+      <li>Fabrication</li>
+      <li>MultiAnalyzer</li>
+    </researchPrerequisites>
+  </RecipeDef>
+</Defs>

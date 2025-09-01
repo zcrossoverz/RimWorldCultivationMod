@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  
+  <!-- Cultivation Sword with Ability Framework -->
+  <ThingDef ParentName="BaseWeapon">
+    <defName>TuTien_CultivationSword</defName>
+    <label>cultivation sword</label>
+    <description>A sword infused with cultivation energy. Grants the wielder sword techniques.</description>
+    
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponMelee/Longsword</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.8, 0.9, 1.0)</color>
+    </graphicData>
+    
+    <techLevel>Medieval</techLevel>
+    <weaponTags>
+      <li>MedievalMeleeAdvanced</li>
+    </weaponTags>
+    <weaponClasses>
+      <li>Melee</li>
+    </weaponClasses>
+    
+    <statBases>
+      <WorkToMake>12000</WorkToMake>
+      <Mass>1.8</Mass>
+      <MarketValue>800</MarketValue>
+      <MaxHitPoints>120</MaxHitPoints>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+    
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>10</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+      <li>
+        <label>blade</label>
+        <capacities>
+          <li>Cut</li>
+        </capacities>
+        <power>18</power>
+        <cooldownTime>2.4</cooldownTime>
+      </li>
+    </tools>
+    
+    <!-- Grant abilities when equipped -->
+    <comps>
+      <li Class="TuTien.Abilities.CompAbilityGiverProperties">
+        <abilitiesToGive>
+          <li>Ability_SwordStrike</li>
+        </abilitiesToGive>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Cultivation Robe with Healing Ability -->
+  <ThingDef ParentName="ApparelBase">
+    <defName>TuTien_CultivationRobe</defName>
+    <label>cultivation robe</label>
+    <description>A robe woven with cultivation techniques. Grants healing abilities to the wearer.</description>
+    
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.9, 0.8, 1.0)</color>
+    </graphicData>
+    
+    <costList>
+      <Cloth>50</Cloth>
+    </costList>
+    
+    <smeltProducts>
+      <Cloth>25</Cloth>
+    </smeltProducts>
+    
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Arms</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</wornGraphicPath>
+      <layers>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>IndustrialBasic</li>
+      </tags>
+    </apparel>
+    
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>0.5</Mass>
+      <MarketValue>300</MarketValue>
+      <WorkToMake>4000</WorkToMake>
+      <ArmorRating_Sharp>0.06</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.06</ArmorRating_Blunt>
+      <Insulation_Cold>10</Insulation_Cold>
+      <EquipDelay>1.5</EquipDelay>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+    
+    <!-- Grant abilities when equipped -->
+    <comps>
+      <li Class="TuTien.Abilities.CompAbilityGiverProperties">
+        <abilitiesToGive>
+          <li>Ability_QiHealing</li>
+        </abilitiesToGive>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

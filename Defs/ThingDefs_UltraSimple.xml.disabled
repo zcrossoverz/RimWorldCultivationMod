@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- ULTRA-SIMPLE ThingDefs - No custom classes, no extensions, nothing fancy -->
+  
+  <!-- Simple Test Sword -->
+  <ThingDef ParentName="BaseWeapon">
+    <defName>TuTien_SimpleSword</defName>
+    <label>test cultivation sword</label>
+    <description>A very simple sword for testing. Just a normal sword.</description>
+    
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponMelee/Longsword</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    
+    <techLevel>Medieval</techLevel>
+    <weaponTags>
+      <li>MedievalMeleeAdvanced</li>
+    </weaponTags>
+    <weaponClasses>
+      <li>Melee</li>
+    </weaponClasses>
+    
+    <statBases>
+      <WorkToMake>10000</WorkToMake>
+      <Mass>1.5</Mass>
+      <MarketValue>500</MarketValue>
+      <MaxHitPoints>100</MaxHitPoints>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+    
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+      <li>
+        <label>blade</label>
+        <capacities>
+          <li>Cut</li>
+        </capacities>
+        <power>15</power>
+        <cooldownTime>2.5</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+  <!-- Simple Test Robe -->
+  <ThingDef ParentName="ApparelBase">
+    <defName>TuTien_SimpleRobe</defName>
+    <label>test cultivation robe</label>
+    <description>A very simple robe for testing. Just normal cloth.</description>
+    
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    
+    <costList>
+      <Cloth>40</Cloth>
+    </costList>
+    
+    <smeltProducts>
+      <Cloth>20</Cloth>
+    </smeltProducts>
+    
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Arms</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</wornGraphicPath>
+      <layers>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>IndustrialBasic</li>
+      </tags>
+    </apparel>
+    
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>0.4</Mass>
+      <MarketValue>150</MarketValue>
+      <WorkToMake>2000</WorkToMake>
+      <ArmorRating_Sharp>0.03</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
+      <Insulation_Cold>6</Insulation_Cold>
+      <EquipDelay>1.5</EquipDelay>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+  </ThingDef>
+
+</Defs>

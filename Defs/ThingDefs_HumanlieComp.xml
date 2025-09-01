@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Add CompAbilityUser to all humanlike races -->
+  <ThingDef ParentName="BasePawn" Name="BaseHumanlike" Abstract="True">
+    <comps>
+      <li Class="TuTien.Abilities.CompAbilityUserProperties">
+        <!-- No initial abilities, will be added by equipment -->
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  
+  <!-- Basic Sword Strike Ability -->
+  <CultivationAbilityDef>
+    <defName>Ability_SwordStrike</defName>
+    <label>Sword Strike</label>
+    <description>A basic sword technique that deals extra damage.</description>
+    <abilityLabel>Sword Strike</abilityLabel>
+    <abilityDescription>Channel Qi into your blade for a powerful strike.</abilityDescription>
+    
+    <category>Combat</category>
+    <qiCost>5</qiCost>
+    <cooldownTicks>180</cooldownTicks>
+    <requiredRealm>0</requiredRealm>
+    <requiredStage>1</requiredStage>
+    
+    <targetType>Touch</targetType>
+    <range>1.5</range>
+    <requiresLineOfSight>true</requiresLineOfSight>
+    
+    <effects>
+      <li>
+        <effectType>Damage</effectType>
+        <magnitude>20</magnitude>
+        <damageType>Cut</damageType>
+      </li>
+    </effects>
+  </CultivationAbilityDef>
+
+  <!-- Basic Healing Ability -->
+  <CultivationAbilityDef>
+    <defName>Ability_QiHealing</defName>
+    <label>Qi Healing</label>
+    <description>Use Qi to heal wounds.</description>
+    <abilityLabel>Qi Healing</abilityLabel>
+    <abilityDescription>Channel Qi to accelerate natural healing.</abilityDescription>
+    
+    <category>Support</category>
+    <qiCost>15</qiCost>
+    <cooldownTicks>600</cooldownTicks>
+    <requiredRealm>1</requiredRealm>
+    <requiredStage>2</requiredStage>
+    
+    <targetType>Touch</targetType>
+    <range>2</range>
+    <requiresLineOfSight>true</requiresLineOfSight>
+    
+    <effects>
+      <li>
+        <effectType>Heal</effectType>
+        <magnitude>25</magnitude>
+      </li>
+    </effects>
+  </CultivationAbilityDef>
+
+</Defs>

@@ -1,0 +1,83 @@
+using Verse;
+using RimWorld;
+
+namespace TuTien.Testing
+{
+    /// <summary>
+    /// ✅ Working Debug Commands for RimWorld 1.6
+    /// </summary>
+    public static class WorkingDebugCommands
+    {
+        [DebugAction("Tu Tiên", "Emergency Test", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void DoEmergencyTest()
+        {
+            EmergencyTest.TestBasicSpawning();
+        }
+        
+        [DebugAction("Tu Tiên", "Spawn Test Artifacts", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SpawnTestArtifacts()
+        {
+            var map = Find.CurrentMap;
+            if (map == null)
+            {
+                Log.Warning("[TuTien] No map available");
+                return;
+            }
+            
+            // Try to spawn all three test artifacts
+            var itemsSpawned = 0;
+            var center = map.Center;
+            
+            // Sword
+            var swordDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleIronSword", false);
+            if (swordDef != null)
+            {
+                var sword = ThingMaker.MakeThing(swordDef);
+                if (GenPlace.TryPlaceThing(sword, center, map, ThingPlaceMode.Near))
+                {
+                    itemsSpawned++;
+                    Log.Message("[TuTien] Spawned simple sword");
+                }
+            }
+            
+            // Robe
+            var robeDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleClothRobe", false);
+            if (robeDef != null)
+            {
+                var robe = ThingMaker.MakeThing(robeDef);
+                if (GenPlace.TryPlaceThing(robe, center + new IntVec3(1, 0, 0), map, ThingPlaceMode.Near))
+                {
+                    itemsSpawned++;
+                    Log.Message("[TuTien] Spawned simple robe");
+                }
+            }
+            
+            // Bow -> Staff
+            var staffDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleSpiritStaff", false);
+            if (staffDef != null)
+            {
+                var staff = ThingMaker.MakeThing(staffDef);
+                if (GenPlace.TryPlaceThing(staff, center + new IntVec3(-1, 0, 0), map, ThingPlaceMode.Near))
+                {
+                    itemsSpawned++;
+                    Log.Message("[TuTien] Spawned simple staff");
+                }
+            }
+            
+            Log.Message($"[TuTien] Spawned {itemsSpawned} test artifacts");
+        }
+        
+        [DebugAction("Tu Tiên", "List Artifacts", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void ListAllArtifacts()
+        {
+            Log.Message("[TuTien] === CULTIVATION ARTIFACTS ===");
+            var count = 0;
+            foreach (var def in DefDatabase<CultivationArtifactDef>.AllDefs)
+            {
+                count++;
+                Log.Message($"[TuTien] {count}. {def.defName}: {def.label} ({def.rarity}) - ELO: {def.eloRange.min}-{def.eloRange.max}");
+            }
+            Log.Message($"[TuTien] Total: {count} artifacts loaded");
+        }
+    }
+}

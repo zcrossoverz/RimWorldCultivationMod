@@ -1,0 +1,131 @@
+using Verse;
+using RimWorld;
+using System.Collections.Generic;
+
+namespace TuTien.Testing
+{
+    /// <summary>
+    /// ✅ Debug Actions cho Tu Tiên - Dùng F12 Debug Menu
+    /// </summary>
+    public static class TuTienDebugActions
+    {
+        [DebugAction("Tu Tiên", "Test Basic Spawning", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void TestBasicSpawning()
+        {
+            EmergencyTest.TestBasicSpawning();
+        }
+        
+        [DebugAction("Tu Tiên", "Spawn Iron Sword", false, false, actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SpawnIronSword()
+        {
+            var swordDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleIronSword", false);
+            if (swordDef != null)
+            {
+                var sword = ThingMaker.MakeThing(swordDef);
+                GenSpawn.Spawn(sword, UI.MouseCell(), Find.CurrentMap);
+                Messages.Message("Đã spawn Iron Sword!", MessageTypeDefOf.NeutralEvent);
+            }
+            else
+            {
+                Messages.Message("Không tìm thấy Iron Sword ThingDef!", MessageTypeDefOf.RejectInput);
+            }
+        }
+        
+        [DebugAction("Tu Tiên", "Spawn Cloth Robe", false, false, actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SpawnClothRobe()
+        {
+            var robeDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleClothRobe", false);
+            if (robeDef != null)
+            {
+                var robe = ThingMaker.MakeThing(robeDef);
+                GenSpawn.Spawn(robe, UI.MouseCell(), Find.CurrentMap);
+                Messages.Message("Đã spawn Cloth Robe!", MessageTypeDefOf.NeutralEvent);
+            }
+            else
+            {
+                Messages.Message("Không tìm thấy Cloth Robe ThingDef!", MessageTypeDefOf.RejectInput);
+            }
+        }
+        
+        [DebugAction("Tu Tiên", "Spawn Spirit Staff", false, false, actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SpawnSpiritStaff()
+        {
+            var staffDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleSpiritStaff", false);
+            if (staffDef != null)
+            {
+                var staff = ThingMaker.MakeThing(staffDef);
+                GenSpawn.Spawn(staff, UI.MouseCell(), Find.CurrentMap);
+                Messages.Message("Đã spawn Spirit Staff!", MessageTypeDefOf.NeutralEvent);
+            }
+            else
+            {
+                Messages.Message("Không tìm thấy Spirit Staff ThingDef!", MessageTypeDefOf.RejectInput);
+            }
+        }
+        
+        [DebugAction("Tu Tiên", "Spawn All Artifacts", false, false, actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SpawnAllArtifacts()
+        {
+            var cell = UI.MouseCell();
+            var map = Find.CurrentMap;
+            var spawnedCount = 0;
+            
+            // Spawn sword
+            var swordDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleIronSword", false);
+            if (swordDef != null)
+            {
+                var sword = ThingMaker.MakeThing(swordDef);
+                GenSpawn.Spawn(sword, cell, map);
+                spawnedCount++;
+            }
+            
+            // Spawn robe
+            var robeDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleClothRobe", false);
+            if (robeDef != null)
+            {
+                var robe = ThingMaker.MakeThing(robeDef);
+                GenSpawn.Spawn(robe, cell + new IntVec3(1, 0, 0), map);
+                spawnedCount++;
+            }
+            
+            // Spawn staff
+            var staffDef = DefDatabase<ThingDef>.GetNamed("TuTien_SimpleSpiritStaff", false);
+            if (staffDef != null)
+            {
+                var staff = ThingMaker.MakeThing(staffDef);
+                GenSpawn.Spawn(staff, cell + new IntVec3(-1, 0, 0), map);
+                spawnedCount++;
+            }
+            
+            Messages.Message($"Đã spawn {spawnedCount} artifacts!", MessageTypeDefOf.PositiveEvent);
+        }
+        
+        [DebugAction("Tu Tiên", "List All Artifacts", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void ListAllArtifacts()
+        {
+            Log.Message("[Tu Tiên] === DANH SÁCH ARTIFACTS ===");
+            var count = 0;
+            foreach (var def in DefDatabase<CultivationArtifactDef>.AllDefs)
+            {
+                count++;
+                Log.Message($"[Tu Tiên] {count}. {def.defName}: {def.label} ({def.rarity}) - ELO: {def.eloRange.min}-{def.eloRange.max}");
+            }
+            Messages.Message($"Có {count} artifacts đã load. Xem console để chi tiết!", MessageTypeDefOf.NeutralEvent);
+        }
+        
+        [DebugAction("Tu Tiên", "Test Registry", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void TestRegistry()
+        {
+            try
+            {
+                var artifacts = TuTien.Systems.Registry.CultivationRegistry.AllArtifactDefs;
+                Messages.Message($"Registry working! {artifacts?.Count ?? 0} artifacts loaded", MessageTypeDefOf.PositiveEvent);
+            }
+            catch (System.Exception e)
+            {
+                Messages.Message($"Registry error: {e.Message}", MessageTypeDefOf.RejectInput);
+                Log.Error($"[Tu Tiên] Registry test failed: {e}");
+            }
+        }
+    }
+}

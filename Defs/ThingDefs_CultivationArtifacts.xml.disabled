@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- ✅ Task: ThingDefs for Artifact Equipment Integration -->
+  
+  <!-- Base abstract class for all cultivation artifacts -->
+  <ThingDef Name="CultivationArtifactBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <selectable>true</selectable>
+    <altitudeLayer>Item</altitudeLayer>
+    <useHitPoints>true</useHitPoints>
+    <pathCost>14</pathCost>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <alwaysHaulable>true</alwaysHaulable>
+    <rotatable>false</rotatable>
+    <stackLimit>1</stackLimit>
+    <comps>
+      <!-- Removed CompProperties_Quality temporarily for testing -->
+    </comps>
+    <techLevel>Medieval</techLevel>
+    <tradeability>Sellable</tradeability>
+    <tradeTags>
+      <li>Artifact</li>
+      <li>Cultivation</li>
+    </tradeTags>
+  </ThingDef>
+
+  <!-- Iron Cultivation Sword -->
+  <ThingDef ParentName="CultivationArtifactBase">
+    <defName>TuTien_IronCultivationSword</defName>
+    <label>iron cultivation sword</label>
+    <description>A basic iron sword infused with cultivation energy. The blade hums with qi, automatically striking at nearby enemies. Simple but effective for beginning cultivators.</description>
+    
+    <!-- Link to our artifact definition -->
+    <modExtensions>
+      <li Class="TuTien.CultivationArtifactExtension">
+        <artifactDef>CultivationArtifact_IronSword</artifactDef>
+      </li>
+    </modExtensions>
+    
+    <!-- Basic sword properties -->
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponMelee/Longsword</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+    <equippedAngleOffset>-65</equippedAngleOffset>
+    <weaponTags>
+      <li>MedievalMeleeAdvanced</li>
+      <li>CultivationArtifact</li>
+    </weaponTags>
+    <weaponClasses>
+      <li>Melee</li>
+    </weaponClasses>
+    
+    <!-- Equipment stats -->
+    <statBases>
+      <MaxHitPoints>180</MaxHitPoints>
+      <Mass>2.0</Mass>
+      <MarketValue>650</MarketValue>
+      <WorkToMake>12000</WorkToMake>
+      <DeteriorationRate>0.5</DeteriorationRate>
+      <Beauty>5</Beauty>
+    </statBases>
+    
+    <!-- Weapon stats (will be enhanced by artifact component) -->
+    <tools>
+      <li>
+        <label>handle</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+      <li>
+        <label>blade</label>
+        <capacities>
+          <li>Cut</li>
+          <li>Stab</li>
+        </capacities>
+        <power>16</power>
+        <cooldownTime>2.0</cooldownTime>
+      </li>
+    </tools>
+    
+    <thingCategories>
+      <li>WeaponsMelee</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!-- Cloth Cultivation Robe -->
+  <ThingDef ParentName="CultivationArtifactBase">
+    <defName>TuTien_ClothCultivationRobe</defName>
+    <label>cloth cultivation robe</label>
+    <description>Simple robes enhanced with basic cultivation arrays. The fabric shimmers with qi energy, improving the wearer's cultivation efficiency.</description>
+    
+    <!-- Link to artifact definition -->
+    <modExtensions>
+      <li Class="TuTien.CultivationArtifactExtension">
+        <artifactDef>CultivationArtifact_ClothRobe</artifactDef>
+      </li>
+    </modExtensions>
+    
+    <!-- Apparel properties -->
+    <thingClass>Apparel</thingClass>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Arms</li>
+        <li>Legs</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/Robe/Robe</wornGraphicPath>
+      <layers>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>Cultivation</li>
+        <li>Royal</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Worker</li>
+        <li>Soldier</li>
+      </defaultOutfitTags>
+    </apparel>
+    
+    <!-- Stats -->
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Mass>0.8</Mass>
+      <MarketValue>380</MarketValue>
+      <WorkToMake>8000</WorkToMake>
+      <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.10</ArmorRating_Blunt>
+      <Insulation_Cold>12</Insulation_Cold>
+      <Insulation_Heat>8</Insulation_Heat>
+      <EquipDelay>1.5</EquipDelay>
+      <Beauty>8</Beauty>
+    </statBases>
+    
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!-- Spirit Hunter Bow -->
+  <ThingDef ParentName="CultivationArtifactBase">
+    <defName>TuTien_SpiritHunterBow</defName>
+    <label>spirit hunter bow</label>
+    <description>An elegant bow crafted from spirit wood and inscribed with ancient hunting runes. Its qi-infused arrows seek targets with supernatural accuracy.</description>
+    
+    <!-- Link to artifact definition -->
+    <modExtensions>
+      <li Class="TuTien.CultivationArtifactExtension">
+        <artifactDef>CultivationArtifact_SpiritBow</artifactDef>
+      </li>
+    </modExtensions>
+    
+    <!-- Ranged weapon properties -->
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/Bow_Recurve</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Bow_Recurve</soundInteract>
+    <weaponTags>
+      <li>MedievalRanged</li>
+      <li>CultivationArtifact</li>
+    </weaponTags>
+    <weaponClasses>
+      <li>Ranged</li>
+    </weaponClasses>
+    
+    <!-- Ranged weapon stats -->
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Mass>1.2</Mass>
+      <MarketValue>1200</MarketValue>
+      <WorkToMake>18000</WorkToMake>
+      <RangedWeapon_Cooldown>1.7</RangedWeapon_Cooldown>
+      <Beauty>12</Beauty>
+    </statBases>
+    
+    <!-- Ranged properties -->
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <defaultProjectile>Arrow_Wood</defaultProjectile>
+        <warmupTime>1.3</warmupTime>
+        <range>35</range>
+        <soundCast>Bow_Recurve</soundCast>
+        <soundCastTail>GunTail_Light</soundCastTail>
+      </li>
+    </verbs>
+    
+    <thingCategories>
+      <li>WeaponsRanged</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!-- Dragon Crown -->
+  <ThingDef ParentName="CultivationArtifactBase">
+    <defName>TuTien_DragonCrown</defName>
+    <label>crown of the thunder dragon</label>
+    <description>A majestic crown bearing the essence of an ancient thunder dragon. Lightning crackles between its jeweled peaks, granting incredible cultivation bonuses to its wearer.</description>
+    
+    <!-- Link to artifact definition -->
+    <modExtensions>
+      <li Class="TuTien.CultivationArtifactExtension">
+        <artifactDef>CultivationArtifact_DragonCrown</artifactDef>
+      </li>
+    </modExtensions>
+    
+    <!-- Crown apparel properties -->
+    <thingClass>Apparel</thingClass>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/Hat/Coronet/Coronet</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+    <apparel>
+      <bodyPartGroups>
+        <li>UpperHead</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/Hat/Coronet/Coronet</wornGraphicPath>
+      <layers>
+        <li>Overhead</li>
+      </layers>
+      <tags>
+        <li>Royal</li>
+        <li>Cultivation</li>
+        <li>Dragon</li>
+      </tags>
+      <canBeDesiredForIdeo>false</canBeDesiredForIdeo>
+    </apparel>
+    
+    <!-- Epic stats -->
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Mass>1.5</Mass>
+      <MarketValue>8500</MarketValue>
+      <WorkToMake>45000</WorkToMake>
+      <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+      <EquipDelay>2.5</EquipDelay>
+      <Beauty>35</Beauty>
+    </statBases>
+    
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!-- Immortal Talisman -->
+  <ThingDef ParentName="CultivationArtifactBase">
+    <defName>TuTien_ImmortalTalisman</defName>
+    <label>talisman of immortal essence</label>
+    <description>A mysterious talisman containing fragments of immortal qi. Ancient symbols shift and flow across its surface, seeming to bend reality around the wearer.</description>
+    
+    <!-- Link to artifact definition -->
+    <modExtensions>
+      <li Class="TuTien.CultivationArtifactExtension">
+        <artifactDef>CultivationArtifact_ImmortalTalisman</artifactDef>
+      </li>
+    </modExtensions>
+    
+    <!-- Talisman as pendant/jewelry -->
+    <thingClass>Apparel</thingClass>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/Accessory/Necklace/Necklace</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+    <apparel>
+      <bodyPartGroups>
+        <li>Neck</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/Accessory/Necklace/Necklace</wornGraphicPath>
+      <layers>
+        <li>Overhead</li>
+      </layers>
+      <tags>
+        <li>Cultivation</li>
+        <li>Immortal</li>
+        <li>Legendary</li>
+      </tags>
+      <canBeDesiredForIdeo>false</canBeDesiredForIdeo>
+    </apparel>
+    
+    <!-- Legendary stats -->
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <Mass>0.3</Mass>
+      <MarketValue>25000</MarketValue>
+      <WorkToMake>120000</WorkToMake>
+      <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.50</ArmorRating_Heat>
+      <EquipDelay>5.0</EquipDelay>
+      <Beauty>80</Beauty>
+    </statBases>
+    
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+  </ThingDef>
+</Defs>
