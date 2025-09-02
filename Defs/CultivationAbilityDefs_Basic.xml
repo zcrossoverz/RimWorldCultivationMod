@@ -2,7 +2,7 @@
 <Defs>
   
   <!-- Basic Sword Strike Ability -->
-  <CultivationAbilityDef>
+  <TuTien.CultivationAbilityDef>
     <defName>Ability_SwordStrike</defName>
     <label>Sword Strike</label>
     <description>A basic sword technique that deals extra damage.</description>
@@ -20,16 +20,16 @@
     <requiresLineOfSight>true</requiresLineOfSight>
     
     <effects>
-      <li>
+      <li Class="TuTien.AbilityEffectDef">
         <effectType>Damage</effectType>
         <magnitude>20</magnitude>
         <damageType>Cut</damageType>
       </li>
     </effects>
-  </CultivationAbilityDef>
+  </TuTien.CultivationAbilityDef>
 
   <!-- Basic Healing Ability -->
-  <CultivationAbilityDef>
+  <TuTien.CultivationAbilityDef>
     <defName>Ability_QiHealing</defName>
     <label>Qi Healing</label>
     <description>Use Qi to heal wounds.</description>
@@ -47,11 +47,36 @@
     <requiresLineOfSight>true</requiresLineOfSight>
     
     <effects>
-      <li>
-        <effectType>Heal</effectType>
-        <magnitude>25</magnitude>
+      <li Class="TuTien.Abilities.AbilityEffect_Heal">
+        <amount>25</amount>
       </li>
     </effects>
-  </CultivationAbilityDef>
+  </TuTien.CultivationAbilityDef>
+
+  <!-- Corpse Revival Ability -->
+  <TuTien.CultivationAbilityDef>
+    <defName>TuTien_CorpseRevival</defName>
+    <label>Khôi Lỗi Thuật</label>
+    <description>Revive a corpse as a puppet under your control. The puppet is slow and lacks skills, but serves loyally.</description>
+    <abilityLabel>Corpse Revival</abilityLabel>
+    <abilityDescription>Use forbidden necromantic cultivation to animate the dead.</abilityDescription>
+    <iconPath>UI/Icons/CultivationAbilities/CorpseRevival</iconPath>
+    <category>Forbidden</category>
+    <qiCost>200</qiCost>
+    <cooldownTicks>100</cooldownTicks>
+    <requiredRealm>2</requiredRealm>
+    <requiredStage>3</requiredStage>
+    <targetType>Touch</targetType>
+    <range>3</range>
+    <requiresLineOfSight>true</requiresLineOfSight>
+    <effects>
+      <li Class="TuTien.Abilities.AbilityEffect_CorpseRevival">
+        <qiCost>200</qiCost>
+        <puppetPawnKindDef>TuTien_PuppetCorpse</puppetPawnKindDef>
+        <healthMultiplier>0.7</healthMultiplier>
+        <speedMultiplier>0.5</speedMultiplier>
+      </li>
+    </effects>
+  </TuTien.CultivationAbilityDef>
 
 </Defs>

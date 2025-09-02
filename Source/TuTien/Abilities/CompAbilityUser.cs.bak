@@ -1,0 +1,301 @@
+using System.Collections.Generic;
+using System.Linq;
+using Verse;
+using RimWorld;
+using UnityEngine;
+using TuTien;
+
+namespace TuTien.Abilities
+{
+    /// <summary>
+    /// Component that gives entities the ability to use cultivation abilities
+    /// Can be attached to Pawns, Items, or Buildings
+    /// </summary>
+    public class CompAbilityUser : ThingComp
+    {
+        private List<CultivationAbility> abilities = new List<CultivationAbility>();
+        private Dictionary<string, int> cooldowns = new Dictionary<string, int>();
+
+        public CompAbilityUserProperties Props => (CompAbilityUserProperties)props;
+
+        public List<CultivationAbility> Abilities => abilities;
+
+        public override void PostSpawnSetup(bool respawningAfterLoad)
+        {
+            base.PostSpawnSetup(respawningAfterLoad);
+            
+            // Initialize abilities from properties
+            if (Props.initialAbilities != null)
+            {
+                foreach (var abilityDefName in Props.initialAbilities)
+                {
+                    var abilityDef = DefDatabase<CultivationAbilityDef>.GetNamed(abilityDefName, false);
+                    if (abilityDef != null)
+                    {
+                        AddAbility(abilityDef);
+                    }
+                }
+            }
+        }
+
+        public override void CompTick()
+        {
+            base.CompTick();
+            
+            // Reduce cooldowns
+            var keys = cooldowns.Keys.ToList();
+            foreach (var key in keys)
+            {
+                if (cooldowns[key] > 0)
+                {
+                    cooldowns[key]--;
+                }
+            }
+        }
+
+        public void AddAbility(CultivationAbilityDef abilityDef)
+        {
+            if (abilities.Any(a => a.def == abilityDef)) return;
+            
+            var ability = new CultivationAbility(abilityDef, this);
+            abilities.Add(ability);
+        }
+
+        public void RemoveAbility(CultivationAbilityDef abilityDef)
+        {
+            abilities.RemoveAll(a => a.def == abilityDef);
+        }
+
+        public bool CanCastAbility(CultivationAbilityDef abilityDef)
+        {
+            // Check cooldown
+            if (cooldowns.ContainsKey(abilityDef.defName) && cooldowns[abilityDef.defName] > 0)
+                return false;
+
+            // Check Qi cost (if this is on a pawn)
+            if (parent is Pawn pawn)
+            {
+                var cultivationComp = pawn.GetComp<CultivationComp>();
+                if (cultivationComp?.cultivationData?.currentQi < abilityDef.qiCost)
+                    return false;
+            }
+
+            return true;
+        }
+
+        public void StartCooldown(CultivationAbilityDef abilityDef)
+        {
+            cooldowns[abilityDef.defName] = abilityDef.cooldownTicks;
+        }
+
+        public int GetCooldownRemaining(string abilityDefName)
+        {
+            return cooldowns.ContainsKey(abilityDefName) ? cooldowns[abilityDefName] : 0;
+        }
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Collections.Look(ref cooldowns, "cooldowns", LookMode.Value, LookMode.Value);
+            
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (abilities == null) abilities = new List<CultivationAbility>();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Properties for CompAbilityUser
+    /// </summary>
+    public class CompAbilityUserProperties : CompProperties
+    {
+        public List<string> initialAbilities = new List<string>();
+
+        public CompAbilityUserProperties()
+        {
+            compClass = typeof(CompAbilityUser);
+        }
+    }
+
+    /// <summary>
+    /// Instance of a cultivation ability that can be cast
+    /// With proper cooldown visual like technique skills
+    /// </summary>
+    public class CultivationAbility
+    {
+        public CultivationAbilityDef def;
+        public CompAbilityUser comp;
+
+        public CultivationAbility(CultivationAbilityDef def, CompAbilityUser comp)
+        {
+            this.def = def;
+            this.comp = comp;
+        }
+
+        public bool CanCast => comp.CanCastAbility(def);
+
+        public int CooldownRemaining => comp.GetCooldownRemaining(def.defName);
+
+        public void TryCast(LocalTargetInfo target)
+        {
+            if (!CanCast) return;
+
+            // Consume Qi if this is on a pawn
+            if (comp.parent is Pawn pawn)
+            {
+                var cultivationData = pawn.GetCultivationData();
+                if (cultivationData != null)
+                {
+                    cultivationData.currentQi -= def.qiCost;
+                }
+            }
+
+            // Apply effects
+            ApplyEffects(target);
+
+            // Start cooldown
+            comp.StartCooldown(def);
+
+            Messages.Message($"{comp.parent.LabelShort} used {def.label}!", MessageTypeDefOf.NeutralEvent);
+        }
+
+        public void TryCastSimple()
+        {
+            TryCast(comp.parent);
+        }
+
+        private void ApplyEffects(LocalTargetInfo target)
+        {
+            if (def.effects == null) return;
+
+            foreach (var effect in def.effects)
+            {
+                // Handle different effect types
+                if (effect is AbilityEffect_LaunchProjectile projectileEffect)
+                {
+                    projectileEffect.Apply(def, comp.parent as Pawn, target);
+                }
+                else if (effect is AbilityEffect_Heal healEffect)
+                {
+                    healEffect.Apply(def, comp.parent as Pawn, target);
+                }
+            }
+        }
+
+        public Command_CastAbilityWithCooldown GetCommand()
+        {
+            // Create different command types based on targeting
+            switch (def.targetType)
+            {
+                case AbilityTargetType.Self:
+                case AbilityTargetType.Touch:
+                case AbilityTargetType.Ally:
+                    return new Command_CastAbilityWithCooldown
+                    {
+                        defaultLabel = def.label,
+                        defaultDesc = def.description,
+                        icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
+                        ability = this,
+                        selfCastAction = () => TryCastSimple()
+                    };
+
+                case AbilityTargetType.Enemy:
+                case AbilityTargetType.Ranged:
+                case AbilityTargetType.GroundTarget:
+                    return new Command_CastAbilityWithCooldown
+                    {
+                        defaultLabel = def.label,
+                        defaultDesc = def.description,
+                        icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
+                        ability = this,
+                        targetingParams = new TargetingParameters
+                        {
+                            canTargetPawns = def.targetType == AbilityTargetType.Enemy,
+                            canTargetSelf = false,
+                            canTargetBuildings = false,
+                            canTargetItems = false
+                        }
+                    };
+
+                default:
+                    return new Command_CastAbilityWithCooldown
+                    {
+                        defaultLabel = def.label,
+                        defaultDesc = def.description,
+                        icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
+                        ability = this,
+                        selfCastAction = () => TryCastSimple()
+                    };
+            }
+        }
+    }
+
+    /// <summary>
+    /// Command for casting abilities with visual cooldown display
+    /// Similar to technique skills in RimWorld
+    /// </summary>
+    public class Command_CastAbilityWithCooldown : Command_Target
+    {
+        public CultivationAbility ability;
+        public System.Action selfCastAction;
+
+        public override void ProcessInput(Event ev)
+        {
+            if (selfCastAction != null)
+            {
+                // Self-cast abilities
+                selfCastAction.Invoke();
+            }
+            else
+            {
+                // Targeted abilities
+                base.ProcessInput(ev);
+            }
+        }
+
+        public override bool InheritInteractionsFrom(Gizmo other)
+        {
+            return false;
+        }
+
+        public override void GizmoUpdateOnMouseover()
+        {
+            base.GizmoUpdateOnMouseover();
+        }
+
+        public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
+        {
+            var result = base.GizmoOnGUI(topLeft, maxWidth, parms);
+            
+            // Draw cooldown overlay like technique skills
+            if (ability.CooldownRemaining > 0)
+            {
+                var rect = new Rect(topLeft.x, topLeft.y, 75f, 75f);
+                var progress = 1f - (float)ability.CooldownRemaining / ability.def.cooldownTicks;
+                
+                // Draw cooldown overlay
+                GUI.color = new Color(1f, 1f, 1f, 0.6f);
+                Widgets.DrawTextureFitted(rect, BaseContent.GreyTex, progress);
+                GUI.color = Color.white;
+                
+                // Draw cooldown text
+                var cooldownText = (ability.CooldownRemaining / 60f).ToString("F1") + "s";
+                var textRect = new Rect(rect.x, rect.y + rect.height - 20f, rect.width, 20f);
+                Text.Font = GameFont.Tiny;
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Widgets.Label(textRect, cooldownText);
+                Text.Anchor = TextAnchor.UpperLeft;
+                Text.Font = GameFont.Small;
+            }
+            
+            // Disable if can't cast
+            if (!ability.CanCast)
+            {
+                GUI.color = new Color(1f, 1f, 1f, 0.4f);
+            }
+            
+            return result;
+        }
+    }
+}

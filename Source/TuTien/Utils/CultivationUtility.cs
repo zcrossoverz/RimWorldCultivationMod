@@ -66,7 +66,7 @@ namespace TuTien
                 float finalPoints = points * multiplier;
                 data.cultivationPoints += finalPoints;
                 
-                Log.Warning($"[TuTien] AddCultivationPoints: {points} x {multiplier} = {finalPoints}, Total: {data.cultivationPoints}");
+                // Log.Warning($"[TuTien] AddCultivationPoints: {points} x {multiplier} = {finalPoints}, Total: {data.cultivationPoints}");
             }
         }
 

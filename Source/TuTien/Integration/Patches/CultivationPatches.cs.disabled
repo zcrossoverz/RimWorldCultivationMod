@@ -95,7 +95,8 @@ namespace TuTien.Patches
             };
 
             // Breakthrough gizmo
-            if (data.CanBreakthrough())
+            bool canBreakthrough = data.CanBreakthrough();
+            if (canBreakthrough)
             {
                 yield return new Command_Action
                 {
@@ -120,21 +121,42 @@ namespace TuTien.Patches
                 {
                     if (cooldownTicks > 0)
                     {
-                        int maxCooldownTicks = Mathf.RoundToInt(skill.cooldownHours) * 2500; // 2500 ticks per hour
-                        cooldownPct = (float)cooldownTicks / (maxCooldownTicks > 0 ? maxCooldownTicks : 60);
+                        int maxCooldownTicks = Mathf.RoundToInt(skill.cooldownHours * GenDate.TicksPerHour);
+                        cooldownPct = (float)cooldownTicks / (maxCooldownTicks > 0 ? maxCooldownTicks : 1);
                         cooldownPct = Mathf.Clamp01(cooldownPct);
                     }
+                }
+                
+                // Enhanced description with cooldown info
+                string description = skill.description ?? "";
+                if (cooldownTicks > 0)
+                {
+                    float hoursLeft = cooldownTicks / (float)GenDate.TicksPerHour;
+                    if (hoursLeft >= 1f)
+                    {
+                        description += $"\nCooldown: {hoursLeft:F1}h remaining";
+                    }
+                    else
+                    {
+                        float minutesLeft = cooldownTicks / 3600f; // 3600 ticks = 1 minute
+                        description += $"\nCooldown: {minutesLeft:F0}m remaining";
+                    }
+                }
+                else
+                {
+                    description += $"\nQi Cost: {skill.qiCost}";
                 }
                 
                 var gizmo = new TuTien.UI.Command_CultivationSkill
                 {
                     defaultLabel = skill.LabelCap,
-                    defaultDesc = skill.description ?? $"Qi Cost: {skill.qiCost}",
+                    defaultDesc = description,
                     icon = TexCommand.DesirePower,
                     Disabled = !canUse,
                     disabledReason = !canUse ? (data.currentQi < skill.qiCost ? "Not enough Qi" : "On cooldown") : null,
                     action = () => data.UseSkill(skill),
-                    cooldownPct = cooldownPct
+                    cooldownPct = cooldownPct,
+                    cooldownTicksRemaining = cooldownTicks
                 };
                 
                 yield return gizmo;

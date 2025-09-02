@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Sword Qi Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>TuTien_SwordQiProjectile</defName>
+    <label>sword qi</label>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1.5, 0.3)</drawSize>
+      <color>(150, 220, 255)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Cut</damageDef>
+      <damageAmountBase>300</damageAmountBase>
+      <speed>25</speed>
+      <explosionRadius>1.9</explosionRadius>
+      <stoppingPower>1.5</stoppingPower>
+      <armorPenetrationBase>1.0</armorPenetrationBase>
+    </projectile>
+    <thingClass>TuTien.Abilities.SwordQiProjectile</thingClass>
+  </ThingDef>
+
+</Defs>

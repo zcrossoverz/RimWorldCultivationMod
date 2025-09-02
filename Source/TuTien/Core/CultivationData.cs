@@ -451,9 +451,9 @@ namespace TuTien
             bool enoughTimePassed = true; // Remove time restriction for testing
             
             // Log for debugging
-            Log.Message($"[TuTien] CanBreakthrough Debug: Realm={currentRealm}, Stage={currentStage}, MaxStage={maxStageForRealm}, " +
-                       $"CanAdvanceNext={canAdvanceToNext}, Required={requiredPoints}, Current={cultivationPoints}, " +
-                       $"HasEnough={hasEnoughPoints}, TimePassed={enoughTimePassed}");
+            // Log.Message($"[TuTien] CanBreakthrough Debug: Realm={currentRealm}, Stage={currentStage}, MaxStage={maxStageForRealm}, " +
+            //            $"CanAdvanceNext={canAdvanceToNext}, Required={requiredPoints}, Current={cultivationPoints}, " +
+            //            $"HasEnough={hasEnoughPoints}, TimePassed={enoughTimePassed}");
             
             // Check if we're at max stage for current realm
             if (currentStage >= maxStageForRealm && !canAdvanceToNext) return false;
@@ -709,28 +709,49 @@ namespace TuTien
                 CheckTuViConversion();
             }
 
-            // Update skill cooldowns (faster for testing)
+            // Update skill cooldowns 
             if (pawn.IsHashIntervalTick(60)) // Every second
             {
                 var keysToUpdate = skillCooldowns.Keys.ToList();
+                var skillManager = pawn?.GetComp<CultivationComp>()?.GetSkillManager();
+                
+                if (keysToUpdate.Count > 0)
+                {
+                    Log.Message($"[TuTien] Processing {keysToUpdate.Count} cooldowns for {pawn.Name.ToStringShort}");
+                }
+                
                 foreach (var key in keysToUpdate)
                 {
                     if (skillCooldowns[key] > 0)
                     {
                         int oldValue = skillCooldowns[key];
-                        // Speed up cooldown for testing - 60x faster (1 hour = 1 minute)
-                        skillCooldowns[key] -= 60 * 60; // Reduce by 1 minute (3600 ticks) each update
-                        Log.Warning($"[TuTien] Skill {key} cooldown: {oldValue} -> {skillCooldowns[key]}");
+                        // Normal cooldown - reduce by 60 ticks (1 second) each update
+                        skillCooldowns[key] -= 60;
+                        
+                        Log.Message($"[TuTien] {key}: {oldValue} → {skillCooldowns[key]} ticks remaining");
                         
                         if (skillCooldowns[key] <= 0)
                         {
                             skillCooldowns.Remove(key);
-                            Log.Warning($"[TuTien] Skill {key} cooldown finished!");
+                            
+                            // Also remove from SkillManager to keep systems synchronized
+                            if (skillManager != null)
+                            {
+                                skillManager.RemoveSkillCooldown(key);
+                            }
+                            
+                            Log.Message($"[TuTien] Skill {key} cooldown finished! (Both systems synchronized)");
                         }
                     }
                     else
                     {
                         skillCooldowns.Remove(key);
+                        
+                        // Ensure SkillManager is also cleaned up
+                        if (skillManager != null)
+                        {
+                            skillManager.RemoveSkillCooldown(key);
+                        }
                     }
                 }
             }
@@ -836,20 +857,8 @@ namespace TuTien
 
         public bool CanUseSkill(CultivationSkillDef skill)
         {
-            Log.Warning($"[TuTien] CanUseSkill check for {skill.defName}:");
-            Log.Warning($"[TuTien] - Unlocked? {unlockedSkills.Contains(skill)}");
-            Log.Warning($"[TuTien] - Is Active? {skill.isActive}");
-            Log.Warning($"[TuTien] - Current Qi: {currentQi}, Required: {skill.qiCost}");
-            
+            // Check cooldown (CultivationData is the source of truth for UI)
             bool onCooldown = skillCooldowns.ContainsKey(skill.defName);
-            Log.Warning($"[TuTien] - On Cooldown? {onCooldown}");
-            
-            if (onCooldown)
-            {
-                int ticksLeft = skillCooldowns[skill.defName];
-                int hoursLeft = Mathf.CeilToInt(ticksLeft / (float)GenDate.TicksPerHour);
-                Log.Warning($"[TuTien] - Cooldown ticks left: {ticksLeft}, hours: {hoursLeft}");
-            }
             
             if (!unlockedSkills.Contains(skill)) return false;
             if (!skill.isActive) return true; // Passive skills are always usable
@@ -860,36 +869,39 @@ namespace TuTien
 
         public void UseSkill(CultivationSkillDef skill)
         {
-            Log.Warning($"[TuTien] UseSkill called for {skill.defName}");
+            // Log.Warning($"[TuTien] UseSkill called for {skill.defName}");
             
             if (!CanUseSkill(skill)) 
             {
-                Log.Warning($"[TuTien] CanUseSkill returned false for {skill.defName}");
+                // Log.Warning($"[TuTien] CanUseSkill returned false for {skill.defName}");
                 return;
             }
 
-            Log.Warning($"[TuTien] Skill {skill.defName} passed CanUseSkill check");
+            // Log.Warning($"[TuTien] Skill {skill.defName} passed CanUseSkill check");
 
             if (skill.isActive)
             {
                 currentQi -= skill.qiCost;
-                if (skill.cooldownHours > 0)
-                {
-                    int cooldownTicks = Mathf.RoundToInt(skill.cooldownHours * GenDate.TicksPerHour);
-                    skillCooldowns[skill.defName] = cooldownTicks;
-                    Log.Warning($"[TuTien] Set cooldown for {skill.defName}: {skill.cooldownHours}h = {cooldownTicks} ticks");
-                    Log.Warning($"[TuTien] Cooldowns dictionary now contains {skillCooldowns.Count} entries");
-                }
-                Log.Warning($"[TuTien] Applied qi cost and cooldown for {skill.defName}");
+                // Cooldown will be handled by CultivationSkillWorker.ApplyCosts() with progression bonuses
+                // Log.Warning($"[TuTien] Applied qi cost and cooldown for {skill.defName}");
             }
 
             // Execute skill effect (will be implemented in skill workers)
             if (skill.workerClass != null)
             {
-                Log.Warning($"[TuTien] Creating worker {skill.workerClass} for {skill.defName}");
-                var worker = (CultivationSkillWorker)Activator.CreateInstance(skill.workerClass);
-                worker?.Execute(pawn, skill);
-                Log.Warning($"[TuTien] Skill {skill.defName} executed successfully");
+                // Log.Warning($"[TuTien] Creating worker {skill.workerClass} for {skill.defName}");
+                var worker = Activator.CreateInstance(skill.workerClass);
+
+                // Try different skill worker types
+                if (worker is TuTien.CultivationSkillWorker coreWorker)
+                {
+                    coreWorker.Execute(pawn, skill);
+                }
+                else if (worker is TuTien.SkillWorkers.CultivationSkillWorker basicWorker)
+                {
+                    basicWorker.Execute(pawn, skill);
+                }
+                // Log.Warning($"[TuTien] Skill {skill.defName} executed successfully");
             }
             else
             {

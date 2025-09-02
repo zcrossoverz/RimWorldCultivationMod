@@ -66,19 +66,19 @@ namespace TuTien
         #region Computed Properties
         
         /// <summary>Get the worker instance for this skill</summary>
-        public CultivationSkillWorker Worker
+        public ICultivationSkillWorker Worker
         {
             get
             {
                 if (_worker == null && workerClass != null)
                 {
-                    _worker = (CultivationSkillWorker)Activator.CreateInstance(workerClass);
+                    _worker = (ICultivationSkillWorker)Activator.CreateInstance(workerClass);
                     _worker.def = this;
                 }
                 return _worker;
             }
         }
-        private CultivationSkillWorker _worker;
+        private ICultivationSkillWorker _worker;
         
         /// <summary>Check if this skill has progression levels</summary>
         public bool HasProgression => progressionLevels.Count > 0;

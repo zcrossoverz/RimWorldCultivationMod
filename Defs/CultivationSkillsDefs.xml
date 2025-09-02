@@ -8,12 +8,16 @@
     <description>Channel qi into a devastating punch attack</description>
     <labelKey>QiPunch_Label</labelKey>
     <descriptionKey>QiPunch_Description</descriptionKey>
-    <requiredRealm>Mortal</requiredRealm>
+    <requiredRealm>0</requiredRealm> <!-- Mortal -->
     <requiredStage>2</requiredStage>
     <isActive>true</isActive>
     <qiCost>20</qiCost>
-    <cooldownHours>2</cooldownHours>
+    <cooldownHours>0.5</cooldownHours> <!-- 30 minutes for testing -->
     <workerClass>TuTien.SkillWorkers.QiForceSkillWorker</workerClass>
+    <skillTags>
+      <li>AutoLearn</li>
+      <li>Combat</li>
+    </skillTags>
   </TuTien.CultivationSkillDef>
 
   <TuTien.CultivationSkillDef>
@@ -22,12 +26,16 @@
     <description>Create a protective qi barrier around yourself</description>
     <labelKey>QiShield_Label</labelKey>
     <descriptionKey>QiShield_Description</descriptionKey>
-    <requiredRealm>QiCondensation</requiredRealm>
+    <requiredRealm>1</requiredRealm> <!-- QiCondensation -->
     <requiredStage>1</requiredStage>
     <isActive>true</isActive>
     <qiCost>30</qiCost>
-    <cooldownHours>4</cooldownHours>
+    <cooldownHours>1</cooldownHours> <!-- 1 hour for testing -->
     <workerClass>TuTien.SkillWorkers.QiAbsorptionSkillWorker</workerClass>
+    <skillTags>
+      <li>AutoLearn</li>
+      <li>Defense</li>
+    </skillTags>
   </TuTien.CultivationSkillDef>
 
   <TuTien.CultivationSkillDef>
@@ -36,12 +44,16 @@
     <description>Use qi to accelerate natural healing</description>
     <labelKey>QiHealing_Label</labelKey>
     <descriptionKey>QiHealing_Description</descriptionKey>
-    <requiredRealm>QiCondensation</requiredRealm>
+    <requiredRealm>1</requiredRealm> <!-- QiCondensation -->
     <requiredStage>3</requiredStage>
     <isActive>true</isActive>
     <qiCost>50</qiCost>
-    <cooldownHours>8</cooldownHours>
+    <cooldownHours>2</cooldownHours> <!-- 2 hours for testing -->
     <workerClass>TuTien.SkillWorkers.QiRestorationSkillWorker</workerClass>
+    <skillTags>
+      <li>AutoLearn</li>
+      <li>Support</li>
+    </skillTags>
   </TuTien.CultivationSkillDef>
 
   <!-- Passive Enhancement Skills -->
@@ -51,11 +63,15 @@
     <description>Qi permanently strengthens the body</description>
     <labelKey>EnhancedPhysique_Label</labelKey>
     <descriptionKey>EnhancedPhysique_Description</descriptionKey>
-    <requiredRealm>Mortal</requiredRealm>
+    <requiredRealm>0</requiredRealm> <!-- Mortal -->
     <requiredStage>3</requiredStage>
     <isActive>false</isActive>
     <qiCost>0</qiCost>
     <cooldownHours>0</cooldownHours>
+    <skillTags>
+      <li>AutoLearn</li>
+      <li>Passive</li>
+    </skillTags>
   </TuTien.CultivationSkillDef>
 
   <TuTien.CultivationSkillDef>
@@ -64,11 +80,15 @@
     <description>Enhanced perception through qi</description>
     <labelKey>QiSense_Label</labelKey>
     <descriptionKey>QiSense_Description</descriptionKey>
-    <requiredRealm>QiCondensation</requiredRealm>
+    <requiredRealm>1</requiredRealm> <!-- QiCondensation -->
     <requiredStage>2</requiredStage>
     <isActive>false</isActive>
     <qiCost>0</qiCost>
     <cooldownHours>0</cooldownHours>
+    <skillTags>
+      <li>AutoLearn</li>
+      <li>Passive</li>
+    </skillTags>
   </TuTien.CultivationSkillDef>
 
   <TuTien.CultivationSkillDef>
@@ -77,11 +97,15 @@
     <description>Body becomes as tough as iron through cultivation</description>
     <labelKey>IronBody_Label</labelKey>
     <descriptionKey>IronBody_Description</descriptionKey>
-    <requiredRealm>FoundationEstablishment</requiredRealm>
+    <requiredRealm>2</requiredRealm> <!-- FoundationEstablishment -->
     <requiredStage>1</requiredStage>
     <isActive>false</isActive>
     <qiCost>0</qiCost>
     <cooldownHours>0</cooldownHours>
+    <skillTags>
+      <li>AutoLearn</li>
+      <li>Passive</li>
+    </skillTags>
   </TuTien.CultivationSkillDef>
 
 </Defs>

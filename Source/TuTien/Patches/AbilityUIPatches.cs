@@ -3,6 +3,8 @@ using Verse;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Verse.AI;
 
 namespace TuTien.Patches
 {
@@ -36,10 +38,11 @@ namespace TuTien.Patches
     }
 
     /// <summary>
-    /// Add ability gizmos to pawn UI
+    /// ✅ UNIFIED GIZMO PATCH - Combines both Cultivation Skills and Abilities
+    /// Replaces separate patches to avoid Harmony conflicts between two systems
     /// </summary>
     [HarmonyPatch(typeof(Pawn), "GetGizmos")]
-    public static class Pawn_GetGizmos_AbilityPatch
+    public static class Pawn_GetGizmos_UnifiedPatch
     {
         public static IEnumerable<Gizmo> Postfix(IEnumerable<Gizmo> gizmos, Pawn __instance)
         {
@@ -49,13 +52,164 @@ namespace TuTien.Patches
                 yield return gizmo;
             }
 
-            // Add cultivation ability gizmos
+            // Only add for colonist pawns
+            if (!__instance.IsColonistPlayerControlled)
+                yield break;
+
+            // ═══ CULTIVATION ABILITIES (CompAbilityUser) - Khôi Lỗi Thuật ═══
             var abilityComp = __instance.GetComp<TuTien.Abilities.CompAbilityUser>();
             if (abilityComp?.Abilities != null)
             {
                 foreach (var ability in abilityComp.Abilities)
                 {
                     yield return ability.GetCommand();
+                }
+            }
+
+            // ═══ CULTIVATION SKILLS (CultivationSkillWorker) - Qi Punch, Shield, etc ═══
+            var cultivationComp = __instance.GetComp<CultivationComp>();
+            if (cultivationComp?.cultivationData != null)
+            {
+                foreach (var gizmo in GetCultivationGizmos(__instance, cultivationComp.cultivationData))
+                {
+                    yield return gizmo;
+                }
+            }
+        }
+
+        private static IEnumerable<Gizmo> GetCultivationGizmos(Pawn pawn, CultivationData data)
+        {
+            // Cultivation gizmo
+            yield return new Command_Action
+            {
+                defaultLabel = "Cultivate",
+                defaultDesc = "Begin cultivation to gather Qi and advance cultivation.",
+                icon = TexCommand.Draft,
+                action = () =>
+                {
+                    // Start cultivation job - find nearest cultivation spot
+                    var cultivationSpot = GenClosest.ClosestThingReachable(
+                        pawn.Position,
+                        pawn.Map,
+                        ThingRequest.ForDef(TuTienDefOf.CultivationMeditationSpot),
+                        PathEndMode.InteractionCell,
+                        TraverseParms.For(pawn));
+
+                    if (cultivationSpot != null)
+                    {
+                        var job = JobMaker.MakeJob(TuTienDefOf.MeditateCultivation, cultivationSpot);
+                        pawn.jobs.TryTakeOrderedJob(job);
+                    }
+                    else
+                    {
+                        Messages.Message("No cultivation spot available!", MessageTypeDefOf.RejectInput);
+                    }
+                }
+            };
+
+            // Breakthrough gizmo
+            bool canBreakthrough = data.CanBreakthrough();
+            if (canBreakthrough)
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = "Breakthrough",
+                    defaultDesc = $"Attempt to break through to the next stage.\nSuccess depends heavily on talent level and current stage.",
+                    icon = TexCommand.Attack,
+                    action = () =>
+                    {
+                        data.AttemptBreakthrough();
+                    }
+                };
+            }
+
+            // Active skill gizmos - Qi Punch, Qi Shield, etc
+            foreach (var skill in data.unlockedSkills.Where(s => s.isActive))
+            {
+                bool canUse = data.CanUseSkill(skill);
+                float cooldownPct = 0f;
+
+                // Calculate cooldown percentage for overlay
+                if (data.skillCooldowns.TryGetValue(skill.defName, out int cooldownTicks))
+                {
+                    if (cooldownTicks > 0)
+                    {
+                        int maxCooldownTicks = Mathf.RoundToInt(skill.cooldownHours * GenDate.TicksPerHour);
+                        cooldownPct = (float)cooldownTicks / (maxCooldownTicks > 0 ? maxCooldownTicks : 1);
+                        cooldownPct = Mathf.Clamp01(cooldownPct);
+                    }
+                }
+
+                // Enhanced description with cooldown info
+                string description = skill.description ?? "";
+                if (cooldownTicks > 0)
+                {
+                    float hoursLeft = cooldownTicks / (float)GenDate.TicksPerHour;
+                    if (hoursLeft >= 1f)
+                    {
+                        description += $"\nCooldown: {hoursLeft:F1}h remaining";
+                    }
+                    else
+                    {
+                        float minutesLeft = cooldownTicks * 60f / GenDate.TicksPerHour; // 3600 ticks = 1 minute
+                        description += $"\nCooldown: {minutesLeft:F0}m remaining";
+                    }
+                }
+                else
+                {
+                    description += $"\nQi Cost: {skill.qiCost}";
+                }
+
+                var gizmo = new TuTien.UI.Command_CultivationSkill
+                {
+                    defaultLabel = skill.LabelCap,
+                    defaultDesc = description,
+                    icon = TexCommand.DesirePower,
+                    Disabled = !canUse,
+                    disabledReason = !canUse ? (data.currentQi < skill.qiCost ? "Not enough Qi" : "On cooldown") : null,
+                    action = () => data.UseSkill(skill),
+                    cooldownPct = cooldownPct,
+                    cooldownTicksRemaining = cooldownTicks
+                };
+
+                yield return gizmo;
+            }
+
+            // Passive skill gizmos (info only - no click)
+            foreach (var skill in data.unlockedSkills.Where(s => !s.isActive))
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = $"🛡 {skill.LabelCap}",
+                    defaultDesc = $"Passive Skill - Always Active\n{skill.description ?? "Passive enhancement"}",
+                    icon = TexCommand.ForbidOff, // Use shield-like icon
+                    Disabled = true, // Always disabled since it's passive
+                    disabledReason = "Passive skill - always active",
+                    action = () => { } // No action for passive skills
+                };
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Add cultivation tab to humanlike pawns
+    /// </summary>
+    [HarmonyPatch(typeof(Thing), "GetInspectTabs")]
+    public static class Thing_GetInspectTabs_Patch
+    {
+        public static void Postfix(Thing __instance, ref IEnumerable<InspectTabBase> __result)
+        {
+            if (__instance is Pawn pawn && pawn.RaceProps.Humanlike)
+            {
+                var comp = pawn.GetComp<CultivationComp>();
+                if (comp != null)
+                {
+                    var tabs = __result.ToList();
+                    if (!tabs.Any(tab => tab is ITab_Cultivation))
+                    {
+                        tabs.Add((InspectTabBase)InspectTabManager.GetSharedInstance(typeof(ITab_Cultivation)));
+                    }
+                    __result = tabs;
                 }
             }
         }

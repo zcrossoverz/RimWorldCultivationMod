@@ -5,37 +5,89 @@ using UnityEngine;
 
 namespace TuTien.SkillWorkers
 {
-    public abstract class CultivationSkillWorker
+    public abstract class CultivationSkillWorker : ICultivationSkillWorker
     {
-        public abstract void Execute(Pawn pawn, CultivationSkillDef skill);
+        public CultivationSkillDef def { get; set; }
+
+
+        /// <summary>
+        /// Main execution method - handles costs and cooldown automatically
+        /// </summary>
+        public virtual void Execute(Pawn pawn, CultivationSkillDef skill)
+        {
+            // Execute the skill effect first
+            ExecuteSkillEffect(pawn, skill);
+            
+            // Then apply costs and cooldown
+            ApplyCostsAndCooldown(pawn, skill);
+        }
+
+        /// <summary>
+        /// Override this method to implement skill effects
+        /// </summary>
+        protected abstract void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill);
+
+        /// <summary>
+        /// Apply cooldown and costs after skill execution
+        /// </summary>
+        protected virtual void ApplyCostsAndCooldown(Pawn pawn, CultivationSkillDef skill)
+        {
+            var comp = pawn.GetComp<CultivationComp>();
+            var cultivationData = comp?.cultivationData;
+            
+            if (cultivationData != null)
+            {
+                // Apply Qi cost
+                cultivationData.currentQi -= skill.qiCost;
+                
+                // Apply cooldown
+                if (skill.cooldownHours > 0)
+                {
+                    int cooldownTicks = Mathf.RoundToInt(skill.cooldownHours * GenDate.TicksPerHour);
+                    cultivationData.skillCooldowns[skill.defName] = cooldownTicks;
+                    
+                    // Also set in SkillManager for sync
+                    var skillManager = comp.GetSkillManager();
+                    if (skillManager != null)
+                    {
+                        skillManager.SetSkillCooldown(skill.defName, cooldownTicks);
+                    }
+                    
+                    Log.Message($"[TuTien] Applied costs & cooldown: {skill.defName} = {skill.cooldownHours}h ({cooldownTicks} ticks)");
+                }
+            }
+        }
     }
 
     // Qi Condensation Stage 1 Skills
     public class QiForceSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // +10/15/20% melee damage for 5 seconds
             var comp = pawn.GetComp<CultivationComp>();
             int stage = comp?.cultivationData?.currentStage ?? 1;
-            
+
             float damageBonus = 0.1f + (stage - 1) * 0.05f;
-            
+
             var hediff = HediffMaker.MakeHediff(TuTienDefOf.QiForceHediff, pawn);
             hediff.Severity = damageBonus;
             pawn.health.AddHediff(hediff);
-            
+
             // Visual effect
             FleckMaker.ThrowDustPuff(pawn.Position, pawn.Map, 1f);
-            
+
             // User message
             Messages.Message($"{pawn.Name.ToStringShort} used Qi Punch!", MessageTypeDefOf.PositiveEvent);
+            
+            // Apply costs and cooldown
+            ApplyCostsAndCooldown(pawn, skill);
         }
     }
 
     public class QiWaveSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // Ranged qi projectile
             var comp = pawn.GetComp<CultivationComp>();
@@ -64,7 +116,7 @@ namespace TuTien.SkillWorkers
 
     public class QiAbsorptionSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // Damage reduction for 10 seconds
             var comp = pawn.GetComp<CultivationComp>();
@@ -87,7 +139,7 @@ namespace TuTien.SkillWorkers
     // Foundation Establishment Skills
     public class QiBarrierSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // Block next 1-3 attacks
             var comp = pawn.GetComp<CultivationComp>();
@@ -103,7 +155,7 @@ namespace TuTien.SkillWorkers
 
     public class QiSwordSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // AOE sword qi attack
             var comp = pawn.GetComp<CultivationComp>();
@@ -129,7 +181,7 @@ namespace TuTien.SkillWorkers
 
     public class QiPurificationSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // Remove debuffs
             var comp = pawn.GetComp<CultivationComp>();
@@ -152,7 +204,7 @@ namespace TuTien.SkillWorkers
     // Golden Core Skills
     public class QiBurstSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // +50% damage for 10 seconds
             var comp = pawn.GetComp<CultivationComp>();
@@ -168,7 +220,7 @@ namespace TuTien.SkillWorkers
 
     public class QiRestorationSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // Healing effect
             var comp = pawn.GetComp<CultivationComp>();
@@ -218,7 +270,7 @@ namespace TuTien.SkillWorkers
 
     public class ElementalAttackSkillWorker : CultivationSkillWorker
     {
-        public override void Execute(Pawn pawn, CultivationSkillDef skill)
+        protected override void ExecuteSkillEffect(Pawn pawn, CultivationSkillDef skill)
         {
             // Elemental attack based on technique
             var comp = pawn.GetComp<CultivationComp>();
@@ -269,3 +321,5 @@ namespace TuTien.SkillWorkers
         }
     }
 }
+
+

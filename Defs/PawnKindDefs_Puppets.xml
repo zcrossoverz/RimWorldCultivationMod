@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  
+  <!-- Puppet Race for Revived Corpses -->
+  <ThingDef ParentName="BasePawn">
+    <defName>TuTien_PuppetCorpse</defName>
+    <label>corpse puppet</label>
+    <description>A reanimated corpse controlled by cultivation techniques. Slow but durable.</description>
+    <statBases>
+      <MoveSpeed>2.0</MoveSpeed>
+      <MarketValue>0</MarketValue>
+      <ComfyTemperatureMin>-100</ComfyTemperatureMin>
+      <ComfyTemperatureMax>100</ComfyTemperatureMax>
+      <LeatherAmount>0</LeatherAmount>
+      <MeatAmount>0</MeatAmount>
+    </statBases>
+    <tools>
+      <li>
+        <label>left fist</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <label>right fist</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+      </li>
+    </tools>
+    <race>
+      <thinkTreeMain>Humanlike</thinkTreeMain>
+      <thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
+      <intelligence>Humanlike</intelligence>
+      <makesFootprints>true</makesFootprints>
+      <lifeExpectancy>80</lifeExpectancy>
+      <nameCategory>HumanStandard</nameCategory>
+      <body>Human</body>
+      <baseBodySize>1</baseBodySize>
+      <baseHealthScale>1.5</baseHealthScale>
+      <foodType>OmnivoreHuman</foodType>
+      <manhunterOnDamageChance>0</manhunterOnDamageChance>
+      <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
+      <trainability>Advanced</trainability>
+      <packAnimal>false</packAnimal>
+      <herdAnimal>false</herdAnimal>
+      <predator>false</predator>
+      <lifeStageAges>
+        <li>
+          <def>HumanlikeChild</def>
+          <minAge>0</minAge>
+        </li>
+        <li>
+          <def>HumanlikeAdult</def>
+          <minAge>13</minAge>
+        </li>
+      </lifeStageAges>
+      <soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
+      <specialShadowData>
+        <volume>(0.3, 0.8, 0.3)</volume>
+        <offset>(0,0,0)</offset>
+      </specialShadowData>
+      <ageGenerationCurve>
+        <points>
+          <li>(0.01, 0)</li>
+          <li>(0.1, 10)</li>
+          <li>(0.675, 10)</li>
+          <li>(0.75, 3)</li>
+          <li>(0.875, 18)</li>
+          <li>(1, 25)</li>
+          <li>(1.125, 10)</li>
+          <li>(1.25, 3)</li>
+          <li>(1.375, 5)</li>
+          <li>(1.5, 5)</li>
+          <li>(1.75, 0.3)</li>
+          <li>(2, 0.1)</li>
+          <li>(2.25, 0)</li>
+        </points>
+      </ageGenerationCurve>
+      <hediffGiverSets>
+        <li>OrganicStandard</li>
+        <li>Human</li>
+      </hediffGiverSets>
+    </race>
+  </ThingDef>
+
+  <!-- PawnKindDef for Puppet -->
+  <PawnKindDef>
+    <defName>TuTien_PuppetCorpse</defName>
+    <label>corpse puppet</label>
+    <race>TuTien_PuppetCorpse</race>
+    <defaultFactionType>PlayerColony</defaultFactionType>
+    <chemicalAddictionChance>0</chemicalAddictionChance>
+    <invNutrition>2.55</invNutrition>
+    <itemQuality>Poor</itemQuality>
+    <backstoryCryptosleepCommonality>0</backstoryCryptosleepCommonality>
+    <maxGenerationAge>999</maxGenerationAge>
+    <combatPower>50</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <canBeSapper>false</canBeSapper>
+    <forceNormalGearQuality>true</forceNormalGearQuality>
+    <apparelTags>
+      <li>Worker</li>
+    </apparelTags>
+    <apparelMoney>200~300</apparelMoney>
+    <apparelAllowHeadgearChance>0</apparelAllowHeadgearChance>
+    <techHediffsMoney>50~50</techHediffsMoney>
+    <techHediffsTags>
+      <li>Poor</li>
+    </techHediffsTags>
+    <techHediffsChance>0</techHediffsChance>
+    <initialWillRange>1~3</initialWillRange>
+    <initialResistanceRange>10~17</initialResistanceRange>
+    <useFactionXenotypes>false</useFactionXenotypes>
+  </PawnKindDef>
+
+</Defs>

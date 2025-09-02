@@ -14,7 +14,7 @@ namespace TuTien
             harmony.PatchAll();
             
             // Initialize event logging for testing
-            CultivationEventLogger.Initialize();
+            // CultivationEventLogger.Initialize();
             
             Log.Message("[Tu Tiên] Basic Pack loaded successfully!");
         }

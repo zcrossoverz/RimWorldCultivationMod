@@ -40,14 +40,33 @@ namespace TuTien.Abilities
         {
             base.CompTick();
             
-            // Reduce cooldowns
+            // Reduce cooldowns and remove expired ones
+            var keysToRemove = new List<string>();
             var keys = cooldowns.Keys.ToList();
+            
             foreach (var key in keys)
             {
                 if (cooldowns[key] > 0)
                 {
                     cooldowns[key]--;
+                    
+                    // Mark for removal if expired
+                    if (cooldowns[key] <= 0)
+                    {
+                        keysToRemove.Add(key);
+                    }
                 }
+                else
+                {
+                    // Already expired, mark for removal
+                    keysToRemove.Add(key);
+                }
+            }
+            
+            // Remove expired cooldowns
+            foreach (var key in keysToRemove)
+            {
+                cooldowns.Remove(key);
             }
         }
 

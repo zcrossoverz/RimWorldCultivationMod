@@ -15,7 +15,7 @@ namespace TuTien
         #region Properties
         
         /// <summary>The skill definition this worker handles</summary>
-        public CultivationSkillDef def;
+        public CultivationSkillDef def { get; set; }
         
         #endregion
         
@@ -87,7 +87,7 @@ namespace TuTien
             // Consume qi
             cultivationData.currentQi = Mathf.Max(0, cultivationData.currentQi - Mathf.RoundToInt(actualQiCost));
             
-            // Apply cooldown
+            // Apply cooldown with progression bonuses (both systems integrated)
             if (skill.cooldownHours > 0)
             {
                 var skillManager = pawn.GetComp<CultivationComp>()?.GetSkillManager();
@@ -101,7 +101,12 @@ namespace TuTien
                     actualCooldown = Mathf.Max(0.1f, actualCooldown); // Minimum 6 minutes
                     
                     int cooldownTicks = Mathf.RoundToInt(actualCooldown * GenDate.TicksPerHour);
+                    
+                    // Update both cooldown systems for full integration
+                    cultivationData.skillCooldowns[skill.defName] = cooldownTicks;
                     skillManager.SetSkillCooldown(skill.defName, cooldownTicks);
+                    
+                    Log.Message($"[TuTien] Integrated cooldown: {skill.defName} = {actualCooldown:F1}h ({cooldownTicks} ticks)");
                 }
             }
         }

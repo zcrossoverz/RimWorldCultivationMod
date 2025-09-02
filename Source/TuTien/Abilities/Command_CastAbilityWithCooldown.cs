@@ -11,37 +11,20 @@ namespace TuTien.Abilities
     public class Command_CastAbilityWithCooldown : Command_Target
     {
         public CultivationAbility ability;
-        public int cooldownRemaining;
-        public int cooldownMax;
         public Action selfCastAction; // For self-cast abilities
 
-        public override void ProcessInput(Event ev)
-        {
-            if (Disabled) return;
-
-            if (ability.def.category == "Combat")
-            {
-                // Combat abilities use targeting
-                base.ProcessInput(ev);
-            }
-            else
-            {
-                // Support abilities self-cast
-                if (selfCastAction != null)
-                {
-                    selfCastAction();
-                }
-            }
-        }
+        // Cooldown properties for visual display
+        public int CooldownRemaining => ability?.CooldownRemaining ?? 0;
+        public int CooldownMax => ability?.def?.cooldownTicks ?? 1;
 
         public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
         {
             var result = base.GizmoOnGUI(topLeft, maxWidth, parms);
 
             // Draw cooldown overlay
-            if (cooldownRemaining > 0 && cooldownMax > 0)
+            if (CooldownRemaining > 0 && CooldownMax > 0)
             {
-                float fillPercent = (float)cooldownRemaining / cooldownMax;
+                float fillPercent = (float)CooldownRemaining / CooldownMax;
                 var rect = new Rect(topLeft.x, topLeft.y, GetWidth(maxWidth), 75f);
                 
                 // Draw cooldown overlay
@@ -50,7 +33,7 @@ namespace TuTien.Abilities
                 GUI.color = Color.white;
 
                 // Draw cooldown text
-                var cooldownText = $"{cooldownRemaining}";
+                var cooldownText = $"{CooldownRemaining}";
                 var textRect = new Rect(rect.x, rect.y + rect.height - 20f, rect.width, 20f);
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Text.Font = GameFont.Tiny;

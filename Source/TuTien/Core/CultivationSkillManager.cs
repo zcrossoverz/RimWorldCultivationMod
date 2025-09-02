@@ -342,18 +342,46 @@ namespace TuTien
         }
         
         /// <summary>
+        /// Remove cooldown for a skill (for synchronization with CultivationData)
+        /// </summary>
+        public void RemoveSkillCooldown(string skillDefName)
+        {
+            skillCooldowns.Remove(skillDefName);
+        }
+        
+        /// <summary>
         /// Process cooldowns each tick (called from CultivationComp)
         /// </summary>
         public void ProcessCooldowns()
         {
             var currentTick = Find.TickManager.TicksGame;
             var expiredSkills = new List<string>();
+            var cultivationData = pawn.GetComp<CultivationComp>()?.cultivationData;
             
-            foreach (var kvp in skillCooldowns)
+            // Update remaining cooldowns in both systems
+            var skillsToUpdate = new List<string>(skillCooldowns.Keys);
+            foreach (var skillDefName in skillsToUpdate)
             {
-                if (currentTick >= kvp.Value)
+                var expiresTick = skillCooldowns[skillDefName];
+                var remainingTicks = Mathf.Max(0, expiresTick - currentTick);
+                
+                // Sync to CultivationData for UI display
+                if (cultivationData != null)
                 {
-                    expiredSkills.Add(kvp.Key);
+                    if (remainingTicks > 0)
+                    {
+                        cultivationData.skillCooldowns[skillDefName] = remainingTicks;
+                    }
+                    else
+                    {
+                        cultivationData.skillCooldowns.Remove(skillDefName);
+                    }
+                }
+                
+                // Mark expired skills
+                if (remainingTicks <= 0)
+                {
+                    expiredSkills.Add(skillDefName);
                 }
             }
             
@@ -532,6 +560,14 @@ namespace TuTien
         public void ResetAllCooldowns()
         {
             skillCooldowns.Clear();
+            
+            // Also clear CultivationData cooldowns for full synchronization
+            var cultivationData = pawn?.GetComp<CultivationComp>()?.cultivationData;
+            if (cultivationData != null)
+            {
+                cultivationData.skillCooldowns.Clear();
+                Log.Message($"[TuTien] Reset cooldowns in both systems for {pawn.Name.ToStringShort}");
+            }
         }
         
         #endregion

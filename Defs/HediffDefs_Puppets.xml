@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Puppet Control Hediff -->
+  <HediffDef>
+    <defName>TuTien_PuppetControl</defName>
+    <label>puppet control</label>
+    <description>This creature is under cultivation puppet control.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.6, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <maxSeverity>1.0</maxSeverity>
+    <initialSeverity>1.0</initialSeverity>
+    <chronic>true</chronic>
+    <stages>
+      <li>
+        <statOffsets>
+          <MoveSpeed>-0.5</MoveSpeed>
+          <WorkSpeedGlobal>-0.3</WorkSpeedGlobal>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.8</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

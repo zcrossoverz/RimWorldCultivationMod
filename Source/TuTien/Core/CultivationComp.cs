@@ -48,6 +48,9 @@ namespace TuTien
             {
                 skillManager?.CheckForAutoLearnedSkills();
                 skillManager?.ProcessSkillDiscovery();
+                
+                // Check and add cultivation abilities based on level
+                CheckAndAddCultivationAbilities();
             }
             
             // Cache cleanup every ~4 minutes (maintenance)
@@ -117,6 +120,49 @@ namespace TuTien
                    $"Qi: {cultivationData.currentQi:F1}/{cultivationData.maxQi:F1}\n" +
                    $"Tu Vi: {cultivationData.cultivationPoints:F1}/{requiredPoints:F1} ({progressPercent:F1}%)" +
                    skillInfo;
+        }
+        
+        /// <summary>
+        /// Check and add cultivation abilities based on current level
+        /// </summary>
+        private void CheckAndAddCultivationAbilities()
+        {
+            if (!(parent is Pawn pawn) || cultivationData == null) return;
+            
+            var abilityComp = pawn.GetComp<TuTien.Abilities.CompAbilityUser>();
+            if (abilityComp == null) 
+            {
+                // Log.Warning($"[TuTien Debug] {pawn.Name?.ToStringShort ?? "Unknown"} has no CompAbilityUser!");
+                return;
+            }
+            
+            // Log.Message($"[TuTien Debug] Checking abilities for {pawn.Name?.ToStringShort ?? "Unknown"} - Realm {cultivationData.currentRealm}, Stage {cultivationData.currentStage}");
+            
+            // Add Corpse Revival ability if Foundation Realm Stage 3+
+            if (cultivationData.currentRealm >= 0 && cultivationData.currentStage >= 3)
+            {
+                var corpseRevivalDef = DefDatabase<TuTien.CultivationAbilityDef>.GetNamed("TuTien_CorpseRevival", false);
+                if (corpseRevivalDef != null && !abilityComp.Abilities.Any(a => a.def.defName == "TuTien_CorpseRevival"))
+                {
+                    abilityComp.AddAbility(corpseRevivalDef);
+                    Messages.Message($"{pawn.Name.ToStringShort} has learned the forbidden art: Corpse Revival!", MessageTypeDefOf.PositiveEvent);
+                    // Log.Message($"[TuTien Debug] Added Corpse Revival ability to {pawn.Name?.ToStringShort ?? "Unknown"}");
+                }
+                else if (corpseRevivalDef == null)
+                {
+                    // Log.Warning($"[TuTien Debug] Could not find TuTien_CorpseRevival ability definition!");
+                }
+                else
+                {
+                    Log.Message($"[TuTien Debug] {pawn.Name?.ToStringShort ?? "Unknown"} already has Corpse Revival ability");
+                }
+            }
+            else
+            {
+                Log.Message($"[TuTien Debug] {pawn.Name?.ToStringShort ?? "Unknown"} does not meet requirements (need Foundation Realm Stage 3+)");
+            }
+            
+            // Add more abilities based on different requirements in the future
         }
     }
 
