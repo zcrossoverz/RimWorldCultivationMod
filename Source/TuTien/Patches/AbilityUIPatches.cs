@@ -75,6 +75,96 @@ namespace TuTien.Patches
                     yield return gizmo;
                 }
             }
+
+            // ═══ CULTIVATION ARTIFACTS - Equipped Pháp Bảo Skills ═══
+            if (__instance.equipment?.AllEquipmentListForReading != null)
+            {
+                foreach (var equipment in __instance.equipment.AllEquipmentListForReading)
+                {
+                    var artifactComp = equipment.GetComp<TuTien.Systems.Artifacts.CultivationArtifactComp>();
+                    if (artifactComp?.Props?.artifactDef?.autoSkills != null && artifactComp.Props.artifactDef.autoSkills.Count > 0)
+                    {
+                        foreach (var skillDefName in artifactComp.Props.artifactDef.autoSkills)
+                        {
+                            // Try CultivationSkillDef first (QiPunch, QiShield, etc.)
+                            var skillDef = DefDatabase<CultivationSkillDef>.GetNamedSilentFail(skillDefName);
+                            if (skillDef != null)
+                            {
+                                bool canUse = artifactComp.ArtifactData.currentArtifactQi >= skillDef.qiCost;
+                                
+                                yield return new Command_Action
+                                {
+                                    defaultLabel = $"⚔ {skillDef.LabelCap}",
+                                    defaultDesc = $"Artifact Skill from {equipment.LabelCap}\n{skillDef.description ?? "Cultivation artifact ability"}\n\nArtifact Qi: {artifactComp.ArtifactData.currentArtifactQi:F0}/{artifactComp.ArtifactData.maxArtifactQi:F0}",
+                                    icon = TexCommand.DesirePower,
+                                    Disabled = !canUse,
+                                    disabledReason = !canUse ? "Artifact has insufficient Qi" : null,
+                                    action = () =>
+                                    {
+                                        // Consume artifact Qi
+                                        artifactComp.ArtifactData.currentArtifactQi -= skillDef.qiCost;
+                                        
+                                        // Execute CultivationSkillWorker
+                                        var cultivationData = __instance.GetComp<CultivationComp>()?.cultivationData;
+                                        if (cultivationData != null)
+                                        {
+                                            cultivationData.UseSkill(skillDef);
+                                            Messages.Message($"{__instance.Name.ToStringShort} uses {skillDef.LabelCap} from {equipment.LabelCap}!", 
+                                                MessageTypeDefOf.PositiveEvent);
+                                        }
+                                    }
+                                };
+                            }
+                            else
+                            {
+                                // Try CultivationAbilityDef (Ability_SwordStrike, etc.)
+                                var abilityDef = DefDatabase<CultivationAbilityDef>.GetNamedSilentFail(skillDefName);
+                                if (abilityDef != null)
+                                {
+                                    bool canUse = artifactComp.ArtifactData.currentArtifactQi >= abilityDef.qiCost;
+                                    
+                                    yield return new Command_Action
+                                    {
+                                        defaultLabel = $"🗡 {abilityDef.abilityLabel ?? abilityDef.label}",
+                                        defaultDesc = $"Artifact Ability from {equipment.LabelCap}\n{abilityDef.abilityDescription ?? abilityDef.description ?? "Cultivation artifact ability"}\n\nArtifact Qi: {artifactComp.ArtifactData.currentArtifactQi:F0}/{artifactComp.ArtifactData.maxArtifactQi:F0}",
+                                        icon = TexCommand.DesirePower,
+                                        Disabled = !canUse,
+                                        disabledReason = !canUse ? "Artifact has insufficient Qi" : null,
+                                        action = () =>
+                                        {
+                                            // Consume artifact Qi
+                                            artifactComp.ArtifactData.currentArtifactQi -= abilityDef.qiCost;
+                                            
+                                            // Execute CultivationAbility
+                                            var abilityComp = __instance.GetComp<TuTien.Abilities.CompAbilityUser>();
+                                            var ability = abilityComp?.Abilities?.FirstOrDefault(a => a.def.defName == skillDefName);
+                                            if (ability != null)
+                                            {
+                                                // For targeted abilities, use current position as target
+                                                LocalTargetInfo target = __instance;
+                                                if (abilityDef.targetType != AbilityTargetType.Self)
+                                                {
+                                                    // Find nearest enemy for combat abilities
+                                                    var nearestEnemy = __instance.Map?.mapPawns?.AllPawnsSpawned?
+                                                        .Where(p => p.HostileTo(__instance) && p.Position.DistanceTo(__instance.Position) <= abilityDef.range)
+                                                        .OrderBy(p => p.Position.DistanceTo(__instance.Position))
+                                                        .FirstOrDefault();
+                                                    
+                                                    target = nearestEnemy != null ? new LocalTargetInfo(nearestEnemy) : new LocalTargetInfo(__instance);
+                                                }
+                                                
+                                                ability.TryCast(target);
+                                                Messages.Message($"{__instance.Name.ToStringShort} uses {abilityDef.abilityLabel} from {equipment.LabelCap}!", 
+                                                    MessageTypeDefOf.PositiveEvent);
+                                            }
+                                        }
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private static IEnumerable<Gizmo> GetCultivationGizmos(Pawn pawn, CultivationData data)

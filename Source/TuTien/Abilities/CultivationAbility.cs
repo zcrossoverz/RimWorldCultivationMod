@@ -77,6 +77,11 @@ namespace TuTien.Abilities
                     Log.Message($"[DEBUG] Applying corpse revival effect");
                     revivalEffect.Apply(def, comp.parent as Pawn, target);
                 }
+                else if (effect is AbilityEffectDef genericEffect)
+                {
+                    Log.Message($"[DEBUG] Applying generic effect: {genericEffect.effectType}");
+                    ApplyGenericEffect(genericEffect, comp.parent as Pawn, target);
+                }
                 else
                 {
                     Log.Warning($"Unknown ability effect type: {effect.GetType()}");
@@ -84,35 +89,107 @@ namespace TuTien.Abilities
             }
         Log.Message($"[DEBUG] ApplyEffects completed");
     }
+    
+    private void ApplyGenericEffect(AbilityEffectDef effect, Pawn caster, LocalTargetInfo target)
+    {
+        switch (effect.effectType.ToLower())
+        {
+            case "damage":
+                ApplyDamageEffect(effect, caster, target);
+                break;
+            case "heal":
+                ApplyHealEffect(effect, caster, target);
+                break;
+            case "buff":
+            case "debuff":
+                break;
+            default:
+                Log.Warning($"Unknown generic effect type: {effect.effectType}");
+                break;
+        }
+    }
+
+    private void ApplyDamageEffect(AbilityEffectDef effect, Pawn caster, LocalTargetInfo target)
+    {
+        if (target.Thing is Pawn targetPawn)
+        {
+            // Get damage def
+            var damageType = effect.damageType.ToLower() switch
+            {
+                "cut" => DamageDefOf.Cut,
+                "blunt" => DamageDefOf.Blunt,
+                "burn" => DamageDefOf.Burn,
+                _ => DamageDefOf.Cut
+            };
+
+            // Create damage info
+            var dinfo = new DamageInfo(damageType, effect.magnitude, 0f, -1f, caster);
+
+            // Apply damage
+            targetPawn.TakeDamage(dinfo);
+
+            // Visual effects
+            FleckMaker.ThrowMicroSparks(targetPawn.DrawPos, targetPawn.Map);
+
+            Log.Message($"[DEBUG] Applied {effect.magnitude} {effect.damageType} damage to {targetPawn.LabelShort}");
+        }
+    }
+
+    private void ApplyHealEffect(AbilityEffectDef effect, Pawn caster, LocalTargetInfo target)
+    {
+        if (target.Thing is Pawn targetPawn)
+        {
+            // Similar to AbilityEffect_Heal implementation
+            var hediffSet = targetPawn.health.hediffSet;
+            var injuries = new List<Hediff_Injury>();
+            hediffSet.GetHediffs<Hediff_Injury>(ref injuries, null);
+            
+            float healingLeft = effect.magnitude;
+            
+            foreach (var injury in injuries)
+            {
+                if (healingLeft <= 0) break;
+                
+                var healAmount = Mathf.Min(healingLeft, injury.Severity);
+                injury.Heal(healAmount);
+                healingLeft -= healAmount;
+            }
+            
+            FleckMaker.ThrowMetaIcon(targetPawn.Position, targetPawn.Map, FleckDefOf.Heart);
+            Messages.Message($"{caster.LabelShort} healed {targetPawn.LabelShort} for {effect.magnitude} HP!", MessageTypeDefOf.PositiveEvent);
+        }
+    }
+
 
     public Command GetCommand()
-    {
-        var command = new Command_CastAbilityWithCooldown
         {
-            ability = this,
-            defaultLabel = def.abilityLabel ?? def.label,
-            defaultDesc = GetAbilityDescription(),
-            icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
-            Disabled = !CanCast  // Set disabled based on ability state
-        };
-        
-        // Set targeting parameters based on ability type
-        if (def.category == "Combat" || def.category == "Forbidden")
-        {
-            command.targetingParams = GetTargetingParameters();
-            command.action = (target) => {
-                Log.Message($"[DEBUG] Command action triggered! Target: {target}");
-                TryCast(target);
+            var command = new Command_CastAbilityWithCooldown
+            {
+                ability = this,
+                defaultLabel = def.abilityLabel ?? def.label,
+                defaultDesc = GetAbilityDescription(),
+                icon = ContentFinder<Texture2D>.Get(def.iconPath, false) ?? BaseContent.BadTex,
+                Disabled = !CanCast  // Set disabled based on ability state
             };
-        }
-        else
-        {
-            // Support abilities self-cast
-            command.selfCastAction = () => TryCastSimple();
-        }
 
-        return command;
-    }
+            // Set targeting parameters based on ability type
+            if (def.category == "Combat" || def.category == "Forbidden")
+            {
+                command.targetingParams = GetTargetingParameters();
+                command.action = (target) =>
+                {
+                    Log.Message($"[DEBUG] Command action triggered! Target: {target}");
+                    TryCast(target);
+                };
+            }
+            else
+            {
+                // Support abilities self-cast
+                command.selfCastAction = () => TryCastSimple();
+            }
+
+            return command;
+        }
     
     private TargetingParameters GetTargetingParameters()
     {
