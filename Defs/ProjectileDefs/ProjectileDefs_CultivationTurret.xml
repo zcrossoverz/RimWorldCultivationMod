@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Cultivation Lightning Bolt Projectile -->
+  <ThingDef ParentName="BaseBullet">
+    <defName>CultivationTurretLightningBolt</defName>
+    <label>cultivation lightning bolt</label>
+    <thingClass>Bullet</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <color>(173,216,230)</color>
+    </graphicData>
+    <projectile>
+      <damageDef>Burn</damageDef>
+      <damageAmountBase>100</damageAmountBase>
+      <speed>250</speed>
+    </projectile>
+  </ThingDef>
+</Defs>

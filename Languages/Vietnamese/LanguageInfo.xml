@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageInfo>
+  <friendlyNameNative>Tiếng Việt (Tu Tiên)</friendlyNameNative>
+  <friendlyNameEnglish>Vietnamese (Cultivation)</friendlyNameEnglish>
+  <canBeTiny>true</canBeTiny>
+  <languageWorkerClass>LanguageWorker_Vietnamese</languageWorkerClass>
+  <credits>
+    <li Class="CreditRecord_Role">
+      <roleKey>Translator</roleKey>
+      <creditee>Tu Tiên Team</creditee>
+    </li>
+  </credits>
+</LanguageInfo>

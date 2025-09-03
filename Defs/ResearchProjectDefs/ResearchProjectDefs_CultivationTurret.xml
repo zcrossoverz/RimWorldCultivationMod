@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Research for Cultivation Defense -->
+  <ResearchProjectDef>
+    <defName>CultivationDefense</defName>
+    <label>Lôi Trận Phòng Thủ</label>
+    <description>Nghiên cứu cách tạo ra những hệ thống phòng thủ sử dụng năng lượng tu luyện để bảo vệ khu định cư.</description>
+    <baseCost>2000</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>GunTurrets</li>
+    </prerequisites>
+    <researchViewX>4.00</researchViewX>
+    <researchViewY>2.90</researchViewY>
+  </ResearchProjectDef>
+</Defs>

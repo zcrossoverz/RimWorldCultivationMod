@@ -38,9 +38,11 @@ namespace TuTien
 
         // Buildings
         public static ThingDef CultivationMeditationSpot;
+        public static ThingDef CultivationLightningTurret;
 
         // Jobs
         public static JobDef MeditateCultivation;
+        public static JobDef ChargeCultivationTurret;
 
         // Thoughts
         public static ThoughtDef MeditatedCultivation;

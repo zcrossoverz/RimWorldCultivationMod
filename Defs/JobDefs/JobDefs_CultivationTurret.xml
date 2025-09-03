@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Job for charging cultivation turret -->
+  <JobDef>
+    <defName>ChargeCultivationTurret</defName>
+    <driverClass>TuTien.JobDriver_ChargeCultivationTurret</driverClass>
+    <reportString>đang nạp Qi vào lôi trận phòng thủ</reportString>
+    <joyDuration>4000</joyDuration>
+    <joyMaxParticipants>1</joyMaxParticipants>
+    <casualInterruptible>true</casualInterruptible>
+    <alwaysShowWeapon>false</alwaysShowWeapon>
+  </JobDef>
+</Defs>
